@@ -118,7 +118,7 @@ def upgrade():
                     sa.Column('group_id', sa.Integer(), nullable=False),
                     sa.Column('privileges', sa.Enum(), nullable=False),
                     sa.PrimaryKeyConstraint('id'),
-                    sa.ForeignKeyConstraint(['user_id'], ['users.id']),
+                    sa.ForeignKeyConstraint(['member'], ['users.id']), 
                     sa.ForeignKeyConstraint(['group_id'], ['groups.id']),
                     )
 
