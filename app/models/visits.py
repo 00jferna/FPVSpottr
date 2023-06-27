@@ -8,7 +8,6 @@ class Visit(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    url = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     spot_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('spots.id')), nullable=False)
 
@@ -21,7 +20,6 @@ class Visit(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'url': self.url,
             'user_id': self.user_id,
             'spot_id': self.spot_id,
             'createdAt': self.created_at,
