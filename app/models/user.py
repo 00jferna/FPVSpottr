@@ -15,14 +15,19 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     profile_img = db.Column(db.String(255), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
-    
+
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    spots = db.relationship('Spot', back_populates='user', cascade='all, delete-orphan')
-    reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
-    favorites = db.relationship('Favorite', back_populates='user', cascade='all, delete-orphan')
-
+    spots = db.relationship('Spot', back_populates='users', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='users', cascade='all, delete-orphan')
+    favorites = db.relationship('Favorite', back_populates='users', cascade='all, delete-orphan')
+    groups = db.relationship('Group', back_populates='users', cascade='all, delete-orphan')
+    images = db.relationship('Image', back_populates='users', cascade='all, delete-orphan')
+    videos = db.relationship('Video', back_populates='users', cascade='all, delete-orphan')
+    visits = db.relationship('Visit', back_populates='users', cascade='all, delete-orphan')
+    members = db.relationship('Member', back_populates='users', cascade='all, delete-orphan')
+    
     @property
     def password(self):
         return self.hashed_password
