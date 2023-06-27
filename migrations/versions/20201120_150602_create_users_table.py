@@ -41,7 +41,7 @@ def upgrade():
                     sa.Column('latitude', sa.Float(), nullable=False),
                     sa.Column('longitude', sa.Float(), nullable=False),
                     sa.Column('address', sa.String(length=255)),
-                    sa.Column( sa.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False),
+                    sa.Column('type', sa.Enum('field','park','playground','bando','industrialPark'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('status', sa.Enum('field','park', name='status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
