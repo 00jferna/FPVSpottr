@@ -22,7 +22,7 @@ class Spot(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    users = db.relationship('User', back_populates='spots')
+    User= db.relationship('User', back_populates='spots')
     reviews = db.relationship('Review', back_populates='spots', cascade='all, delete-orphan')
     favorites = db.relationship('Favorite', back_populates='spots')
     images = db.relationship('Image', back_populates='spots', cascade='all, delete-orphan')
