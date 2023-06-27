@@ -2,14 +2,6 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from enum import Enum
 from datetime import datetime
 
-class TypeList(Enum):
-    Racing = 1
-    Freestyle = 2
-    Cinematic = 3
-    Exploring = 4 
-    TinyWhoop = 5
-
-
 class Group(db.Model):
     __tablename__ = 'groups'
 
@@ -20,7 +12,7 @@ class Group(db.Model):
     name = db.Column(db.String(40), nullable=False, unique=True)
     desc = db.Column(db.String(255))
     visibility = db.Column(db.Boolean, nullable=False)
-    type = db.Column('type', db.Enum(TypeList, name='type'), nullable=False)
+    type = db.Column('type',db.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
     
