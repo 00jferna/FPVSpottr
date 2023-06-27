@@ -20,7 +20,7 @@ class Group(db.Model):
     name = db.Column(db.String(40), nullable=False, unique=True)
     desc = db.Column(db.String(255))
     visibility = db.Column(db.Boolean, nullable=False)
-    type = db.Column('type', db.Enum(TypeList), nullable=False)
+    type = db.Column('type', db.Enum(TypeList, name='type'), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
     
