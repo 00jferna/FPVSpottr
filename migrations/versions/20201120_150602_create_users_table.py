@@ -72,7 +72,7 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('name', sa.String(length=255), nullable=False),
                     sa.Column('desc', sa.String(length=255)),
-                    sa.Column('visibility', sa.Enum(), nullable=False),
+                    sa.Column('visibility', sa.Boolean(), nullable=False),
                     sa.Column('type', sa.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
