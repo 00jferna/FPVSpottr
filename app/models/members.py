@@ -17,7 +17,7 @@ class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     member = db.Column(db.String(40), nullable=False, unique=True)
     group_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('groups.id')), nullable=False)
-    privileges = db.Column(db.Enum(PrivilegesList), nullable=False)
+    privileges = db.Column('privileges', db.Enum(PrivilegesList), nullable=False)
     
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)

@@ -27,7 +27,7 @@ class Spot(db.Model):
     address = db.Column(db.String(255))
     type = db.Column(db.Enum(TypeList), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    status = db.Column(db.Enum(StatusList), nullable=False)
+    status = db.Column('status', db.Enum(StatusList), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.now)
