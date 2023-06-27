@@ -14,7 +14,7 @@ class Visit(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    user = db.relationship('User', back_populates='visits')
+    users = db.relationship('User', back_populates='visits')
     spots = db.relationship('Spot', back_populates='visits')
 
     def to_dict(self):

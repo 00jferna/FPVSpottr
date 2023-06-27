@@ -17,8 +17,8 @@ class Favorite(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    user = db.relationship('User', back_populates='favorites')
-    spot = db.relationship('Spot', back_populates='favorites')
+    users = db.relationship('User', back_populates='favorites')
+    spots = db.relationship('Spot', back_populates='favorites')
 
     def to_dict(self):
         return {
