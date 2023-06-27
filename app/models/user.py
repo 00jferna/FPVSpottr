@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    spots = db.relationship('Spot', back_populates='users', cascade='all, delete-orphan')
+    spots = db.relationship('Spot', back_populates='user', cascade='all, delete-orphan')
     reviews = db.relationship('Review', back_populates='users', cascade='all, delete-orphan')
     favorites = db.relationship('Favorite', back_populates='users', cascade='all, delete-orphan')
     groups = db.relationship('Group', back_populates='users', cascade='all, delete-orphan')
