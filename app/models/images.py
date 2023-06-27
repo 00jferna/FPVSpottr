@@ -16,9 +16,9 @@ class Image(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    user = db.relationship('User', back_populates='users')
-    spots = db.relationship('Spot', back_populates='spots')
-    groups = db.relationship('Group', back_populates='groups')
+    user = db.relationship('User', back_populates='images')
+    spots = db.relationship('Spot', back_populates='images')
+    groups = db.relationship('Group', back_populates='images')
 
     def to_dict(self):
         return {
