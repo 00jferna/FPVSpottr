@@ -19,6 +19,7 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
+typeList = sa.Enum('field','park','playground','bando','industrialPark', name='type')
 
 def upgrade():
     op.create_table('users',
@@ -41,7 +42,7 @@ def upgrade():
                     sa.Column('latitude', sa.Float(), nullable=False),
                     sa.Column('longitude', sa.Float(), nullable=False),
                     sa.Column('address', sa.String(length=255)),
-                    sa.Column('type', sa.Enum('field','park','playground','bando','industrialPark'), nullable=False),
+                    sa.Column('type', sa.Enum(typeList), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('status', sa.Enum('field','park', name='status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
@@ -155,6 +156,7 @@ def upgrade():
 def downgrade():
     op.drop_table('users')
     op.drop_table('spots')
+    typeList.drop(op.get_bind(), checkfirst=False)
     op.drop_table('reviews')
     op.drop_table('favorites')
     op.drop_table('groups')
