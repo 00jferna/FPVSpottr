@@ -19,7 +19,7 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-typeList = sa.Enum('field','park','playground','bando','industrialPark', name='type')
+typeList = sa.Enum('field','park','playground','bando','industrialPark', name='type', default="field")
 
 def upgrade():
     op.create_table('users',
