@@ -29,13 +29,16 @@ class Spot(db.Model):
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     status = db.Column(db.Enum(StatusList), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
-    
+
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     users = db.relationship('User', back_populates='spots')
     reviews = db.relationship('Review', back_populates='spots', cascade='all, delete-orphan')
     favorites = db.relationship('Favorite', back_populates='spots')
+    images = db.relationship('Image', back_populates='spots', cascade='all, delete-orphan')
+    videos = db.relationship('Video', back_populates='spots', cascade='all, delete-orphan')
+    visits = db.relationship('Visit', back_populates='spots', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
