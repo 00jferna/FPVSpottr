@@ -2,6 +2,12 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .spots import seed_spots, undo_spots
 from .reviews import seed_reviews, undo_reviews
+from .favorites import seed_favorites, undo_favorites
+from .groups import seed_groups, undo_groups
+from .images import seed_images, undo_images
+from .videos import seed_videos, undo_videos
+from .visits import seed_visits, undo_visits
+from .members import seed_members, undo_members
 
 from app.models.db import db, environment, SCHEMA
 
@@ -21,9 +27,21 @@ def seed():
         undo_users()
         undo_spots()
         undo_reviews()
+        undo_favorites()
+        undo_groups()
+        undo_images()
+        undo_videos()
+        undo_visits()
+        undo_members()
     seed_users()
     seed_spots()
     seed_reviews()
+    seed_favorites()
+    seed_groups()
+    seed_images()
+    seed_videos()
+    seed_visits()
+    seed_members()
     # Add other seed functions here
 
 
@@ -33,4 +51,10 @@ def undo():
     undo_users()
     undo_spots()
     undo_reviews()
+    undo_favorites()
+    undo_groups()
+    undo_images()
+    undo_videos()
+    undo_visits()
+    undo_members()
     # Add other undo functions here

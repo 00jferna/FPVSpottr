@@ -12,14 +12,14 @@ class Group(db.Model):
     name = db.Column(db.String(40), nullable=False, unique=True)
     desc = db.Column(db.String(255))
     visibility = db.Column(db.Boolean, nullable=False)
-    type = db.Column('type',db.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False)
+    type = db.Column('type',db.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type'), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
     
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    user = db.relationship('User', back_populates='groups')
+    users = db.relationship('User', back_populates='groups')
     images = db.relationship('Image', back_populates='groups', cascade='all, delete-orphan')
     videos = db.relationship('Video', back_populates='groups', cascade='all, delete-orphan')
     members = db.relationship('Member', back_populates='groups', cascade='all, delete-orphan')

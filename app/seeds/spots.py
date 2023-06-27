@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_spots():
     demo = Spot(
-        name='Demo', latitude='35.29846332258847', longitude='-89.65428151451766',type='park', owner=1,status='park')
+        name='Demo', latitude='35.29846332258847', longitude='-89.65428151451766',type='park', owner=1,status='park',preview_img='spot.png')
     db.session.add(demo)
     db.session.commit()
 
