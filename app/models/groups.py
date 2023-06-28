@@ -19,7 +19,7 @@ class Group(db.Model):
     name = db.Column(db.String(40), nullable=False, unique=True)
     desc = db.Column(db.String(255))
     visibility = db.Column(db.Boolean, nullable=False)
-    type = db.Column('type',db.Enum(GroupTypes, name='type'), nullable=False)
+    group_type = db.Column('group_type',db.Enum(GroupTypes, name='type'), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
     
@@ -38,7 +38,7 @@ class Group(db.Model):
             'name': self.name,
             'desc': self.desc,
             'visibility': self.visibility,
-            'type': self.type,
+            'group_type': self.group_type,
             'owner': self.owner,
             'preview_img': self.preview_img,
             'createdAt': self.created_at,
