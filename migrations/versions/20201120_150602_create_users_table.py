@@ -20,16 +20,18 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='type')
-spot_type.create(op.get_bind())
-group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
-group_type.create(op.get_bind())
-spot_status = postgresql.ENUM('field','park', name='status')
-spot_status.create(op.get_bind())
-member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
-member_privileges.create(op.get_bind())
+
 
 def upgrade():
+    spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='type')
+    spot_type.create(op.get_bind())
+    group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
+    group_type.create(op.get_bind())
+    spot_status = postgresql.ENUM('field','park', name='status')
+    spot_status.create(op.get_bind())
+    member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
+    member_privileges.create(op.get_bind())
+
     op.create_table('users',
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('username', sa.String(length=40), nullable=False),
@@ -162,6 +164,15 @@ def upgrade():
         op.execute(f"ALTER TABLE members SET SCHEMA {SCHEMA};")
 
 def downgrade():
+    spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='type')
+    spot_type.create(op.get_bind())
+    group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
+    group_type.create(op.get_bind())
+    spot_status = postgresql.ENUM('field','park', name='status')
+    spot_status.create(op.get_bind())
+    member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
+    member_privileges.create(op.get_bind())
+    
     op.drop_table('users')
     op.drop_table('spots')
     spot_type.drop(op.get_bind(), checkfirst=False)
