@@ -52,7 +52,7 @@ def upgrade():
                     sa.Column('latitude', sa.Float(), nullable=False),
                     sa.Column('longitude', sa.Float(), nullable=False),
                     sa.Column('address', sa.String(length=255)),
-                    sa.Column('spot_type', sa.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False),
+                    sa.Column('spot_type', sa.Enum('field','park','playground','bando','industrialPark', name='spot_type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('status', sa.Enum('field','park', name='status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
@@ -92,7 +92,7 @@ def upgrade():
                     sa.Column('name', sa.String(length=255), nullable=False),
                     sa.Column('desc', sa.String(length=255)),
                     sa.Column('visibility', sa.Boolean(), nullable=False),
-                    sa.Column('group_type', sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type'), nullable=False),
+                    sa.Column('group_type', sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='group_type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
@@ -164,9 +164,9 @@ def upgrade():
         op.execute(f"ALTER TABLE members SET SCHEMA {SCHEMA};")
 
 def downgrade():
-    spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='type')
+    spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='spot_type')
     spot_type.create(op.get_bind())
-    group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
+    group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='group_type')
     group_type.create(op.get_bind())
     spot_status = postgresql.ENUM('field','park', name='status')
     spot_status.create(op.get_bind())
