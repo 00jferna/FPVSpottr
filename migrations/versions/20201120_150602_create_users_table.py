@@ -23,9 +23,9 @@ depends_on = None
 
 
 def upgrade():
-    spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='type')
+    spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='spot_type')
     spot_type.create(op.get_bind())
-    group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
+    group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='group_type')
     group_type.create(op.get_bind())
     spot_status = postgresql.ENUM('field','park', name='status')
     spot_status.create(op.get_bind())
