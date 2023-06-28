@@ -23,14 +23,6 @@ depends_on = None
 
 
 def upgrade():
-    # spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='spot_type')
-    # spot_type.create(op.get_bind())
-    # group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='group_type')
-    # group_type.create(op.get_bind())
-    # spot_status = postgresql.ENUM('field','park', name='status')
-    # spot_status.create(op.get_bind())
-    # member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
-    # member_privileges.create(op.get_bind())
 
     op.create_table('users',
                     sa.Column('id', sa.Integer(), nullable=False),
@@ -54,7 +46,7 @@ def upgrade():
                     sa.Column('address', sa.String(length=255)),
                     sa.Column('spot_type', sa.Enum('field','park','playground','bando','industrialPark', name='spot_type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
-                    sa.Column('status', sa.Enum('field','park', name='status'), nullable=False),
+                    sa.Column('spots_status', sa.Enum('field','park', name='spots_status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -164,24 +156,12 @@ def upgrade():
         op.execute(f"ALTER TABLE members SET SCHEMA {SCHEMA};")
 
 def downgrade():
-    # spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='spot_type')
-    # spot_type.create(op.get_bind())
-    # group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='group_type')
-    # group_type.create(op.get_bind())
-    # spot_status = postgresql.ENUM('field','park', name='status')
-    # spot_status.create(op.get_bind())
-    # member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
-    # member_privileges.create(op.get_bind())
     op.drop_table('users')
     op.drop_table('spots')
-    # spot_type.drop(op.get_bind(), checkfirst=False)
-    # spot_status.drop(op.get_bind(), checkfirst=False)
     op.drop_table('reviews')
     op.drop_table('favorites')
     op.drop_table('groups')
-    # group_type.drop(op.get_bind(), checkfirst=False)
     op.drop_table('images')
     op.drop_table('videos')
     op.drop_table('visits')
     op.drop_table('members')
-    # member_privileges.drop(op.get_bind(), checkfirst=False)
