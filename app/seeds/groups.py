@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_groups():
     demo = Group(
-        name='Group', visibility=True, type='Racing', owner=1, preview_img='img.png')
+        name='Group', visibility=True, group_type='Racing', owner=1, preview_img='img.png')
     db.session.add(demo)
     db.session.commit()
 

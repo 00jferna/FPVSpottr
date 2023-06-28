@@ -26,9 +26,9 @@ class Spot(db.Model):
     latitude = db.Column(db.Float(), nullable=False)
     longitude = db.Column(db.Float(), nullable=False)
     address = db.Column(db.String(255))
-    spot_type = db.Column('spot_type', db.Enum(SpotTypes, name='type'), nullable=False)
+    spot_type = db.Column('spot_type', db.Enum(SpotTypes, name='spot_type'), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    status = db.Column('status', db.Enum(SpotStatus, name='status'), nullable=False)
+    spots_status = db.Column('spots_status', db.Enum(SpotStatus, name='spots_status'), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.now)
@@ -51,7 +51,7 @@ class Spot(db.Model):
             'address': self.address,
             'spot_type': self.spot_type,
             'owner': self.owner,
-            'status': self.status,
+            'spots_status': self.spots_status,
             'preview_img': self.preview_img,
             'created_at':self.created_at,
             'updated_at': self.updated_at
