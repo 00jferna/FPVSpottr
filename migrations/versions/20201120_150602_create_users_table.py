@@ -19,7 +19,7 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-spot_type = sa.Enum('field','park','playground','bando','industrialPark', name='type')
+spot_type = sa.Enum('field','park','playground','bando','industrialPark')
 group_type = sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
 spot_status = sa.Enum('field','park', name='status')
 member_privileges = sa.Enum('member','admin','owner', name='privileges')
