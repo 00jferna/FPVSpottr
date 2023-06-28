@@ -52,7 +52,7 @@ def upgrade():
                     sa.Column('latitude', sa.Float(), nullable=False),
                     sa.Column('longitude', sa.Float(), nullable=False),
                     sa.Column('address', sa.String(length=255)),
-                    sa.Column('type', sa.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False),
+                    sa.Column('spot_type', sa.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('status', sa.Enum('field','park', name='status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
@@ -92,7 +92,7 @@ def upgrade():
                     sa.Column('name', sa.String(length=255), nullable=False),
                     sa.Column('desc', sa.String(length=255)),
                     sa.Column('visibility', sa.Boolean(), nullable=False),
-                    sa.Column('type', sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type'), nullable=False),
+                    sa.Column('group_type', sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
@@ -172,7 +172,6 @@ def downgrade():
     spot_status.create(op.get_bind())
     member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
     member_privileges.create(op.get_bind())
-    
     op.drop_table('users')
     op.drop_table('spots')
     spot_type.drop(op.get_bind(), checkfirst=False)
