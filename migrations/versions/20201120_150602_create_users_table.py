@@ -20,10 +20,14 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-spot_type = sa.Enum('field','park','playground','bando','industrialPark', name='type')
-group_type = sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
-spot_status = sa.Enum('field','park', name='status')
-member_privileges = sa.Enum('member','admin','owner', name='privileges')
+spot_type = postgresql.ENUM('field','park','playground','bando','industrialPark', name='type')
+spot_type.create(op.get_bind())
+group_type = postgresql.ENUM('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type')
+group_type.create(op.get_bind())
+spot_status = postgresql.ENUM('field','park', name='status')
+spot_status.create(op.get_bind())
+member_privileges = postgresql.ENUM('member','admin','owner', name='privileges')
+member_privileges.create(op.get_bind())
 
 def upgrade():
     op.create_table('users',
@@ -46,9 +50,9 @@ def upgrade():
                     sa.Column('latitude', sa.Float(), nullable=False),
                     sa.Column('longitude', sa.Float(), nullable=False),
                     sa.Column('address', sa.String(length=255)),
-                    sa.Column('type', spot_type, nullable=False),
+                    sa.Column('type', sa.Enum('field','park','playground','bando','industrialPark', name='type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
-                    sa.Column('status', spot_status, nullable=False),
+                    sa.Column('status', sa.Enum('field','park', name='status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -86,7 +90,7 @@ def upgrade():
                     sa.Column('name', sa.String(length=255), nullable=False),
                     sa.Column('desc', sa.String(length=255)),
                     sa.Column('visibility', sa.Boolean(), nullable=False),
-                    sa.Column('type', group_type, nullable=False),
+                    sa.Column('type', sa.Enum('Racing', 'Freestyle', 'Cinematic', 'Exploring', 'Tiny Whoop', name='type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
@@ -137,7 +141,7 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('member', sa.Integer(), nullable=False),
                     sa.Column('group_id', sa.Integer(), nullable=False),
-                    sa.Column('privileges', member_privileges, nullable=False),
+                    sa.Column('privileges', sa.Enum('member','admin','owner', name='privileges'), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
                     sa.PrimaryKeyConstraint('id'),
