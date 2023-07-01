@@ -123,29 +123,26 @@ def update_spot(spotId):
     form = SpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.id == spot.owner and form.validate_on_submit():
-        print(form.data['name'])
-        # spot.name=form.data['name'],
-        spot.desc = form.data['desc'],
-        spot.latitude = float(form.data['latitude']),
-        spot.longitude = float(form.data['longitude']),
-        spot.address = form.data['address'],
-        spot.spot_type = form.data['spot_type'],
-        spot.spots_status = form.data['spots_status'],
+        spot.name=form.data['name']
+        spot.desc = form.data['desc']
+        spot.latitude = float(form.data['latitude'])
+        spot.longitude = float(form.data['longitude'])
+        spot.address = form.data['address']
+        spot.spot_type = form.data['spot_type']
+        spot.spots_status = form.data['spots_status']
         spot.preview_img = form.data['preview_img']
 
         if len(form.data['preview_img']) > 0:
             spot.preview_img = default_img
 
-        # db.session.commit()
+        db.session.commit()
 
-        # type_value = spot.spot_type.value
-        # status_value = spot.spots_status.value
-        # spot.spot_type = type_value
-        # spot.spots_status = status_value
-        print('------------------------------------------------1')
-        print(spot.to_dict())
-        print('------------------------------------------------2')
-        return "spot.to_dict()"
+        type_value = spot.spot_type.value
+        status_value = spot.spots_status.value
+        spot.spot_type = type_value
+        spot.spots_status = status_value
+    
+        return spot.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
