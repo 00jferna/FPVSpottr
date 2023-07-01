@@ -125,14 +125,13 @@ def update_spot(spotId):
     if current_user.id == spot.owner and form.validate_on_submit():
         print(form.data['name'])
         # spot.name=form.data['name'],
-        spot.desc=form.data['desc'],
-        spot.latitude=float(form.data['latitude']),
-        spot.longitude=float(form.data['longitude']),
-        spot.address=form.data['address'],
-        spot.spot_type=form.data['spot_type'],
-        spot.spots_status=form.data['spots_status'],
-        spot.preview_img=form.data['preview_img']
-        
+        spot.desc = form.data['desc'],
+        spot.latitude = float(form.data['latitude']),
+        spot.longitude = float(form.data['longitude']),
+        spot.address = form.data['address'],
+        spot.spot_type = form.data['spot_type'],
+        spot.spots_status = form.data['spots_status'],
+        spot.preview_img = form.data['preview_img']
 
         if len(form.data['preview_img']) > 0:
             spot.preview_img = default_img
@@ -152,3 +151,20 @@ def update_spot(spotId):
 
 
 # Delete a Spot by Spot ID
+@spot_routes.route('<int:spotId>', methods=['DELETE'])
+@login_required
+def delete_spot(spotId):
+    spot = Spot.query.get(spotId)
+    if not spot:
+        return {
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        }
+    db.session.delete(spot)
+    db.session.commit()
+
+    return {
+        "id": spot.id,
+        "message": "Successfully deleted",
+        "statusCode": 200
+    }
