@@ -4,9 +4,12 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_spots():
-    demo = Spot(
-        name='Demo', latitude='35.29846332258847', longitude='-89.65428151451766',spot_type='park', owner=1,spots_status='park',preview_img='spot.png')
-    db.session.add(demo)
+    demo1 = Spot(
+        name='Flying Field', latitude='35.29846332258847', longitude='-89.65428151451766',spot_type='field', owner=1,spots_status='park',preview_img='spot.png')
+    demo2 = Spot(
+        name='Local Park', latitude='35.29846332258847', longitude='-89.65428151451766',spot_type='park', owner=1,spots_status='park',preview_img='spot.png')
+    db.session.add(demo1)
+    db.session.add(demo2)
     db.session.commit()
 
 

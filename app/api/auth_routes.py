@@ -24,7 +24,14 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        user = current_user.username
+        return {"user":
+                {"id": current_user.id,
+                 "username": current_user.username,
+                 "callsign": current_user.callsign,
+                 "profile_img": current_user.profile_img
+                 }
+                }
     return {'errors': ['Unauthorized']}
 
 
@@ -39,9 +46,15 @@ def login():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
-        user = User.query.filter(User.email == form.data['email']).first()
+        user = User.query.filter(User.username == form.data['username'].lower()).first()
         login_user(user)
-        return user.to_dict()
+        return {"user":
+                {"id": current_user.id,
+                 "username": current_user.username,
+                 "callsign": current_user.callsign,
+                 "profile_img": current_user.profile_img
+                 }
+                }
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -59,14 +72,23 @@ def sign_up():
     """
     Creates a new user and logs them in
     """
+    default_img = '/assets/default_profile.png'
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+
+        
         user = User(
             username=form.data['username'],
+            callsign=form.data['callsign'],
             email=form.data['email'],
+            profile_img = form.data['profile_img'],
             password=form.data['password']
         )
+
+        if len(form.data['profile_img']) > 0:
+            user.profile_img = default_img
+        
         db.session.add(user)
         db.session.commit()
         login_user(user)
