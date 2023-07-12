@@ -81,6 +81,8 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('spot_id', sa.Integer(), nullable=False),
                     sa.Column('favorite_id', sa.Integer(), nullable=False),
+                    sa.Column('created_at', sa.DateTime(), nullable=True),
+                    sa.Column('updated_at', sa.DateTime(), nullable=True),
                     sa.PrimaryKeyConstraint('id'),
                     sa.ForeignKeyConstraint(['favorite_id'], ['favorites.id']),
                     sa.ForeignKeyConstraint(['spot_id'], ['spots.id']),
