@@ -4,9 +4,12 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_favorites():
-    demo = Favorite(
-        name='Favorite', visibility=True, owner=1)
-    db.session.add(demo)
+    demo1 = Favorite(name='My Favorites', visibility=True, owner=1)
+    demo2 = Favorite(name='Favs', visibility=True, owner=2)
+    demo3 = Favorite(name='My Spots', visibility=False, owner=3)
+    db.session.add(demo1)
+    db.session.add(demo2)
+    db.session.add(demo3)
     db.session.commit()
 
 
