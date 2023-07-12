@@ -58,7 +58,7 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('reviewer', sa.Integer(), nullable=False),
                     sa.Column('spot_id', sa.Integer(), nullable=False),
-                    sa.Column('desc', sa.String(length=255), nullable=False),
+                    sa.Column('review', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
                     sa.PrimaryKeyConstraint('id'),
@@ -70,14 +70,20 @@ def upgrade():
                     sa.Column('name', sa.String(length=255), nullable=False),
                     sa.Column('desc', sa.String(length=255)),
                     sa.Column('visibility', sa.Boolean(), nullable=False),
-                    sa.Column('spot_id', sa.Integer(), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
                     sa.PrimaryKeyConstraint('id'),
                     sa.ForeignKeyConstraint(['owner'], ['users.id']),
-                    sa.ForeignKeyConstraint(['spot_id'], ['spots.id']),
                     sa.UniqueConstraint('name')
+                    )
+    op.create_table('favorite_spots',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('spot_id', sa.Integer(), nullable=False),
+                    sa.Column('favorite_id', sa.Integer(), nullable=False),
+                    sa.PrimaryKeyConstraint('id'),
+                    sa.ForeignKeyConstraint(['favorite_id'], ['favorites.id']),
+                    sa.ForeignKeyConstraint(['spot_id'], ['spots.id']),
                     )
     op.create_table('groups',
                     sa.Column('id', sa.Integer(), nullable=False),
@@ -149,6 +155,7 @@ def upgrade():
         op.execute(f"ALTER TABLE spots SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE favorite_spots SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE groups SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE videos SET SCHEMA {SCHEMA};")
@@ -160,6 +167,7 @@ def downgrade():
     op.drop_table('spots')
     op.drop_table('reviews')
     op.drop_table('favorites')
+    op.drop_table('favorite_spots')
     op.drop_table('groups')
     op.drop_table('images')
     op.drop_table('videos')

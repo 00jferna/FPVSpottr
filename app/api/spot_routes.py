@@ -92,7 +92,7 @@ def create_spot():
             preview_img=form.data['preview_img']
         )
 
-        if len(form.data['preview_img']) > 0:
+        if len(form.data['preview_img']) == 0:
             new_spot.preview_img = default_img
         db.session.add(new_spot)
         db.session.commit()
@@ -101,7 +101,6 @@ def create_spot():
         status_value = new_spot.spots_status.value
         new_spot.spot_type = type_value
         new_spot.spots_status = status_value
-        print(new_spot.to_dict())
 
         return new_spot.to_dict()
 
@@ -120,10 +119,16 @@ def update_spot(spotId):
             "statusCode": 404
         }
 
+    if spot.owner != current_user.id:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+    
     form = SpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.id == spot.owner and form.validate_on_submit():
-        spot.name=form.data['name']
+        spot.name = form.data['name']
         spot.desc = form.data['desc']
         spot.latitude = float(form.data['latitude'])
         spot.longitude = float(form.data['longitude'])
@@ -132,7 +137,7 @@ def update_spot(spotId):
         spot.spots_status = form.data['spots_status']
         spot.preview_img = form.data['preview_img']
 
-        if len(form.data['preview_img']) > 0:
+        if len(form.data['preview_img']) == 0:
             spot.preview_img = default_img
 
         db.session.commit()
@@ -141,7 +146,7 @@ def update_spot(spotId):
         status_value = spot.spots_status.value
         spot.spot_type = type_value
         spot.spots_status = status_value
-    
+
         return spot.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -157,6 +162,13 @@ def delete_spot(spotId):
             "message": "Spot couldn't be found",
             "statusCode": 404
         }
+    
+    if spot.owner != current_user.id:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+
     db.session.delete(spot)
     db.session.commit()
 
