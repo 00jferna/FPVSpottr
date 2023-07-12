@@ -3,11 +3,11 @@ from enum import Enum
 from datetime import datetime
 
 class GroupTypes(Enum):
-    racing='Racing'
-    freestyle='Freestyle'
-    cinematic='Cinematic'
-    exploring='Exploring'
-    tinyWhoop='Tiny Whoop'
+    racing='racing'
+    freestyle='freestyle'
+    cinematic='cinematic'
+    exploring='exploring'
+    tinyWhoop='tinyWhoop'
 
 class Group(db.Model):
     __tablename__ = 'groups'
@@ -19,7 +19,7 @@ class Group(db.Model):
     name = db.Column(db.String(40), nullable=False, unique=True)
     desc = db.Column(db.String(255))
     visibility = db.Column(db.Boolean, nullable=False)
-    group_type = db.Column('group_type',db.Enum(GroupTypes, name='type'), nullable=False)
+    group_type = db.Column('group_type',db.Enum(GroupTypes, name='group_type'), nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
     

@@ -4,9 +4,12 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_reviews():
-    demo = Review(
-        reviewer=1, spot_id=1,review='A nice local park')
-    db.session.add(demo)
+    demo1 = Review(reviewer=1, spot_id=1,review='A nice local spot')
+    demo2 = Review(reviewer=2, spot_id=2,review='A nice local spot')
+    demo3 = Review(reviewer=3, spot_id=3,review='A nice local spot')
+    db.session.add(demo1)
+    db.session.add(demo2)
+    db.session.add(demo3)
     db.session.commit()
 
 

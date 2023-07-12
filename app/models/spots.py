@@ -10,8 +10,8 @@ class SpotTypes(Enum):
     industrialPark='industrialPark'
 
 class SpotStatus(Enum):
-    field='field'
-    park='park'
+    active='active'
+    inactive='inactive'
 
 
 class Spot(db.Model):

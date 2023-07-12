@@ -12,3 +12,4 @@ def spot_exists(form, field):
 class ReviewForm(FlaskForm):
     reviewer = IntegerField('reviewer', validators=[DataRequired()])
     review = StringField("review", validators=[DataRequired()])
+    spot_id = IntegerField('reviewer', validators=[DataRequired(), spot_exists])
