@@ -46,7 +46,7 @@ def upgrade():
                     sa.Column('address', sa.String(length=255)),
                     sa.Column('spot_type', sa.Enum('field','park','playground','bando','industrialPark', name='spot_type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
-                    sa.Column('spots_status', sa.Enum('field','park', name='spots_status'), nullable=False),
+                    sa.Column('spots_status', sa.Enum('active','inactive', name='spots_status'), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),

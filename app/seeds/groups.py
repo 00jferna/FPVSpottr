@@ -4,9 +4,12 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_groups():
-    demo = Group(
-        name='Group', visibility=True, group_type='racing', owner=1, preview_img='img.png')
-    db.session.add(demo)
+    demo1 = Group(name='Local Racers', visibility=True, group_type='racing', owner=1, preview_img='img.png')
+    demo2 = Group(name='Bando Bashers', visibility=False, group_type='freestyle', owner=2, preview_img='img.png')
+    demo3 = Group(name='Tiny Go!', visibility=True, group_type='tinyWhoop', owner=3, preview_img='img.png')
+    db.session.add(demo1)
+    db.session.add(demo2)
+    db.session.add(demo3)
     db.session.commit()
 
 

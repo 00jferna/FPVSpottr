@@ -4,9 +4,12 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_members():
-    demo = Member(
-        member=1, group_id=1, privileges="owner")
-    db.session.add(demo)
+    demo1 = Member(member=1, group_id=1, privileges="owner")
+    demo2 = Member(member=2, group_id=2, privileges="owner")
+    demo3 = Member(member=3, group_id=3, privileges="owner")
+    db.session.add(demo1)
+    db.session.add(demo2)
+    db.session.add(demo3)
     db.session.commit()
 
 
