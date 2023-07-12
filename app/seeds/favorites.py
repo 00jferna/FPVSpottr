@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_favorites():
     demo = Favorite(
-        name='Favorite', visibility=True, spot_id=1, owner=1)
+        name='Favorite', visibility=True, owner=1)
     db.session.add(demo)
     db.session.commit()
 

@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .spots import seed_spots, undo_spots
 from .reviews import seed_reviews, undo_reviews
 from .favorites import seed_favorites, undo_favorites
+from .favorite_spots import seed_favorite_spots, undo_favorite_spots
 from .groups import seed_groups, undo_groups
 from .images import seed_images, undo_images
 from .videos import seed_videos, undo_videos
@@ -28,6 +29,7 @@ def seed():
         undo_spots()
         undo_reviews()
         undo_favorites()
+        undo_favorite_spots()
         undo_groups()
         undo_images()
         undo_videos()
@@ -37,6 +39,7 @@ def seed():
     seed_spots()
     seed_reviews()
     seed_favorites()
+    seed_favorite_spots()
     seed_groups()
     seed_images()
     seed_videos()
@@ -52,6 +55,7 @@ def undo():
     undo_spots()
     undo_reviews()
     undo_favorites()
+    undo_favorite_spots()
     undo_groups()
     undo_images()
     undo_videos()

@@ -1,11 +1,11 @@
-from app.models.groups import db, Group, environment, SCHEMA
+from app.models.favorites import db, FavoriteSpot, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_groups():
-    demo = Group(
-        name='Group', visibility=True, group_type='racing', owner=1, preview_img='img.png')
+def seed_favorite_spots():
+    demo = FavoriteSpot(
+        favorite_id=1, spot_id=1)
     db.session.add(demo)
     db.session.commit()
 
@@ -16,10 +16,10 @@ def seed_groups():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_groups():
+def undo_favorite_spots():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.groups RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.favorites RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM groups"))
+        db.session.execute(text("DELETE FROM favorite_spots"))
         
     db.session.commit()
