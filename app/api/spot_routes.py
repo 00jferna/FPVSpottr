@@ -76,7 +76,7 @@ def get_spot_by_id(spotId):
 @spot_routes.route('create', methods=['POST'])
 @login_required
 def create_spot():
-    default_img = '/assets/default_spot.png'
+    default_img = '/assets/default_spot.jpg'
     form = SpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -111,7 +111,7 @@ def create_spot():
 @spot_routes.route('<int:spotId>', methods=['POST'])
 @login_required
 def update_spot(spotId):
-    default_img = '/assets/default_spot.png'
+    default_img = '/assets/default_spot.jpg'
     spot = Spot.query.get(spotId)
     if not spot:
         return {
