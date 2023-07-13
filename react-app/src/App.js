@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import Home from "./components/HomePage";
 import Group from "./components/GroupPage";
 import Favorite from "./components/FavoritePage";
+import SpotDetail from "./components/SpotDetailPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -29,6 +30,9 @@ function App() {
             </Route>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/spots/:spotId">
+              <SpotDetail />
             </Route>
             <Route path="/groups">
               <Group />
