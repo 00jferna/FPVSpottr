@@ -4,19 +4,24 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as SpotActions from "../../store/spots";
 
+const default_img = process.env.REACT_APP_DEFAULT_IMG
+
 function CreateSpotModal() {
+  console.log(default_img)
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
 
   const [name, setName] = useState("");
-  const [desc, setDsec] = useState();
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
-  const [address, setAddress] = useState();
+  const [desc, setDsec] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [address, setAddress] = useState('');
   const [spot_type, setSpot_Type] = useState("field");
   const [spots_status, setSpots_status] = useState("active");
-  const [preview_img, setPreview_img] = useState();
+  const [preview_img, setPreview_img] = useState("default");
+  const [upload_data, setUpload_data] = useState();
+  const [resOk, setResOk] = useState(false);
 
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -24,53 +29,51 @@ function CreateSpotModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    
+    if (preview_img != "default") {
+      const formData = new FormData();
+      formData.append("image", preview_img);
 
-    const formData = new FormData();
-    formData.append("image", preview_img);
+      setUploading(true);
+      const res = await fetch("/api/spots/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    setUploading(true);
-    const res = await fetch("/api/spots/upload", {
-      method: "POST",
-      body: formData,
-    });
+      setUpload_data(await res.json());
+      if (res.ok) setResOk(true);
+    }
 
-    const upload_data = await res.json();
+    const payload = {
+      name,
+      desc,
+      latitude,
+      longitude,
+      address,
+      spot_type,
+      spots_status,
+      preview_img: resOk ? upload_data.image_url : default_img
+    };
 
-    if (res.ok) {
-      const payload = {
-        name,
-        desc,
-        latitude,
-        longitude,
-        address,
-        spot_type,
-        spots_status,
-        preview_img: upload_data.image_url,
-      };
+    const newSpot = await dispatch(SpotActions.createSpotThunk(payload));
 
-      const newSpot = await dispatch(SpotActions.createSpotThunk(payload));
-
-      if (newSpot.id) {
-        const newSpotId = newSpot.id;
-        const url = `/spots/${newSpotId}`;
-        setName("");
-        setDsec("");
-        setLatitude("");
-        setLongitude("");
-        setAddress("");
-        setSpot_Type("");
-        setSpots_status("");
-        setPreview_img("");
-        setErrors([]);
-        closeModal();
-        history.push(url);
-      } else {
-        setUploading(false);
-        setErrors(newSpot.errors);
-      }
+    if (newSpot.id) {
+      const newSpotId = newSpot.id;
+      const url = `/spots/${newSpotId}`;
+      setName("");
+      setDsec("");
+      setLatitude("");
+      setLongitude("");
+      setAddress("");
+      setSpot_Type("");
+      setSpots_status("");
+      setPreview_img("");
+      setErrors([]);
+      closeModal();
+      history.push(url);
     } else {
       setUploading(false);
-      setErrors(upload_data);
+      setErrors(newSpot.errors);
     }
   };
 

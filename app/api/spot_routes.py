@@ -116,14 +116,9 @@ def create_spot():
             spots_status=form.data['spots_status'],
             preview_img=form.data['preview_img']
         )
-
-        if len(form.data['preview_img']) == 0:
-            new_spot.preview_img = default_img
         
         db.session.add(new_spot)
         db.session.commit()
-
-        
 
         type_value = new_spot.spot_type.value
         status_value = new_spot.spots_status.value
@@ -134,9 +129,9 @@ def create_spot():
         presigned_img_url = create_presigned_url(parsed_img_url)
         new_spot.preview_img = presigned_img_url
 
-        return new_spot.to_dict()
+        return new_spot.to_dict(), 201
 
-    return {'errors': form.errors}, 400
+    return {'errors': form.errors}
 
 
 # Update a Spot by Spot ID
@@ -167,9 +162,6 @@ def update_spot(spotId):
         spot.spot_type = form.data['spot_type']
         spot.spots_status = form.data['spots_status']
         spot.preview_img = form.data['preview_img']
-
-        if len(form.data['preview_img']) == 0:
-            spot.preview_img = default_img
 
         db.session.commit()
 
