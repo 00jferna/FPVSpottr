@@ -1,1 +1,70 @@
 /* TODO Add site wide styles */
+body {
+  margin: 0px;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+}
+
+.page__cont {
+  border: solid;
+  height: 80vh;
+  margin: auto;
+  max-width: 1000px;
+  width: 100vw;
+}
+
+.errors {
+  color: red;
+  font-size: small;
+}
+
+/* NavBar */
+.navbar {
+  height: 100vh;
+  margin-left: auto;
+  margin-right: 0px;
+  width: 200px;
+}
+
+/* Home Page */
+.home__search__cont {
+  display: grid;
+  grid-template-columns: 600px auto;
+  width: 100%;
+}
+.home__search {
+  grid-column: 2;
+  margin: 10px 10px 10px 10px;
+}
+
+.home__spot__cont {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(3, 33%);
+}
+
+.spot__card {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 280px;
+}
+
+.spot__card:hover {
+  cursor: pointer;
+  scale: 1.03;
+}
+
+.spot__card__img {
+  height: auto;
+  margin: 10px auto;
+  width: 260px;
+}
+
+.spot__card h2,
+.spot__card h4 {
+  margin: 10px;
+}
