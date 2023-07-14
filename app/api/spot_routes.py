@@ -1,3 +1,5 @@
+from .aws import (if_allowed_image, file_unique_name,
+                  upload_S3, create_presigned_url)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Spot
 from app.forms import SpotForm
@@ -5,16 +7,32 @@ from flask_login import current_user, login_required
 
 spot_routes = Blueprint('spots', __name__)
 
+default_img = 'https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg'
 
-def validation_errors_to_error_messages(validation_errors):
-    """
-    Simple function that turns the WTForms validation errors into a simple list
-    """
-    errorMessages = []
-    for field in validation_errors:
-        for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
-    return errorMessages
+
+# Upload to AWS
+@spot_routes.route('/upload', methods=["POST"])
+@login_required
+def upload_file():
+    if "image" not in request.files:
+        return {"Image": "Image required"}, 400
+
+    image = request.files["image"]
+
+    if not if_allowed_image(image.filename):
+        return {"Image": "File type not supported"}, 400
+
+    image.filename = file_unique_name(image.filename)
+    image_upload = upload_S3(image)
+
+    if "url" not in image_upload:
+        return image_upload, 400
+
+    image_url = image_upload["url"]
+
+    return {
+        "image_url": image_url
+    }, 201
 
 
 # Get all Spots
@@ -26,6 +44,9 @@ def get_spots():
         status_value = spot.spots_status.value
         spot.spot_type = type_value
         spot.spots_status = status_value
+        parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        spot.preview_img = presigned_img_url
 
     return {
         "Spots": [spot.to_dict() for spot in spots]
@@ -48,7 +69,9 @@ def get_spots_by_user(userId):
         status_value = spot.spots_status.value
         spot.spot_type = type_value
         spot.spots_status = status_value
-
+        parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        spot.preview_img = presigned_img_url
     return {
         "UserSpots": [spot.to_dict() for spot in spots]
     }
@@ -68,15 +91,17 @@ def get_spot_by_id(spotId):
     status_value = spot.spots_status.value
     spot.spot_type = type_value
     spot.spots_status = status_value
+    parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
+    presigned_img_url = create_presigned_url(parsed_img_url)
+    spot.preview_img = presigned_img_url
 
     return spot.to_dict()
 
 
 # Create a new Spot
-@spot_routes.route('create', methods=['POST'])
+@spot_routes.route('/create', methods=['POST'])
 @login_required
 def create_spot():
-    default_img = '/assets/default_spot.jpg'
     form = SpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -94,24 +119,30 @@ def create_spot():
 
         if len(form.data['preview_img']) == 0:
             new_spot.preview_img = default_img
+        
         db.session.add(new_spot)
         db.session.commit()
+
+        
 
         type_value = new_spot.spot_type.value
         status_value = new_spot.spots_status.value
         new_spot.spot_type = type_value
         new_spot.spots_status = status_value
 
+        parsed_img_url = new_spot.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        new_spot.preview_img = presigned_img_url
+
         return new_spot.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}, 400
 
 
 # Update a Spot by Spot ID
 @spot_routes.route('<int:spotId>', methods=['POST'])
 @login_required
 def update_spot(spotId):
-    default_img = '/assets/default_spot.jpg'
     spot = Spot.query.get(spotId)
     if not spot:
         return {
@@ -124,7 +155,7 @@ def update_spot(spotId):
             "message": "Forbidden",
             "statusCode": 403
         }
-    
+
     form = SpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.id == spot.owner and form.validate_on_submit():
@@ -146,10 +177,13 @@ def update_spot(spotId):
         status_value = spot.spots_status.value
         spot.spot_type = type_value
         spot.spots_status = status_value
+        parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        spot.preview_img = presigned_img_url
 
         return spot.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}, 400
 
 
 # Delete a Spot by Spot ID
@@ -162,7 +196,7 @@ def delete_spot(spotId):
             "message": "Spot couldn't be found",
             "statusCode": 404
         }
-    
+
     if spot.owner != current_user.id:
         return {
             "message": "Forbidden",
