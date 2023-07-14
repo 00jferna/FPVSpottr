@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 
+const demo = process.env.REACT_APP_DEMO_USER
+const secret = process.env.REACT_APP_DEMO_SECRET
+
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
@@ -23,7 +26,7 @@ function LoginFormModal() {
 
   const handleDemoLogin = async () => {
     setErrors([]);
-    await dispatch(login("demo", "password"));
+    await dispatch(login(demo, secret));
     closeModal()
   }
 

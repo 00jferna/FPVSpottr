@@ -9,6 +9,7 @@ import Favorite from "./components/FavoritePage";
 import SpotDetail from "./components/SpotDetailPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+require('dotenv').config();
 
 function App() {
   const dispatch = useDispatch();
