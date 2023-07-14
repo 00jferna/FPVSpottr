@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, FileField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Spot
 
@@ -17,4 +17,4 @@ class SpotForm(FlaskForm):
     address = StringField('address')
     spot_type = StringField('spot_type', validators=[DataRequired()])
     spots_status = StringField('spots_status', validators=[DataRequired()])
-    preview_img = StringField('preview_img')
+    preview_img = FileField('preview_img')

@@ -4,9 +4,9 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo1 = User(username='demo', callsign='DemoPilot', email='demo1@aa.io', profile_img='profile.png', password='password')
-    demo2 = User(username='newbie', callsign='newbeepilot', email='demo2@aa.io', profile_img='profile.png', password='password')
-    demo3 = User(username='dontcrash', callsign='bork', email='demo3@aa.io', profile_img='profile.png', password='password')
+    demo1 = User(username='demo', callsign='DemoPilot', email='demo1@aa.io', profile_img='https://aa-capstone-project.s3.amazonaws.com/default_profile.png', password='password')
+    demo2 = User(username='newbie', callsign='newbeepilot', email='demo2@aa.io', profile_img='https://aa-capstone-project.s3.amazonaws.com/default_profile.png', password='password')
+    demo3 = User(username='dontcrash', callsign='bork', email='demo3@aa.io', profile_img='https://aa-capstone-project.s3.amazonaws.com/default_profile.png', password='password')
     db.session.add(demo1)
     db.session.add(demo2)
     db.session.add(demo3)
