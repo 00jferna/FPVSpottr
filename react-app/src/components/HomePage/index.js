@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom";
 import * as SpotActions from "../../store/spots";
 
 function Home() {
-  const dispatch = useDispatch();
   const spots = useSelector((state) => Object.values(state.spots));
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -27,17 +27,23 @@ function Home() {
       <div className="home__spot__cont">
         {isLoaded &&
           spots.map((spot) => {
-            return (
-              <div
-                className="spot__card"
-                key={spot.id}
-                onClick={() => handleSpotClick(spot.id)}
-              >
-                <img className="spot__card__img" src={spot.preview_img} />
-                <h2>{spot.name}</h2>
-                <h4>{spot.spot_type}</h4>
-              </div>
-            );
+            if (Number.isInteger(spot.id)) {
+              return (
+                <div
+                  className="spot__card"
+                  key={spot.id}
+                  onClick={() => handleSpotClick(spot.id)}
+                >
+                  <img
+                    className="spot__card__img"
+                    src={spot.preview_img}
+                    alt="Spot preview"
+                  />
+                  <h2>{spot.name}</h2>
+                  <h4>{spot.spot_type}</h4>
+                </div>
+              );
+            }
           })}
       </div>
     </div>

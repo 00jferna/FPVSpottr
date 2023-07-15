@@ -3,9 +3,9 @@ from enum import Enum
 from datetime import datetime
 
 class MemberPrivileges(Enum):
-    member='member'
-    admin='admin'
-    owner='owner'
+    member='Member'
+    admin='Admin'
+    owner='Owner'
 
 class Member(db.Model):
     __tablename__ = 'members'

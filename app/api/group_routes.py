@@ -1,30 +1,48 @@
+from .aws import (if_allowed_image, file_unique_name,
+                  upload_S3, create_presigned_url)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Group, Member
-from app.forms import GroupForm
+from app.forms import GroupForm,UpdateGroupForm
 from flask_login import current_user, login_required
 
 group_routes = Blueprint('groups', __name__)
 
 
-def validation_errors_to_error_messages(validation_errors):
-    """
-    Simple function that turns the WTForms validation errors into a simple list
-    """
-    errorMessages = []
-    for field in validation_errors:
-        for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
-    return errorMessages
+# Upload to AWS
+@group_routes.route('/upload', methods=["POST"])
+@login_required
+def upload_file():
+    if "image" not in request.files:
+        return {"Image": "Image required"}, 400
+
+    image = request.files["image"]
+
+    if not if_allowed_image(image.filename):
+        return {"Image": "File type not supported"}, 400
+
+    image.filename = file_unique_name(image.filename)
+    image_upload = upload_S3(image)
+
+    if "url" not in image_upload:
+        return image_upload, 400
+
+    image_url = image_upload["url"]
+
+    return {
+        "image_url": image_url
+    }, 201
+
 
 # Get all Groups
-
-
 @group_routes.route('/')
 def get_all_groups():
     groups = Group.query.all()
     for group in groups:
         type_value = group.group_type.value
         group.group_type = type_value
+        parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        group.preview_img = presigned_img_url
 
     return {
         "Groups": [group.to_dict() for group in groups]
@@ -46,6 +64,9 @@ def get_all_user_groups(userId):
     for group in groups:
         type_value = group.privileges.value
         group.privileges = type_value
+        parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        group.preview_img = presigned_img_url
 
     return {
         "UserGroups": [group.to_dict() for group in groups]
@@ -65,6 +86,9 @@ def get_group_by_id(groupId):
 
     type_value = group.group_type.value
     group.group_type = type_value
+    parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
+    presigned_img_url = create_presigned_url(parsed_img_url)
+    group.preview_img = presigned_img_url
 
     return group.to_dict()
 
@@ -95,9 +119,13 @@ def create_group():
         type_value = new_group.group_type.value
         new_group.group_type = type_value
 
+        parsed_img_url = new_group.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        new_group.preview_img = presigned_img_url
+
         return new_group.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}, 401
 
 
 # Update a Group by Group ID
@@ -118,7 +146,7 @@ def update_group(groupId):
             "statusCode": 403
         }
 
-    form = GroupForm()
+    form = UpdateGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         group.name = form.data['name']
@@ -134,12 +162,17 @@ def update_group(groupId):
 
         type_value = group.group_type.value
         group.group_type = type_value
+        parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        group.preview_img = presigned_img_url
 
         return group.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}, 401
 
 # Delete a Group by Group ID
+
+
 @group_routes.route('<int:groupId>', methods=['DELETE'])
 @login_required
 def delete_spot(groupId):
@@ -149,7 +182,7 @@ def delete_spot(groupId):
             "message": "Group couldn't be found",
             "statusCode": 404
         }
-    
+
     if group.owner != current_user.id:
         return {
             "message": "Forbidden",

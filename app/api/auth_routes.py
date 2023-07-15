@@ -72,7 +72,6 @@ def sign_up():
     """
     Creates a new user and logs them in
     """
-    default_img = '/assets/default_profile.png'
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -85,9 +84,6 @@ def sign_up():
             profile_img = form.data['profile_img'],
             password=form.data['password']
         )
-
-        if len(form.data['profile_img']) > 0:
-            user.profile_img = default_img
         
         db.session.add(user)
         db.session.commit()

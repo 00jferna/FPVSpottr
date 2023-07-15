@@ -1,5 +1,3 @@
-import { csrfFetch } from "./csrf";
-
 // Constants
 const GET_ALL_SPOTS = "spots/GET_ALL_SPOTS";
 const GET__USER_SPOTS = "spots/GET__USER_SPOTS";
@@ -39,7 +37,7 @@ const deleteSpot = (spot) => ({
 });
 
 export const getAllSpotsThunk = () => async (dispatch) => {
-  const res = await csrfFetch("/api/spots/", {
+  const res = await fetch("/api/spots/", {
     method: "GET",
   });
 
@@ -54,7 +52,7 @@ export const getAllSpotsThunk = () => async (dispatch) => {
 };
 
 export const getUserSpotsThunk = (userId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/user/${userId}`, {
+  const res = await fetch(`/api/spots/user/${userId}`, {
     method: "GET",
   });
 
@@ -69,7 +67,7 @@ export const getUserSpotsThunk = (userId) => async (dispatch) => {
 };
 
 export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${spotId}`, {
+  const res = await fetch(`/api/spots/${spotId}`, {
     method: "GET",
   });
 
@@ -79,7 +77,7 @@ export const getSpotDetailsThunk = (spotId) => async (dispatch) => {
 };
 
 export const createSpotThunk = (spot) => async (dispatch) => {
-  const res = await csrfFetch("/api/spots/create", {
+  const res = await fetch("/api/spots/create", {
     method: "POST",
     body: JSON.stringify(spot),
     headers: {
@@ -92,7 +90,7 @@ export const createSpotThunk = (spot) => async (dispatch) => {
 };
 
 export const updateSpotThunk = (spot) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${spot.id}`, {
+  const res = await fetch(`/api/spots/${spot.id}`, {
     method: "POST",
     body: JSON.stringify(spot),
     headers: {
@@ -105,7 +103,7 @@ export const updateSpotThunk = (spot) => async (dispatch) => {
 };
 
 export const deleteSpotThunk = (spot) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${spot.id}`, {
+  const res = await fetch(`/api/spots/${spot.id}`, {
     method: "DELETE",
   });
 
@@ -114,28 +112,25 @@ export const deleteSpotThunk = (spot) => async (dispatch) => {
   return data;
 };
 
-const initialState = { spotDetail: {} };
+const initialState = {
+  spots: {},
+  spotDetail: {},
+};
 
 const spotsReducer = (state = initialState, action) => {
-  let newState = { ...state };
   switch (action.type) {
     case GET_ALL_SPOTS:
-      newState = action.spots;
-      return newState;
+      return action.spots;
     case GET__USER_SPOTS:
-      newState.userSpots = action.spots;
-      return newState;
+      return { ...state, userSpots: action.spots };
     case GET_SPOT_DETAIL:
-      newState.spotDetail = action.spot;
-      return newState;
+      return { ...state, spotDetail: action.spot };
     case CREATE_SPOT:
-      newState.spotDetail = action.spot;
-      return newState;
+      return state
     case UPDATE_SPOT:
-      newState.spotDetail = action.spot;
-      return newState;
+      return { ...state, spotDetail: action.spot };
     case DELETE_SPOT:
-      return newState;
+      return state;
     default:
       return state;
   }

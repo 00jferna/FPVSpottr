@@ -1,31 +1,41 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as SpotActions from "../../store/spots";
 
 const default_img = process.env.REACT_APP_DEFAULT_IMG;
 
-function CreateSpotModal() {
+function UpdateSpotModal({ spot }) {
+  const spots = useSelector((state) => Object.values(state.spots));
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
 
-  const [name, setName] = useState("");
-  const [desc, setDsec] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [address, setAddress] = useState("");
-  const [spot_type, setSpot_Type] = useState("field");
-  const [spots_status, setSpots_status] = useState("active");
+  const [name, setName] = useState(spot.name);
+  const [desc, setDsec] = useState(spot.desc);
+  const [latitude, setLatitude] = useState(spot.latitude);
+  const [longitude, setLongitude] = useState(spot.longitude);
+  const [address, setAddress] = useState(spot.address);
+  const [spot_type, setSpot_Type] = useState(spot.spot_type.toLowerCase());
+  const [spots_status, setSpots_status] = useState(spot.spots_status.toLowerCase());
   const [preview_img, setPreview_img] = useState("default");
 
   const [uploading, setUploading] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
 
   const handleUpload = async (e) => {
     e.preventDefault();
     setErrors({});
+
+    if (name !== spot.name) {
+      spots.some((obj) => {
+        if (name === obj.name && spot.id !== obj.id) {
+          setErrors({name:'Name'});
+        }
+      });
+    }
+
     if (preview_img !== "default") {
       const formData = new FormData();
       formData.append("image", preview_img);
@@ -48,6 +58,7 @@ function CreateSpotModal() {
     setErrors({});
 
     const payload = {
+      id:spot.id,
       name,
       desc,
       latitude,
@@ -59,11 +70,11 @@ function CreateSpotModal() {
         preview_img !== "default" ? upload_data.image_url : default_img,
     };
 
-    const newSpot = await dispatch(SpotActions.createSpotThunk(payload));
+    const updatedSpot = await dispatch(SpotActions.updateSpotThunk(payload));
 
-    if (newSpot.id) {
-      const newSpotId = newSpot.id;
-      const url = `/spots/${newSpotId}`;
+    if (updatedSpot.id) {
+      const updatedSpotId = updatedSpot.id;
+      const url = `/spots/${updatedSpotId}`;
       setName("");
       setDsec("");
       setLatitude("");
@@ -72,18 +83,18 @@ function CreateSpotModal() {
       setSpot_Type("");
       setSpots_status("");
       setPreview_img("");
-      setErrors([]);
+      setErrors({});
       closeModal();
       history.push(url);
     } else {
       setUploading(false);
-      setErrors(newSpot.errors);
+      setErrors(updatedSpot.errors);
     }
   };
 
   return (
     <div>
-      <h2>Create Spot</h2>
+      <h2>Update {spot.name}</h2>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>
@@ -91,17 +102,17 @@ function CreateSpotModal() {
               <td>
                 <input
                   type="text"
-                  placeholder="Spot Name"
+                  placeholder="New Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </td>
             </tr>
-            {errors.name && (
+            {/* {errors.name && (
               <tr className="errors">
                 <td>{errors.name[0]}</td>
               </tr>
-            )}
+            )} */}
             <tr>
               <td>
                 <input
@@ -122,11 +133,11 @@ function CreateSpotModal() {
                 />
               </td>
             </tr>
-            {errors.latitude && (
+            {/* {errors.latitude && (
               <tr className="errors">
                 <td>{errors.latitude[0]}</td>
               </tr>
-            )}
+            )} */}
             <tr>
               <td>
                 <input
@@ -137,11 +148,11 @@ function CreateSpotModal() {
                 />
               </td>
             </tr>
-            {errors.longitude && (
+            {/* {errors.longitude && (
               <tr className="errors">
                 <td>{errors.longitude[0]}</td>
               </tr>
-            )}
+            )} */}
             <tr>
               <td>
                 <input
@@ -193,15 +204,15 @@ function CreateSpotModal() {
             </tr>
           </tbody>
         </table>
-        <button>Create Spot!</button>
+        <button>Update Spot!</button>
       </form>
       {uploading && (
         <div>
-          <h3>Please Wait while your Spot is Created!</h3>
+          <h3>Please Wait while your Spot is Updated!</h3>
         </div>
       )}
     </div>
   );
 }
 
-export default CreateSpotModal;
+export default UpdateSpotModal;
