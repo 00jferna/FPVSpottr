@@ -3,15 +3,15 @@ from enum import Enum
 from datetime import datetime
 
 class SpotTypes(Enum):
-    field='field'
-    park='park'
-    playground='playground'
-    bando='bando'
-    industrialPark='industrialPark'
+    field='Field'
+    park='Park'
+    playground='Playground'
+    bando='Bando'
+    industrialPark='Industrial Park'
 
 class SpotStatus(Enum):
-    active='active'
-    inactive='inactive'
+    active='Active'
+    inactive='Inactive'
 
 
 class Spot(db.Model):
@@ -36,7 +36,7 @@ class Spot(db.Model):
 
     users = db.relationship('User', back_populates='spots')
     reviews = db.relationship('Review', back_populates='spots', cascade='all, delete-orphan')
-    favorite_spots = db.relationship('FavoriteSpot', back_populates='spots')
+    favorite_spots = db.relationship('FavoriteSpot', back_populates='spots', cascade='all, delete-orphan')
     images = db.relationship('Image', back_populates='spots', cascade='all, delete-orphan')
     videos = db.relationship('Video', back_populates='spots', cascade='all, delete-orphan')
     visits = db.relationship('Visit', back_populates='spots', cascade='all, delete-orphan')

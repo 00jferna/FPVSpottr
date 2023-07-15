@@ -15,3 +15,10 @@ class GroupForm(FlaskForm):
     visibility = BooleanField("visibility", validators=[DataRequired()])
     group_type = StringField("group_type", validators=[DataRequired()])
     preview_img = StringField('preview_img')
+
+class UpdateGroupForm(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    desc = StringField('desc')
+    visibility = BooleanField("visibility")
+    group_type = StringField("group_type", validators=[DataRequired()])
+    preview_img = StringField('preview_img')

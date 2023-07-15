@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as SpotActions from "../../store/spots";
+import OpenModalButton from "../OpenModalButton";
+import DeleteSpotModal from "../DeleteSpotModal";
+import UpdateSpotModal from "../UpdateSpotModal";
 
 function SpotDetail() {
   const { spotId } = useParams();
@@ -9,7 +12,6 @@ function SpotDetail() {
   const spot = useSelector((state) => state.spots.spotDetail);
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     dispatch(SpotActions.getSpotDetailsThunk(spotId)).then(() => {
@@ -21,7 +23,7 @@ function SpotDetail() {
     isLoaded && (
       <div>
         <div className="spot__detail__cont">
-          <img src={spot.preview_img} />
+          <img src={spot.preview_img} alt="Spot preview" />
           <div>
             <div>
               <h2>{spot.name}</h2>
@@ -29,11 +31,16 @@ function SpotDetail() {
               <h3>{spot.owner}</h3>
               <h3>{spot.spots_status}</h3>
             </div>
-            {user && user.user.id == spot.owner && (
+            {user && user.id === spot.owner && (
               <div>
-                {console.log(user.user.id,spot.owner)}
-                <button>Update Spot</button>
-                <button>Delete Spot</button>
+                <OpenModalButton
+                  buttonText="Update Spot"
+                  modalComponent={<UpdateSpotModal spot={spot} />}
+                />
+                <OpenModalButton
+                  buttonText="Delete Spot"
+                  modalComponent={<DeleteSpotModal spot={spot} />}
+                />
               </div>
             )}
             <div>

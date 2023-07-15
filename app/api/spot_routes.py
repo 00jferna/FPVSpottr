@@ -2,7 +2,7 @@ from .aws import (if_allowed_image, file_unique_name,
                   upload_S3, create_presigned_url)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Spot
-from app.forms import SpotForm
+from app.forms import SpotForm, UpdateSpotForm
 from flask_login import current_user, login_required
 
 spot_routes = Blueprint('spots', __name__)
@@ -116,7 +116,7 @@ def create_spot():
             spots_status=form.data['spots_status'],
             preview_img=form.data['preview_img']
         )
-        
+
         db.session.add(new_spot)
         db.session.commit()
 
@@ -150,8 +150,7 @@ def update_spot(spotId):
             "message": "Forbidden",
             "statusCode": 403
         }
-
-    form = SpotForm()
+    form = UpdateSpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.id == spot.owner and form.validate_on_submit():
         spot.name = form.data['name']
@@ -173,9 +172,12 @@ def update_spot(spotId):
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.preview_img = presigned_img_url
 
-        return spot.to_dict()
+        return spot.to_dict(), 201
 
-    return {'errors': form.errors}, 400
+    return {
+        'errors': form.errors,
+        "statusCode": 400
+    }
 
 
 # Delete a Spot by Spot ID

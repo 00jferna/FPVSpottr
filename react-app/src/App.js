@@ -7,6 +7,7 @@ import Home from "./components/HomePage";
 import Group from "./components/GroupPage";
 import Favorite from "./components/FavoritePage";
 import SpotDetail from "./components/SpotDetailPage";
+import GroupDetail from "./components/GroupDetailPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 require('dotenv').config();
@@ -34,6 +35,9 @@ function App() {
             </Route>
             <Route path="/spots/:spotId">
               <SpotDetail />
+            </Route>
+            <Route path="/groups/:groupId">
+              <GroupDetail />
             </Route>
             <Route path="/groups">
               <Group />

@@ -67,7 +67,7 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = (username, email, callsign, password, default_profile) => async (dispatch) => {
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
@@ -77,6 +77,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
 			username,
 			email,
 			password,
+			callsign,
+			profile_img:default_profile
 		}),
 	});
 
@@ -97,7 +99,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			return action.payload 
 		case REMOVE_USER:
 			return { user: null };
 		default:
