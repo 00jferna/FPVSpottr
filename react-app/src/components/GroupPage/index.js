@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as GroupActions from "../../store/groups";
+import SearchBar from "../SearchBar";
 
 function Group() {
   const groups = useSelector((state) => Object.values(state.groups));
@@ -21,9 +22,7 @@ function Group() {
 
   return (
     <div>
-      <div className="home__search__cont">
-        <input className="home__search" type="search" placeholder="Search" />
-      </div>
+      <SearchBar item="Groups" />
       <div className="home__spot__cont">
         {isLoaded &&
           groups.map((group) => {

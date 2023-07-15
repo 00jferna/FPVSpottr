@@ -54,8 +54,20 @@ function SpotDetail() {
             <h3>Spot Reviews</h3>
             {user && (
               <div>
-                <button onClick={()=>{alert(`Feature coming Soon!`);}}>Create Review</button>
-                <button onClick={()=>{alert(`Feature coming Soon!`);}}>Add to Favorites</button>
+                <button
+                  onClick={() => {
+                    alert(`Feature coming Soon!`);
+                  }}
+                >
+                  Create Review
+                </button>
+                <button
+                  onClick={() => {
+                    alert(`Feature coming Soon!`);
+                  }}
+                >
+                  Add to Favorites
+                </button>
               </div>
             )}
           </div>
