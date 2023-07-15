@@ -10,7 +10,7 @@ import CreateGroupModal from "../CreateGroupModal";
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
-  
+
 
   return (
     <div className="navbar">
@@ -37,9 +37,9 @@ function Navigation({ isLoaded }) {
         <li>
           <NavLink to="/groups">Groups</NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/favorites">Favorites</NavLink>
-        </li>
+        </li> */}
         {isLoaded && (
           <li>
             <ProfileButton user={sessionUser} />

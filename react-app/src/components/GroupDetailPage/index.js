@@ -54,7 +54,7 @@ function GroupDetail() {
               <h3>Spot Reviews</h3>
               {user && (
                 <div>
-                  <button>Join Group</button>
+                  <button onClick={()=>{alert(`Feature coming Soon!`);}}>Join Group</button>
                 </div>
               )}
             </div>
