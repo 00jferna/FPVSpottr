@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "./LoginForm.css";
 
-const demo = process.env.REACT_APP_DEMO_USER
-const secret = process.env.REACT_APP_DEMO_SECRET
+const demo = process.env.REACT_APP_DEMO_USER;
+const secret = process.env.REACT_APP_DEMO_SECRET;
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -27,8 +26,8 @@ function LoginFormModal() {
   const handleDemoLogin = async () => {
     setErrors([]);
     await dispatch(login(demo, secret));
-    closeModal()
-  }
+    closeModal();
+  };
 
   return (
     <>

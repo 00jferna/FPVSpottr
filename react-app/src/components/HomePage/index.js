@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as SpotActions from "../../store/spots";
+import SearchBar from "../SearchBar";
 
 function Home() {
   const spots = useSelector((state) => Object.values(state.spots));
@@ -21,9 +22,7 @@ function Home() {
 
   return (
     <div>
-      <div className="home__search__cont">
-        <input className="home__search" type="search" placeholder="Search" />
-      </div>
+      <SearchBar item="Spots" />
       <div className="home__spot__cont">
         {isLoaded &&
           spots.map((spot) => {

@@ -8,6 +8,14 @@ body {
   flex-direction: row;
 }
 
+.profile-dropdown {
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
 .page__cont {
   border: solid;
   height: 80vh;
