@@ -13,7 +13,7 @@ function CreateGroupModal() {
 
   const [name, setName] = useState("");
   const [desc, setDsec] = useState("");
-  const [visibility, setVisibility] = useState(true);
+  const [visibility, setVisibility] = useState("true");
   const [group_type, setGroup_type] = useState("racing");
 
   const [preview_img, setPreview_img] = useState("default");
@@ -128,7 +128,7 @@ function CreateGroupModal() {
                   placeholder="Spot Status"
                   value={visibility}
                   onChange={(e) =>
-                    setVisibility(e.target.value === "true" ? true : false)
+                    setVisibility(e.target.value === "true" ? "true" : "false")
                   }
                 >
                   <option value="true">Public</option>

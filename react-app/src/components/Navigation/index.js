@@ -10,6 +10,8 @@ import CreateGroupModal from "../CreateGroupModal";
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
+  
+
   return (
     <div className="navbar">
       <ul>

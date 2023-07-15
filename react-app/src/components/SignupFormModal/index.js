@@ -7,7 +7,6 @@ import "./SignupForm.css";
 const default_profile = process.env.REACT_APP_DEFAULT_PROFILE;
 
 function SignupFormModal() {
-	console.log(default_profile)
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -25,7 +24,6 @@ function SignupFormModal() {
       );
       if (data) {
         setErrors(data);
-        console.log(errors);
       } else {
         closeModal();
       }
