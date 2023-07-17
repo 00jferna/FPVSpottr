@@ -181,7 +181,6 @@ p {
 }
 
 .spot__detail__cont img {
-  border: solid;
   height: 280px;
   object-fit: cover;
   width: 500px;

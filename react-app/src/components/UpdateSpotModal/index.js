@@ -175,7 +175,7 @@ function UpdateSpotModal({ spot }) {
                   <option value="park">Park</option>
                   <option value="playground">Playground</option>
                   <option value="bando">Bando</option>
-                  <option value="industrialPark">Industrial Park</option>
+                  <option value="industrial_park">Industrial Park</option>
                 </select>
               </td>
             </tr>
