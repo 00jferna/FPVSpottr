@@ -117,7 +117,7 @@ function CreateGroupModal() {
                   <option value="freestyle">Freestyle</option>
                   <option value="cinematic">Cinematic</option>
                   <option value="exploring">Exploring</option>
-                  <option value="tinyWhoop">Tiny Whoop</option>
+                  <option value="tiny_whoop">Tiny Whoop</option>
                 </select>
               </td>
             </tr>
