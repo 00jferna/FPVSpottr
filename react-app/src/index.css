@@ -56,6 +56,7 @@ p {
 .modal__demo__login,
 .modal h1,
 .modal form,
+.modal table,
 .modal form table,
 .modal form table tbody {
   padding-bottom: 15px;
@@ -63,10 +64,20 @@ p {
   text-align: center;
 }
 
-.modal form table tbody tr td input {
+.modal table tbody tr td button{
+  margin: auto 10px;
+  height: 35px;
+  width: 50px;
+}
+
+.modal form table tbody tr td input,
+.modal form table tbody tr td textarea {
   margin: auto;
-  text-align: center;
   width: 300px;
+}
+
+.modal form table tbody tr td input {
+  text-align: center;
 }
 
 .modal form table tbody tr td label {

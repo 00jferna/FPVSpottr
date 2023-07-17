@@ -21,12 +21,18 @@ function DeleteSpotModal({ spot }) {
   };
 
   return (
-    <div>
-      <h2>Delete {spot.name}?</h2>
-      <div>
-        <button onClick={handleYes}>Yes</button>
-        <button onClick={() => closeModal()}>No</button>
-      </div>
+    <div className="modal">
+      <h1>Delete Spot: {spot.name}?</h1>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <button onClick={handleYes}>Yes</button>
+              <button onClick={() => closeModal()}>No</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

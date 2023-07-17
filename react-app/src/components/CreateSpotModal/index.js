@@ -104,8 +104,9 @@ function CreateSpotModal() {
             )}
             <tr>
               <td>
-                <input
+                <textarea
                   type="text"
+                  rows="5"
                   placeholder="Spot Description"
                   value={desc}
                   onChange={(e) => setDsec(e.target.value)}
