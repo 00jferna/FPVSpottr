@@ -1,12 +1,19 @@
-/* TODO Add site wide styles */
 body {
   margin: 0px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 a {
-  color: #9617e3;
+  color: #67109c;
   font-weight: bolder;
   text-decoration: none;
 }
+
 a:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -15,11 +22,12 @@ a:hover {
 .body {
   display: flex;
   flex-direction: row;
-  /* color: #9617e3; */
 }
 
-.profile-dropdown {
+.main__logo {
   position: absolute;
+  top: 20px;
+  left: 50px;
 }
 
 .hidden {
@@ -27,11 +35,10 @@ a:hover {
 }
 
 .page__cont {
-  border: solid;
-  height: 80vh;
-  margin: auto;
+  margin: 130px 200px auto 100px;
+  padding: 30px;
   max-width: 1000px;
-  width: 100vw;
+  width: 60vw;
 }
 
 .errors {
@@ -45,7 +52,11 @@ a:hover {
   margin-left: auto;
   margin-right: 0px;
   width: 200px;
-  background-color: #1ee300;
+  background-color: #089c4b;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
 }
 
 /* Home Page */
