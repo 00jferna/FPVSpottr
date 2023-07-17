@@ -14,7 +14,7 @@ function UpdateGroupModal({ group }) {
 
   const [name, setName] = useState(group.name);
   const [desc, setDsec] = useState(group.desc);
-  const [visibility, setVisibility] = useState(group.visibility);
+  const [visibility, setVisibility] = useState(group.visibility ? true:false);
   const [group_type, setGroup_type] = useState(group.group_type.toLowerCase());
   const [preview_img, setPreview_img] = useState("default");
 

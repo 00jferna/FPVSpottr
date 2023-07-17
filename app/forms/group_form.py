@@ -12,7 +12,7 @@ def group_exists(form, field):
 class GroupForm(FlaskForm):
     name = StringField('name', validators=[DataRequired(), group_exists])
     desc = StringField('desc')
-    visibility = BooleanField("visibility", validators=[DataRequired()])
+    visibility = BooleanField("visibility")
     group_type = StringField("group_type", validators=[DataRequired()])
     preview_img = StringField('preview_img')
 
