@@ -69,7 +69,7 @@ function CreateGroupModal() {
       history.push(url);
     } else {
       setUploading(false);
-      console.log(errors)
+      console.log(errors);
       setErrors(newGroup.errors);
     }
   };
@@ -79,7 +79,7 @@ function CreateGroupModal() {
       <h1>Create Group</h1>
       <form onSubmit={handleUpload}>
         <table>
-        <tbody>
+          <tbody>
             <tr>
               <td>
                 <input
@@ -97,8 +97,9 @@ function CreateGroupModal() {
             )}
             <tr>
               <td>
-                <input
+                <textarea
                   type="text"
+                  rows="5"
                   placeholder="Group Description"
                   value={desc}
                   onChange={(e) => setDsec(e.target.value)}

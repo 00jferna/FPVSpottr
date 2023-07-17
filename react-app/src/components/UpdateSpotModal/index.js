@@ -93,8 +93,8 @@ function UpdateSpotModal({ spot }) {
   };
 
   return (
-    <div>
-      <h2>Update {spot.name}</h2>
+    <div className="modal">
+      <h1>Update {spot.name}</h1>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>
@@ -115,8 +115,9 @@ function UpdateSpotModal({ spot }) {
             )} */}
             <tr>
               <td>
-                <input
+                <textarea
                   type="text"
+                  rows="5"
                   placeholder="Spot Description"
                   value={desc}
                   onChange={(e) => setDsec(e.target.value)}

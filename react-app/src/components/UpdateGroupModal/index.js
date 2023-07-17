@@ -83,8 +83,8 @@ function UpdateGroupModal({ group }) {
   };
 
   return (
-    <div>
-      <h2>Update {group.name}</h2>
+    <div className="modal">
+      <h1>Update {group.name}</h1>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>
@@ -105,8 +105,9 @@ function UpdateGroupModal({ group }) {
             )}
             <tr>
               <td>
-                <input
+                <textarea
                   type="text"
+                  rows="5"
                   placeholder="Group Description"
                   value={desc}
                   onChange={(e) => setDsec(e.target.value)}
