@@ -71,7 +71,6 @@ export const getGroupDetailsThunk = (groupId) => async (dispatch) => {
   });
 
   const data = await res.json();
-  console.log(data)
   dispatch(getGroupDetails(data));
   return data;
 };
@@ -125,6 +124,7 @@ const groupReducer = (state = initialState, action) => {
     case GET_GROUP_DETAIL:
       return { ...state, groupDetail: action.group };
     case CREATE_GROUP:
+      return state
     case UPDATE_GROUP:
       return { ...state, groupDetail: action.group };
     case DELETE_GROUP:

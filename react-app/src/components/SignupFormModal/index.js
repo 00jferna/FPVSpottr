@@ -34,8 +34,8 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h2>Sign Up</h2>
+    <div className="modal">
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <table>
           <tbody>
@@ -108,7 +108,7 @@ function SignupFormModal() {
         </table>
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

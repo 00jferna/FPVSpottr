@@ -64,18 +64,19 @@ function CreateGroupModal() {
       setVisibility("");
       setGroup_type("");
       setPreview_img("");
-      setErrors([]);
+      setErrors({});
       closeModal();
       history.push(url);
     } else {
       setUploading(false);
+      console.log(errors)
       setErrors(newGroup.errors);
     }
   };
 
   return (
-    <div>
-      <h2>Create Group</h2>
+    <div className="modal">
+      <h1>Create Group</h1>
       <form onSubmit={handleUpload}>
         <table>
         <tbody>
@@ -138,7 +139,7 @@ function CreateGroupModal() {
             </tr>
             <tr>
               <td>
-                <label>Group Image</label>
+                <label>Group Image:</label>
                 <input
                   type="file"
                   accept="image/*"
