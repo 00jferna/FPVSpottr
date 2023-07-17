@@ -130,7 +130,7 @@ function CreateGroupModal() {
                   placeholder="Spot Status"
                   value={visibility}
                   onChange={(e) =>
-                    setVisibility(e.target.value === "true" ? "true" : "false")
+                    setVisibility(e.target.value === "true" ? true : false)
                   }
                 >
                   <option value="true">Public</option>
