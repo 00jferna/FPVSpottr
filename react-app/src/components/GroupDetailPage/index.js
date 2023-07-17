@@ -7,32 +7,35 @@ import DeleteGroupModal from "../DeleteGroupModal";
 import UpdateGroupModal from "../UpdateGroupModal";
 
 function GroupDetail() {
-    const { groupId } = useParams();
-    const dispatch = useDispatch();
-    const group = useSelector((state) => state.groups.groupDetail);
-    const user = useSelector((state) => state.session.user);
-    const [isLoaded, setIsLoaded] = useState(false);
-  
-    useEffect(() => {
-      dispatch(GroupActions.getGroupDetailsThunk(groupId)).then(() => {
-        setIsLoaded(true);
-      });
-    }, [dispatch, groupId]);
-  
-    return (
-      isLoaded && (
-        <div>
+  const { groupId } = useParams();
+  const dispatch = useDispatch();
+  const group = useSelector((state) => state.groups.groupDetail);
+  const user = useSelector((state) => state.session.user);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    dispatch(GroupActions.getGroupDetailsThunk(groupId)).then(() => {
+      setIsLoaded(true);
+    });
+  }, [dispatch, groupId]);
+
+  return (
+    isLoaded && (
+      <div>
+        <div className="spot__cont">
           <div className="spot__detail__cont">
             <img src={group.preview_img} alt="Spot preview" />
-            <div>
-              <div>
+            <div className="spot__detail">
+              <div className="spot__name__list">
                 <h2>{group.name}</h2>
-                <h3>{group.group_type}</h3>
-                <h3>{group.owner.callsign}</h3>
-                <h3>{group.visibility ? "Public" : "Private"}</h3>
+                <ul>
+                  <li>{group.group_type.toUpperCase()}</li>
+                  <li>{group.owner.callsign}</li>
+                  <li>{group.visibility ? "Public" : "Private"}</li>
+                </ul>
               </div>
               {user && user.id === group.owner.id && (
-                <div>
+                <div className="spot__actions">
                   <OpenModalButton
                     buttonText="Update Group"
                     modalComponent={<UpdateGroupModal group={group} />}
@@ -43,26 +46,34 @@ function GroupDetail() {
                   />
                 </div>
               )}
-              <div>
-                <h3>Spot Description</h3>
+              <h3>Group Description</h3>
+              <div className="spot__desc">
                 <p>{group.desc}</p>
               </div>
             </div>
           </div>
+        </div>
+        {group.visibility && (
           <div className="spot__reviews__cont">
             <div>
-              <h3>Spot Reviews</h3>
+              <h3>Members</h3>
               {user && (
                 <div>
-                  <a onClick={()=>{alert(`Feature coming Soon!`);}}>Join Group</a>
+                  <a
+                    onClick={() => {
+                      alert(`Feature coming Soon!`);
+                    }}
+                  >
+                    Join Group
+                  </a>
                 </div>
               )}
             </div>
           </div>
-        </div>
-      )
-    );
-  }
-  
-  export default GroupDetail;
-  
+        )}
+      </div>
+    )
+  );
+}
+
+export default GroupDetail;

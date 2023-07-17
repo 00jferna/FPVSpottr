@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import Home from "./components/HomePage";
@@ -20,7 +20,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <><img className="main__logo" src="/assets/FPVSpottr_Logo.png"/>
+    <><NavLink exact to="/"><img className="main__logo" src="/assets/FPVSpottr_Logo.png"/></NavLink>
     <div className="main__body">
       {isLoaded && (
         <div className="page__cont">

@@ -40,7 +40,7 @@ a:hover {
   margin: 130px 200px auto 100px;
   padding: 10px 30px 100px;
   max-width: 1000px;
-  width: 60vw;
+  width: 70vw;
 }
 
 .errors {
@@ -62,12 +62,11 @@ a:hover {
   z-index: 1;
 }
 
-.navbar__user, .navbar__navlinks {
+.navbar__user,
+.navbar__navlinks {
   margin: auto;
   list-style: none;
 }
-
-
 
 /* Home Page */
 .home__search__cont {
@@ -75,6 +74,7 @@ a:hover {
   grid-template-columns: 600px auto;
   width: 100%;
 }
+
 .home__search {
   grid-column: 2;
   margin: 10px 10px 10px 10px;
@@ -107,4 +107,67 @@ a:hover {
 .spot__card h2,
 .spot__card h4 {
   margin: 10px;
+}
+
+/* Spot Detail Page */
+.spot__detail__cont {
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+}
+
+.spot__detail__cont img {
+  border: solid;
+  height: 280px;
+  object-fit: cover;
+  width: 500px;
+}
+
+.spot__detail {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 30px;
+}
+
+.spot__name__list h2, .spot__detail h3{
+  margin: 0px;
+}
+
+.spot__name__list ul {
+  margin: 5px 0px;
+  padding: 0;
+  list-style: none;
+}
+
+.spot__actions {
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.spot__desc {
+  overflow: auto;
+}
+
+.spot__desc p {
+  margin: 5px 0px;
+}
+
+.spot__reviews__actions {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 10px;
+}
+
+.spot__reviews__actions div a {
+  margin: 10px;
+}
+
+.spot__reviews {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
 }

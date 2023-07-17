@@ -7,7 +7,7 @@ class SpotTypes(Enum):
     park='park'
     playground='playground'
     bando='bando'
-    industrialPark='industrialPark'
+    industrial_park='industrial_park'
 
 class SpotStatus(Enum):
     active='active'

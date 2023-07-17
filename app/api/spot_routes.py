@@ -40,9 +40,6 @@ def upload_file():
 def get_spots():
     spots = Spot.query.all()
     for spot in spots:
-        print('------------------------')
-        print(spot.spot_type)
-        print(spot.spot_type.value)
         type_value = spot.spot_type.value
         status_value = spot.spots_status.value
         spot.spot_type = type_value
