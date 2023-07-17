@@ -2,10 +2,20 @@
 body {
   margin: 0px;
 }
+a {
+  color: #9617e3;
+  font-weight: bolder;
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
 .body {
   display: flex;
   flex-direction: row;
+  /* color: #9617e3; */
 }
 
 .profile-dropdown {
@@ -35,6 +45,7 @@ body {
   margin-left: auto;
   margin-right: 0px;
   width: 200px;
+  background-color: #1ee300;
 }
 
 /* Home Page */
