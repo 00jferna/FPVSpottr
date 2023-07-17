@@ -28,10 +28,10 @@ function SpotDetail() {
             <div>
               <h2>{spot.name}</h2>
               <h3>{spot.spot_type}</h3>
-              <h3>{spot.owner}</h3>
+              <h3>{spot.owner.callsign}</h3>
               <h3>{spot.spots_status}</h3>
             </div>
-            {user && user.id === spot.owner && (
+            {user && user.id === spot.owner.id && (
               <div>
                 <OpenModalButton
                   buttonText="Update Spot"
