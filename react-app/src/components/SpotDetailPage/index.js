@@ -22,37 +22,40 @@ function SpotDetail() {
   return (
     isLoaded && (
       <div>
-        <div className="spot__detail__cont">
-          <img src={spot.preview_img} alt="Spot preview" />
-          <div>
-            <div>
-              <h2>{spot.name}</h2>
-              <ul>
-                <li>{spot.spot_type}</li>
-                <li>{spot.owner.callsign}</li>
-                <li>{spot.spots_status}</li>
-              </ul>
-            </div>
-            {user && user.id === spot.owner.id && (
-              <div>
-                <OpenModalButton
-                  buttonText="Update Spot"
-                  modalComponent={<UpdateSpotModal spot={spot} />}
-                />
-                <OpenModalButton
-                  buttonText="Delete Spot"
-                  modalComponent={<DeleteSpotModal spot={spot} />}
-                />
+        <div className="spot__cont">
+          <div className="spot__detail__cont">
+            <img src={spot.preview_img} alt="Spot preview" />
+            <div className="spot__detail">
+              <div className="spot__name__list">
+                <h2>{spot.name}</h2>
+                <ul>
+                  <li>{spot.spot_type.toUpperCase()}</li>
+                  <li>{spot.owner.callsign}</li>
+                  <li>{spot.spots_status.toUpperCase()}</li>
+                </ul>
               </div>
-            )}
-            <div>
-              <h3>Spot Description</h3>
-              <p>{spot.desc}</p>
+
+              {user && user.id === spot.owner.id && (
+                <div className="spot__actions">
+                  <OpenModalButton
+                    buttonText="Update Spot"
+                    modalComponent={<UpdateSpotModal spot={spot} />}
+                  />
+                  <OpenModalButton
+                    buttonText="Delete Spot"
+                    modalComponent={<DeleteSpotModal spot={spot} />}
+                  />
+                </div>
+              )}
+                <h3>Spot Description</h3>
+              <div className="spot__desc">
+                <p>{spot.desc}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="spot__reviews__cont">
-          <div>
+        {/* <div className="spot__reviews__cont">
+          <div className="spot__reviews__actions">
             <h3>Spot Reviews</h3>
             {user && (
               <div>
@@ -73,7 +76,12 @@ function SpotDetail() {
               </div>
             )}
           </div>
-        </div>
+          <ul className="spot__reviews">
+            <li>Review Placeholder</li>
+            <li>Review Placeholder</li>
+            <li>Review Placeholder</li>
+          </ul>
+        </div> */}
       </div>
     )
   );

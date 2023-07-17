@@ -4,9 +4,9 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_groups():
-    demo1 = Group(name='Local Racers', visibility=True, group_type='racing', owner=1, preview_img='https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg')
-    demo2 = Group(name='Bando Bashers', visibility=False, group_type='freestyle', owner=2, preview_img='https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg')
-    demo3 = Group(name='Tiny Go!', visibility=True, group_type='tinyWhoop', owner=3, preview_img='https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg')
+    demo1 = Group(name='Local Racers', desc="Adrenaline-Fueled FPV Racers: Join our local group for heart-pounding FPV racing action! Experience intense competition, camaraderie, and thrilling courses as we push the limits of speed and skill. Get ready for the ultimate FPV racing adventure!", visibility=True, group_type='racing', owner=1, preview_img='https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg')
+    demo2 = Group(name='Bando Bashers', desc="Unleash Creativity in the Skies: Join our local freestyle FPV group for mind-blowing aerial acrobatics, jaw-dropping tricks, and a supportive community of passionate freestyle pilots. Get inspired, push boundaries, and take your FPV skills to new heights!" , visibility=False, group_type='freestyle', owner=2, preview_img='https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg')
+    demo3 = Group(name='Tiny Go!', desc="Micro Madness Awaits: Join our local TinyWhoop racing group for thrilling indoor adventures! Experience the excitement of small-scale racing, navigate challenging courses, and bond with fellow enthusiasts. Get ready for big fun in a tiny package!", visibility=True, group_type='tinyWhoop', owner=3, preview_img='https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg')
     db.session.add(demo1)
     db.session.add(demo2)
     db.session.add(demo3)

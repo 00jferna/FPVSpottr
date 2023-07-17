@@ -27,6 +27,8 @@ function Home() {
         {isLoaded &&
           spots.map((spot) => {
             if (Number.isInteger(spot.id)) {
+              let spot_type_value =
+                spot.spot_type[0].toUpperCase() + spot.spot_type.slice(1);
               return (
                 <div
                   className="spot__card"
@@ -39,7 +41,7 @@ function Home() {
                     alt="Spot preview"
                   />
                   <h2>{spot.name}</h2>
-                  <h4>{spot.spot_type}</h4>
+                  <h4>{spot_type_value}</h4>
                 </div>
               );
             }

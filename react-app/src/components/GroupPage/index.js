@@ -26,6 +26,8 @@ function Group() {
       <div className="home__spot__cont">
         {isLoaded &&
           groups.map((group) => {
+            let group_type_value =
+              group.group_type[0].toUpperCase() + group.group_type.slice(1);
             if (Number.isInteger(group.id)) {
               return (
                 <div
@@ -39,7 +41,7 @@ function Group() {
                     alt="Spot preview"
                   />
                   <h2>{group.name}</h2>
-                  <h4>{group.group_type}</h4>
+                  <h4>{group_type_value}</h4>
                   <h4>{group.visibility ? "Public" : "Private"}</h4>
                 </div>
               );
