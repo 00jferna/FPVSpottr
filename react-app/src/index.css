@@ -19,6 +19,17 @@ a:hover {
   text-decoration: underline;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .main__body {
   display: flex;
   flex-direction: row;
@@ -34,6 +45,38 @@ a:hover {
 
 .hidden {
   display: none;
+}
+
+.modal {
+  padding: 20px;
+  height: auto;
+  width: 500px;
+}
+
+.modal__demo__login,
+.modal h1,
+.modal form,
+.modal form table,
+.modal form table tbody {
+  padding-bottom: 15px;
+  margin: auto;
+  text-align: center;
+}
+
+.modal form table tbody tr td input {
+  margin: auto;
+  text-align: center;
+  width: 300px;
+}
+
+.modal form table tbody tr td label {
+  margin: 10px;
+  font-weight: bolder;
+}
+
+.modal form table tbody tr td select {
+  text-align: center;
+  width: 100px;
 }
 
 .page__cont {
@@ -68,13 +111,17 @@ a:hover {
   list-style: none;
 }
 
+.navbar__user li,
+.navbar__navlinks li {
+  padding: 2px 0px;
+}
 .navbar__user img {
   height: auto;
   width: 100px;
 }
 
 .navbar__login__signup a {
-  padding: 5px;
+  padding: 0px 10px 0px 0px;
 }
 
 /* Home Page */
@@ -98,6 +145,7 @@ a:hover {
 .spot__card {
   display: flex;
   flex-direction: column;
+  height: 280px;
   margin: auto;
   width: 280px;
 }

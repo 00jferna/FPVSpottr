@@ -10,7 +10,7 @@ function LoginFormModal() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -24,42 +24,58 @@ function LoginFormModal() {
   };
 
   const handleDemoLogin = async () => {
-    setErrors([]);
+    setErrors({});
     await dispatch(login(demo, secret));
     closeModal();
   };
 
   return (
-    <>
+    <div className="modal">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
+            {errors.username && (
+              <tr className="errors">
+                <td>{errors.username[0]}</td>
+              </tr>
+            )}
+            <tr>
+              <td>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </td>
+            </tr>
+            {errors.password && (
+              <tr className="errors">
+                <td>{errors.password[0]}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
         <button type="submit">Log In</button>
       </form>
-      <button onClick={() => handleDemoLogin()}>Demo Login</button>
-    </>
+      <div className="modal__demo__login">
+        <button onClick={() => handleDemoLogin()}>Demo Login</button>
+      </div>
+    </div>
   );
 }
 

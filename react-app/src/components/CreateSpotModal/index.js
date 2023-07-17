@@ -82,8 +82,8 @@ function CreateSpotModal() {
   };
 
   return (
-    <div>
-      <h2>Create Spot</h2>
+    <div className="modal">
+      <h1>Create Spot</h1>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>
@@ -183,7 +183,11 @@ function CreateSpotModal() {
             </tr>
             <tr>
               <td>
-                <label>Spot Image</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Spot Image:</label>
                 <input
                   type="file"
                   accept="image/*"

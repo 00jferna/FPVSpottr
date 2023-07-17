@@ -51,7 +51,23 @@ function Navigation() {
               </li>
             </ul>
           )}
+
           <ul className="navbar__navlinks">
+            {!sessionUser && (
+              <>
+                <img src="/assets/FPVSpottr.png" />
+                <li className="navbar__login__signup">
+                  <OpenModalButton
+                    buttonText="Log In"
+                    modalComponent={<LoginFormModal />}
+                  />
+                  <OpenModalButton
+                    buttonText="Sign Up"
+                    modalComponent={<SignupFormModal />}
+                  />
+                </li>
+              </>
+            )}
             <li>
               <NavLink exact to="/">
                 Spots
@@ -63,18 +79,6 @@ function Navigation() {
             {/* <li>
           <NavLink to="/favorites">Favorites</NavLink>
         </li> */}
-            {!sessionUser && (
-              <li className="navbar__login__signup">
-                <OpenModalButton
-                  buttonText="Log In"
-                  modalComponent={<LoginFormModal />}
-                />
-                <OpenModalButton
-                  buttonText="Sign Up"
-                  modalComponent={<SignupFormModal />}
-                />
-              </li>
-            )}
           </ul>
         </div>
       )}
