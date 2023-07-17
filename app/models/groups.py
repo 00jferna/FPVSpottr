@@ -3,11 +3,11 @@ from enum import Enum
 from datetime import datetime
 
 class GroupTypes(Enum):
-    racing='Racing'
-    freestyle='Freestyle'
-    cinematic='Cinematic'
-    exploring='Exploring'
-    tinyWhoop='Tiny Whoop'
+    racing='racing'
+    freestyle='freestyle'
+    cinematic='cinematic'
+    exploring='exploring'
+    tinyWhoop='tinyWhoop'
 
 class Group(db.Model):
     __tablename__ = 'groups'

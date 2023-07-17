@@ -4,14 +4,14 @@ from datetime import datetime
 
 class SpotTypes(Enum):
     field='field'
-    park='Park'
-    playground='Playground'
-    bando='Bando'
-    industrialPark='Industrial Park'
+    park='park'
+    playground='playground'
+    bando='bando'
+    industrialPark='industrialPark'
 
 class SpotStatus(Enum):
-    active='Active'
-    inactive='Inactive'
+    active='active'
+    inactive='inactive'
 
 
 class Spot(db.Model):
