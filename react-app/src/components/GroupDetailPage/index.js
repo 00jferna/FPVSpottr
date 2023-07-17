@@ -28,17 +28,17 @@ function GroupDetail() {
               <div>
                 <h2>{group.name}</h2>
                 <h3>{group.group_type}</h3>
-                <h3>{group.owner}</h3>
+                <h3>{group.owner.callsign}</h3>
                 <h3>{group.visibility ? "Public" : "Private"}</h3>
               </div>
-              {user && user.id === group.owner && (
+              {user && user.id === group.owner.id && (
                 <div>
                   <OpenModalButton
                     buttonText="Update Group"
                     modalComponent={<UpdateGroupModal group={group} />}
                   />
                   <OpenModalButton
-                    buttonText="Delete Group!"
+                    buttonText="Delete Group"
                     modalComponent={<DeleteGroupModal group={group} />}
                   />
                 </div>
@@ -54,7 +54,7 @@ function GroupDetail() {
               <h3>Spot Reviews</h3>
               {user && (
                 <div>
-                  <button onClick={()=>{alert(`Feature coming Soon!`);}}>Join Group</button>
+                  <a onClick={()=>{alert(`Feature coming Soon!`);}}>Join Group</a>
                 </div>
               )}
             </div>

@@ -39,7 +39,7 @@ class Group(db.Model):
             'desc': self.desc,
             'visibility': self.visibility,
             'group_type': self.group_type,
-            'owner': self.owner,
+            'owner': self.users.to_dict(),
             'preview_img': self.preview_img,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at

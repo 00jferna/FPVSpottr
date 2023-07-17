@@ -50,7 +50,7 @@ class Spot(db.Model):
             'longitude': self.longitude,
             'address': self.address,
             'spot_type': self.spot_type,
-            'owner': self.owner,
+            'owner': self.users.to_dict(),
             'spots_status': self.spots_status,
             'preview_img': self.preview_img,
             'created_at':self.created_at,
