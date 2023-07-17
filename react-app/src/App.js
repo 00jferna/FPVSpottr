@@ -21,7 +21,7 @@ function App() {
 
   return (
     <><img className="main__logo" src="/assets/FPVSpottr_Logo.png"/>
-    <div className="body">
+    <div className="main__body">
       {isLoaded && (
         <div className="page__cont">
           <Switch>
