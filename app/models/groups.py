@@ -7,7 +7,7 @@ class GroupTypes(Enum):
     freestyle='freestyle'
     cinematic='cinematic'
     exploring='exploring'
-    tinyWhoop='tinyWhoop'
+    tiny_whoop='tiny_whoop'
 
 class Group(db.Model):
     __tablename__ = 'groups'

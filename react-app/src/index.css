@@ -68,6 +68,15 @@ a:hover {
   list-style: none;
 }
 
+.navbar__user img {
+  height: auto;
+  width: 100px;
+}
+
+.navbar__login__signup a {
+  padding: 5px;
+}
+
 /* Home Page */
 .home__search__cont {
   display: grid;
@@ -99,14 +108,21 @@ a:hover {
 }
 
 .spot__card__img {
-  height: auto;
-  margin: 10px auto;
-  width: 260px;
+  height: 160px;
+  margin: 10px 0px;
+  object-fit: cover;
+  width: 280px;
 }
 
 .spot__card h2,
 .spot__card h4 {
   margin: 10px;
+}
+
+.spot__card__details {
+  list-style: none;
+  margin: 0px 10px;
+  padding: 0px;
 }
 
 /* Spot Detail Page */
@@ -127,9 +143,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   margin: 0px 30px;
+  width: 500px;
 }
 
-.spot__name__list h2, .spot__detail h3{
+.spot__name__list h2,
+.spot__detail h3 {
   margin: 0px;
 }
 

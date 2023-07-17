@@ -92,7 +92,7 @@ def upgrade():
                     sa.Column('name', sa.String(length=255), nullable=False),
                     sa.Column('desc', sa.String(length=255)),
                     sa.Column('visibility', sa.Boolean(), nullable=False),
-                    sa.Column('group_type', sa.Enum('racing', 'freestyle', 'cinematic', 'exploring', 'tinyWhoop', name='group_type'), nullable=False),
+                    sa.Column('group_type', sa.Enum('racing', 'freestyle', 'cinematic', 'exploring', 'tiny_whoop', name='group_type'), nullable=False),
                     sa.Column('owner', sa.Integer(), nullable=False),
                     sa.Column('preview_img', sa.String(length=255), nullable=False),
                     sa.Column('created_at', sa.DateTime(), nullable=True),

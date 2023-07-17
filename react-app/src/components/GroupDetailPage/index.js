@@ -29,7 +29,11 @@ function GroupDetail() {
               <div className="spot__name__list">
                 <h2>{group.name}</h2>
                 <ul>
-                  <li>{group.group_type.toUpperCase()}</li>
+                  <li>
+                    {group.group_type.split("_").map((word) => {
+                      return " " + word[0].toUpperCase() + word.slice(1);
+                    })}
+                  </li>
                   <li>{group.owner.callsign}</li>
                   <li>{group.visibility ? "Public" : "Private"}</li>
                 </ul>
@@ -55,7 +59,7 @@ function GroupDetail() {
         </div>
         {group.visibility && (
           <div className="spot__reviews__cont">
-            <div>
+            <div className="spot__reviews__actions">
               <h3>Members</h3>
               {user && (
                 <div>

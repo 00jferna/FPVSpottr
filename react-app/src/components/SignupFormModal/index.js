@@ -12,7 +12,7 @@ function SignupFormModal() {
   const [callsign, setCallsign] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
@@ -50,6 +50,11 @@ function SignupFormModal() {
                 />
               </td>
             </tr>
+            {errors.email && (
+              <tr className="errors">
+                <td>{errors.email[0]}</td>
+              </tr>
+            )}
             <tr>
               <td>
                 <input
@@ -61,6 +66,11 @@ function SignupFormModal() {
                 />
               </td>
             </tr>
+            {errors.username && (
+              <tr className="errors">
+                <td>{errors.username[0]}</td>
+              </tr>
+            )}
             <tr>
               <td>
                 <input

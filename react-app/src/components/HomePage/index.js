@@ -27,8 +27,9 @@ function Home() {
         {isLoaded &&
           spots.map((spot) => {
             if (Number.isInteger(spot.id)) {
-              let spot_type_value =
-                spot.spot_type[0].toUpperCase() + spot.spot_type.slice(1);
+              let spot_type_value = spot.spot_type.split("_").map((word) => {
+                return " " + word[0].toUpperCase() + word.slice(1);
+              });
               return (
                 <div
                   className="spot__card"
@@ -41,7 +42,9 @@ function Home() {
                     alt="Spot preview"
                   />
                   <h2>{spot.name}</h2>
-                  <h4>{spot_type_value}</h4>
+                  <ul className="spot__card__details">
+                    <li>{spot_type_value}</li>
+                  </ul>
                 </div>
               );
             }

@@ -29,9 +29,17 @@ function SpotDetail() {
               <div className="spot__name__list">
                 <h2>{spot.name}</h2>
                 <ul>
-                  <li>{spot.spot_type.toUpperCase()}</li>
+                  <li>
+                    {spot.spot_type.split("_").map((word) => {
+                      return " " + word[0].toUpperCase() + word.slice(1);
+                    })}
+                  </li>
                   <li>{spot.owner.callsign}</li>
-                  <li>{spot.spots_status.toUpperCase()}</li>
+                  <li>
+                    {spot.spots_status.split("_").map((word) => {
+                      return " " + word[0].toUpperCase() + word.slice(1);
+                    })}
+                  </li>
                 </ul>
               </div>
 
@@ -47,7 +55,7 @@ function SpotDetail() {
                   />
                 </div>
               )}
-                <h3>Spot Description</h3>
+              <h3>Spot Description</h3>
               <div className="spot__desc">
                 <p>{spot.desc}</p>
               </div>
