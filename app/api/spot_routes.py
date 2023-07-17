@@ -39,8 +39,10 @@ def upload_file():
 @spot_routes.route('/')
 def get_spots():
     spots = Spot.query.all()
-    return_spots = spots
-    for spot in return_spots:
+    for spot in spots:
+        print('------------------------')
+        print(spot.spot_type)
+        print(spot.spot_type.value)
         type_value = spot.spot_type.value
         status_value = spot.spots_status.value
         spot.spot_type = type_value
@@ -50,7 +52,7 @@ def get_spots():
         spot.preview_img = presigned_img_url
 
     return {
-        "Spots": [spot.to_dict() for spot in return_spots]
+        "Spots": [spot.to_dict() for spot in spots]
     }
 
 

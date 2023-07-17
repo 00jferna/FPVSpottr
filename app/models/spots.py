@@ -3,7 +3,7 @@ from enum import Enum
 from datetime import datetime
 
 class SpotTypes(Enum):
-    field='Field'
+    field='field'
     park='Park'
     playground='Playground'
     bando='Bando'
