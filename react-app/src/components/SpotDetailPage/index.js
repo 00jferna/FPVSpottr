@@ -27,9 +27,11 @@ function SpotDetail() {
           <div>
             <div>
               <h2>{spot.name}</h2>
-              <h3>{spot.spot_type}</h3>
-              <h3>{spot.owner.callsign}</h3>
-              <h3>{spot.spots_status}</h3>
+              <ul>
+                <li>{spot.spot_type}</li>
+                <li>{spot.owner.callsign}</li>
+                <li>{spot.spots_status}</li>
+              </ul>
             </div>
             {user && user.id === spot.owner.id && (
               <div>
