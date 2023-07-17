@@ -20,6 +20,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <><img className="main__logo" src="/assets/FPVSpottr_Logo.png"/>
     <div className="body">
       {isLoaded && (
         <div className="page__cont">
@@ -50,6 +51,7 @@ function App() {
       )}
       <Navigation isLoaded={isLoaded} />
     </div>
+    </>
   );
 }
 

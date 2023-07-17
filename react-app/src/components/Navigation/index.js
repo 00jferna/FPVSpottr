@@ -20,8 +20,6 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className="navbar">
-      <img />
-
       {sessionUser && (
         <ul>
           <li>
