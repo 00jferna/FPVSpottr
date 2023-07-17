@@ -38,7 +38,7 @@ a:hover {
 
 .page__cont {
   margin: 130px 200px auto 100px;
-  padding: 30px;
+  padding: 10px 30px 100px;
   max-width: 1000px;
   width: 60vw;
 }
@@ -50,16 +50,24 @@ a:hover {
 
 /* NavBar */
 .navbar {
+  background-color: #089c4b;
   height: 100vh;
   margin-left: auto;
   margin-right: 0px;
-  width: 200px;
-  background-color: #089c4b;
+  padding-top: 20px;
   position: fixed;
-  top: 0px;
   right: 0px;
+  top: 0px;
+  width: 200px;
   z-index: 1;
 }
+
+.navbar__user, .navbar__navlinks {
+  margin: auto;
+  list-style: none;
+}
+
+
 
 /* Home Page */
 .home__search__cont {

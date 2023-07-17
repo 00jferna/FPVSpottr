@@ -21,7 +21,7 @@ function Navigation({ isLoaded }) {
   return (
     <div className="navbar">
       {sessionUser && (
-        <ul>
+        <ul className="navbar__user">
           <li>
             <img src={sessionUser.profile_img} />
             <p>{sessionUser.callsign}</p>
@@ -43,7 +43,7 @@ function Navigation({ isLoaded }) {
           </li>
         </ul>
       )}
-      <ul>
+      <ul className="navbar__navlinks">
         <li>
           <NavLink exact to="/">
             Spots
