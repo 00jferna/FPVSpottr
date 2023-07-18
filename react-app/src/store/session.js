@@ -86,7 +86,6 @@ export const signUp =
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data)
       dispatch(setUser(data));
       return null;
     } else if (response.status < 500) {
