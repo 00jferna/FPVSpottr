@@ -150,6 +150,7 @@ def update_spot(spotId):
             "message": "Forbidden",
             "statusCode": 403
         }
+    
     form = UpdateSpotForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.id == spot.owner and form.validate_on_submit():
@@ -160,7 +161,9 @@ def update_spot(spotId):
         spot.address = form.data['address']
         spot.spot_type = form.data['spot_type']
         spot.spots_status = form.data['spots_status']
-        spot.preview_img = form.data['preview_img']
+
+        if form.data['preview_img']:
+            spot.preview_img = form.data['preview_img']
 
         db.session.commit()
 
@@ -168,6 +171,7 @@ def update_spot(spotId):
         status_value = spot.spots_status.value
         spot.spot_type = type_value
         spot.spots_status = status_value
+
         parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.preview_img = presigned_img_url
