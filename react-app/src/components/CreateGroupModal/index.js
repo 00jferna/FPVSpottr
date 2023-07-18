@@ -69,7 +69,6 @@ function CreateGroupModal() {
       history.push(url);
     } else {
       setUploading(false);
-      console.log(errors);
       setErrors(newGroup.errors);
     }
   };
