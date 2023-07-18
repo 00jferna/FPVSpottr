@@ -16,27 +16,36 @@ function UpdateSpotModal({ spot }) {
   const [desc, setDsec] = useState(spot.desc);
   const [latitude, setLatitude] = useState(spot.latitude);
   const [longitude, setLongitude] = useState(spot.longitude);
-  const [address, setAddress] = useState(spot.address);
+  const [address, setAddress] = useState(spot.address ? spot.address : '');
   const [spot_type, setSpot_Type] = useState(spot.spot_type.toLowerCase());
-  const [spots_status, setSpots_status] = useState(spot.spots_status.toLowerCase());
-  const [preview_img, setPreview_img] = useState("default");
+  const [spots_status, setSpots_status] = useState(
+    spot.spots_status.toLowerCase()
+  );
+  const [preview_img, setPreview_img] = useState(spot.preview_img);
 
   const [uploading, setUploading] = useState(false);
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState({});
 
   const handleUpload = async (e) => {
     e.preventDefault();
     setErrors({});
 
     if (name !== spot.name) {
+      
       spots.some((obj) => {
+        console.log(name, spot.id)
+        console.log(obj.name,obj.id)
+        console.log('---------------')
         if (name === obj.name && spot.id !== obj.id) {
-          setErrors({name:'Name'});
+          console.log('Triggered')
+          setErrors({ name: ["Name" ]});
+          console.log(errors)
         }
       });
     }
 
-    if (preview_img !== "default") {
+    if (preview_img !== spot.preview_img) {
+      
       const formData = new FormData();
       formData.append("image", preview_img);
 
@@ -58,17 +67,20 @@ function UpdateSpotModal({ spot }) {
     setErrors({});
 
     const payload = {
-      id:spot.id,
+      id: spot.id,
       name,
       desc,
       latitude,
       longitude,
       address,
       spot_type,
-      spots_status,
-      preview_img:
-        preview_img !== "default" ? upload_data.image_url : default_img,
+      spots_status
     };
+
+    if (upload_data){
+      payload.preview_img = upload_data.image_url
+    }
+
 
     const updatedSpot = await dispatch(SpotActions.updateSpotThunk(payload));
 
@@ -108,11 +120,11 @@ function UpdateSpotModal({ spot }) {
                 />
               </td>
             </tr>
-            {/* {errors.name && (
+            {errors.name && (
               <tr className="errors">
                 <td>{errors.name[0]}</td>
               </tr>
-            )} */}
+            )}
             <tr>
               <td>
                 <textarea
@@ -199,6 +211,7 @@ function UpdateSpotModal({ spot }) {
                 <input
                   type="file"
                   accept="image/*"
+                  files={preview_img}
                   onChange={(e) => setPreview_img(e.target.files[0])}
                 />
               </td>

@@ -27,9 +27,11 @@ function SignupFormModal() {
         closeModal();
       }
     } else {
-      setErrors([
-        "Confirm Password field must be the same as the Password field",
-      ]);
+      setErrors({
+        password: [
+          "Confirm Password field must be the same as the Password field",
+        ],
+      });
     }
   };
 
@@ -104,6 +106,11 @@ function SignupFormModal() {
                 />
               </td>
             </tr>
+            {errors.password && (
+              <tr className="errors">
+                <td>{errors.password[0]}</td>
+              </tr>
+            )}
           </tbody>
         </table>
         <button type="submit">Sign Up</button>
