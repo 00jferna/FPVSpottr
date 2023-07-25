@@ -22,7 +22,7 @@ function GroupDetail() {
   return (
     isLoaded && (
       <div>
-        <div className="spot__cont">
+        <div className="cont">
           <div className="spot__detail__cont">
             <img src={group.preview_img} alt="Spot preview" />
             <div className="spot__detail">

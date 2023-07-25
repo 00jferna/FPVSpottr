@@ -8,6 +8,7 @@ import Group from "./components/GroupPage";
 import Favorite from "./components/FavoritePage";
 import SpotDetail from "./components/SpotDetailPage";
 import GroupDetail from "./components/GroupDetailPage";
+import FavoriteDetail from "./components/FavoriteDetailPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 require('dotenv').config();
@@ -42,6 +43,9 @@ function App() {
             </Route>
             <Route path="/groups">
               <Group />
+            </Route>
+            <Route path="/favorites/:favoriteId">
+              <FavoriteDetail />
             </Route>
             <Route path="/favorites">
               <Favorite />

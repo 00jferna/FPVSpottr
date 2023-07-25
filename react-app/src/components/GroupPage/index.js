@@ -32,12 +32,12 @@ function Group() {
             if (Number.isInteger(group.id)) {
               return (
                 <div
-                  className="spot__card"
+                  className="spot__card cards"
                   key={group.id}
                   onClick={() => handleSpotClick(group.id)}
                 >
                   <img
-                    className="spot__card__img"
+                    className="card__img"
                     src={group.preview_img}
                     alt="Spot preview"
                   />

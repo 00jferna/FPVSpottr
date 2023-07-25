@@ -32,12 +32,12 @@ function Home() {
               });
               return (
                 <div
-                  className="spot__card"
+                  className="spot__card cards"
                   key={spot.id}
                   onClick={() => handleSpotClick(spot.id)}
                 >
                   <img
-                    className="spot__card__img"
+                    className="card__img"
                     src={spot.preview_img}
                     alt="Spot preview"
                   />
