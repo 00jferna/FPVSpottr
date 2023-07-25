@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import spotsReducer from './spots';
 import groupReducer from './groups';
+import favoritesReducer from './favorites';
 
 const rootReducer = combineReducers({
   session,
   spots:spotsReducer,
-  groups:groupReducer
+  groups:groupReducer,
+  favorites:favoritesReducer
 });
 
 

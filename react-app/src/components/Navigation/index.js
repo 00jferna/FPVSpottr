@@ -76,9 +76,9 @@ function Navigation() {
             <li>
               <NavLink to="/groups">Groups</NavLink>
             </li>
-            {/* <li>
+            <li>
           <NavLink to="/favorites">Favorites</NavLink>
-        </li> */}
+        </li>
           </ul>
         </div>
       )}

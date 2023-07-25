@@ -1,3 +1,5 @@
+from .aws import (if_allowed_image, file_unique_name,
+                  upload_S3, create_presigned_url)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Spot, Favorite, FavoriteSpot
 from app.forms import FavoriteForm
@@ -31,6 +33,16 @@ def validation_errors_to_error_messages(validation_errors):
 def get_all_favorites():
     favorites = Favorite.query.all()
 
+    for favorite in favorites:
+        for spot in favorite.favorite_spots:
+            type_value = spot.spots.spot_type.value
+            status_value = spot.spots.spots_status.value
+            spot.spots.spot_type = type_value
+            spot.spots.spots_status = status_value
+            parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
+            presigned_img_url = create_presigned_url(parsed_img_url)
+            spot.spots.preview_img = presigned_img_url
+
     return {
         "Favorites": [favorite.to_dict() for favorite in favorites]
     }
@@ -62,6 +74,14 @@ def get_favorites_by_id(favoriteId):
             "message": "Favorite couldn't be found",
             "statusCode": 404
         }
+    for spot in favorite.favorite_spots:
+        type_value = spot.spots.spot_type.value
+        status_value = spot.spots.spots_status.value
+        spot.spots.spot_type = type_value
+        spot.spots.spots_status = status_value
+        parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        spot.spots.preview_img = presigned_img_url
 
     return favorite.to_dict()
 

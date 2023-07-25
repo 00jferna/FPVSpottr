@@ -17,7 +17,7 @@ class Favorite(db.Model):
 
     users = db.relationship('User', back_populates='favorites')
 
-    favorite_spots = db.relationship('FavoriteSpot', back_populates='favorites')
+    favorite_spots = db.relationship('FavoriteSpot', back_populates='favorites', lazy='dynamic')
 
 
     def to_dict(self):
@@ -26,7 +26,8 @@ class Favorite(db.Model):
             'name': self.name,
             'desc': self.desc,
             'visibility': self.visibility,
-            'owner': self.owner,
+            'owner': self.users.to_dict(),
+            "spots": [spot.to_dict() for spot in self.favorite_spots],
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
         }
@@ -45,8 +46,5 @@ class FavoriteSpot(db.Model):
     favorites = db.relationship('Favorite', back_populates='favorite_spots')
 
     def to_dict(self):
-        return {
-            'id': self.id,
-            'favorite_id': self.favorite_id,
-            'spot_id': self.spot_id
-        }
+        return self.spots.to_dict()
+        
