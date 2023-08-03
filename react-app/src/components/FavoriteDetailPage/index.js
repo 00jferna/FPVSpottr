@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import * as FavoriteActions from "../../store/favorites";
 
@@ -7,6 +8,7 @@ function FavoriteDetail() {
   const { favoriteId } = useParams();
   const dispatch = useDispatch();
   const favorite = useSelector((state) => state.favorites.favoriteDetail);
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -15,6 +17,10 @@ function FavoriteDetail() {
       setIsLoaded(true);
     });
   }, [dispatch, favoriteId]);
+
+  const handleSpotClick = (spotId) => {
+    history.push(`/spots/${spotId}`);
+  };
 
   return (
     isLoaded && (
@@ -38,7 +44,7 @@ function FavoriteDetail() {
                       return " " + word[0].toUpperCase() + word.slice(1);
                     });
                   return (
-                    <div className="fav__spots__card cards" key={spot.id}>
+                    <div className="fav__spots__card cards" key={spot.id} onClick={() => handleSpotClick(spot.id)}>
                       <img
                         className="card__img"
                         src={spot.preview_img}

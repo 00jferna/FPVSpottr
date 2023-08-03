@@ -9,6 +9,7 @@ import SignupFormModal from "../SignupFormModal";
 
 import CreateSpotModal from "../CreateSpotModal";
 import CreateGroupModal from "../CreateGroupModal";
+import CreateFavoriteModal from "../CreateFavoriteModal";
 
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -47,6 +48,12 @@ function Navigation() {
                 <OpenModalButton
                   buttonText="Add a Group"
                   modalComponent={<CreateGroupModal />}
+                />
+              </li>
+              <li>
+                <OpenModalButton
+                  buttonText="Create a Favorites List"
+                  modalComponent={<CreateFavoriteModal />}
                 />
               </li>
             </ul>

@@ -1,5 +1,5 @@
 from .aws import (if_allowed_image, file_unique_name,
-                  upload_S3, create_presigned_url)
+                  upload_S3, create_presigned_url, delete_S3)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Spot
 from app.forms import SpotForm, UpdateSpotForm
@@ -200,12 +200,18 @@ def delete_spot(spotId):
             "message": "Forbidden",
             "statusCode": 403
         }
+    
+    awsRes = None
+    if spot.preview_img.rsplit("/", 1)[-1] != default_img.rsplit("/", 1)[-1]:
+        awsRes = delete_S3(spot.preview_img.rsplit("/", 1)[-1])
 
     db.session.delete(spot)
     db.session.commit()
 
+
     return {
         "id": spot.id,
         "message": "Successfully deleted",
-        "statusCode": 200
+        "statusCode": 200,
+        "AWS": awsRes
     }

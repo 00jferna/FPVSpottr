@@ -39,6 +39,7 @@ def get_all_favorites():
             status_value = spot.spots.spots_status.value
             spot.spots.spot_type = type_value
             spot.spots.spots_status = status_value
+
             parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
             presigned_img_url = create_presigned_url(parsed_img_url)
             spot.spots.preview_img = presigned_img_url
@@ -79,6 +80,7 @@ def get_favorites_by_id(favoriteId):
         status_value = spot.spots.spots_status.value
         spot.spots.spot_type = type_value
         spot.spots.spots_status = status_value
+        
         parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.spots.preview_img = presigned_img_url
