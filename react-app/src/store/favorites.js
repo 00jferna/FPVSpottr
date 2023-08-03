@@ -36,6 +36,28 @@ export const getFavoriteDetailsThunk = (favoriteId) => async (dispatch) => {
   return data;
 };
 
+export const createFavoritesThunk = (favorite) => async (dispatch) => {
+  const res = await fetch("/api/favorites/create", {
+    method: "POST",
+    body: JSON.stringify(favorite),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+  return data;
+};
+
+export const deleteFavoritesThunk = (favorite) => async (dispatch) => {
+  const res = await fetch(`/api/favorites/${favorite.id}`, {
+    method: "DELETE",
+  });
+
+  const data = await res.json();
+  return data;
+};
+
 const initialState = {
   favorites: {},
   favoriteDetail: {},

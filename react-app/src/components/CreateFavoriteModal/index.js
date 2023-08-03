@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as FavoriteActions from "../../store/favorites";
 
-const default_img = process.env.REACT_APP_DEFAULT_IMG;
-
 function CreateFavoriteModal() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -14,47 +12,23 @@ function CreateFavoriteModal() {
   const [name, setName] = useState("");
   const [desc, setDsec] = useState("");
   const [visibility, setVisibility] = useState("true");
-  const [group_type, setGroup_type] = useState("racing");
-
-  const [preview_img, setPreview_img] = useState("default");
 
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const handleUpload = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({});
-    if (preview_img !== "default") {
-      const formData = new FormData();
-      formData.append("image", preview_img);
-
-      setUploading(true);
-      const res = await fetch("/api/groups/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const upload_data = await res.json();
-
-      handleSubmit(upload_data);
-    } else {
-      handleSubmit();
-    }
-  };
-
-  const handleSubmit = async (upload_data) => {
     setErrors({});
 
     const payload = {
       name,
       desc,
       visibility,
-      group_type,
-      preview_img:
-        preview_img !== "default" ? upload_data.image_url : default_img,
     };
 
-    const newFavorite = null // await dispatch(FavoriteActions(payload));
+    const newFavorite = await dispatch(
+      FavoriteActions.createFavoritesThunk(payload)
+    );
 
     if (newFavorite.id) {
       const newFavoriteId = newFavorite.id;
@@ -62,8 +36,6 @@ function CreateFavoriteModal() {
       setName("");
       setDsec("");
       setVisibility("");
-      setGroup_type("");
-      setPreview_img("");
       setErrors({});
       closeModal();
       history.push(url);
@@ -75,8 +47,8 @@ function CreateFavoriteModal() {
 
   return (
     <div className="modal">
-      <h1>Create Favorite List</h1>
-      <form onSubmit={handleUpload}>
+      <h1>Create Favorites List</h1>
+      <form onSubmit={handleSubmit}>
         <table>
           <tbody>
             <tr>
@@ -99,14 +71,12 @@ function CreateFavoriteModal() {
                 <textarea
                   type="text"
                   rows="5"
-                  placeholder="Favorite List Description"
+                  placeholder="Favorites List Description"
                   value={desc}
                   onChange={(e) => setDsec(e.target.value)}
                 />
               </td>
             </tr>
-
-            
             <tr>
               <td>
                 <select
@@ -122,19 +92,9 @@ function CreateFavoriteModal() {
                 </select>
               </td>
             </tr>
-            <tr>
-              <td>
-                <label>Favorite List Image:</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setPreview_img(e.target.files[0])}
-                />
-              </td>
-            </tr>
           </tbody>
         </table>
-        <button>Create Group!</button>
+        <button>Create Favorites List!</button>
       </form>
       {uploading && (
         <div>

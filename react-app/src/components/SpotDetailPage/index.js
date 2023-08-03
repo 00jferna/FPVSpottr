@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as SpotActions from "../../store/spots";
 import OpenModalButton from "../OpenModalButton";
-import DeleteSpotModal from "../DeleteSpotModal";
+import DeleteModal from "../DeleteModal";
 import UpdateSpotModal from "../UpdateSpotModal";
 
 function SpotDetail() {
@@ -51,7 +51,7 @@ function SpotDetail() {
                   />
                   <OpenModalButton
                     buttonText="Delete Spot"
-                    modalComponent={<DeleteSpotModal spot={spot} />}
+                    modalComponent={<DeleteModal type='spot' item={spot} />}
                   />
                 </div>
               )}

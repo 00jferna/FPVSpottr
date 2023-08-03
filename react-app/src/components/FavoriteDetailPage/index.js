@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import * as FavoriteActions from "../../store/favorites";
+import OpenModalButton from "../OpenModalButton";
+import DeleteModal from "../DeleteModal";
+import UpdateGroupModal from "../UpdateGroupModal";
 
 function FavoriteDetail() {
   const { favoriteId } = useParams();
@@ -33,6 +36,20 @@ function FavoriteDetail() {
                 <li>{favorite.owner.callsign}</li>
                 <li>{favorite.visibility ? "Public" : "Private"}</li>
               </ul>
+              {user && user.id === favorite.owner.id && (
+                <div className="spot__actions">
+                  <OpenModalButton
+                    buttonText="Update Favorite"
+                    modalComponent={<UpdateGroupModal group={favorite} />}
+                  />
+                  <OpenModalButton
+                    buttonText="Delete Favorite"
+                    modalComponent={
+                      <DeleteModal type="favorite" item={favorite} />
+                    }
+                  />
+                </div>
+              )}
               <p>{favorite.desc}</p>
             </div>
             <div className="fav__spots">
@@ -44,7 +61,11 @@ function FavoriteDetail() {
                       return " " + word[0].toUpperCase() + word.slice(1);
                     });
                   return (
-                    <div className="fav__spots__card cards" key={spot.id} onClick={() => handleSpotClick(spot.id)}>
+                    <div
+                      className="fav__spots__card cards"
+                      key={spot.id}
+                      onClick={() => handleSpotClick(spot.id)}
+                    >
                       <img
                         className="card__img"
                         src={spot.preview_img}
