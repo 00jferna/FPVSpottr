@@ -15,3 +15,9 @@ class FavoriteForm(FlaskForm):
     name = StringField('name', validators=[DataRequired(), favorite_exists])
     desc = StringField('desc', validators=[DataRequired()])
     visibility = BooleanField('visibility')
+
+class UpdateFavoriteForm(FlaskForm):
+    id = IntegerField('id')
+    name = StringField('name', validators=[DataRequired()])
+    desc = StringField('desc', validators=[DataRequired()])
+    visibility = BooleanField('visibility')

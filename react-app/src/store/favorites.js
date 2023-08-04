@@ -1,5 +1,6 @@
 const GET_ALL_FAVORITES = "favorites/GET_ALL_FAVORITES";
 const GET_FAVORITE_DETAIL = "favorites/GET_FAVORITE_DETAIL";
+const UPDATE_FAVORITE = "favorites/UPDATE_FAVORITE";
 
 const getAllFavorites = (favorites) => ({
   type: GET_ALL_FAVORITES,
@@ -8,6 +9,11 @@ const getAllFavorites = (favorites) => ({
 
 const getFavoriteDetails = (favorite) => ({
   type: GET_FAVORITE_DETAIL,
+  favorite,
+});
+
+const updateFavoriteDetails = (favorite) => ({
+  type: UPDATE_FAVORITE,
   favorite,
 });
 
@@ -49,6 +55,20 @@ export const createFavoritesThunk = (favorite) => async (dispatch) => {
   return data;
 };
 
+export const updateFavoritesThunk = (favorite) => async (dispatch) => {
+  const res = await fetch(`/api/favorites/${favorite.id}`, {
+    method: "PUT",
+    body: JSON.stringify(favorite),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+  dispatch(updateFavoriteDetails(data));
+  return data;
+};
+
 export const deleteFavoritesThunk = (favorite) => async (dispatch) => {
   const res = await fetch(`/api/favorites/${favorite.id}`, {
     method: "DELETE",
@@ -68,6 +88,8 @@ const favoritesReducer = (state = initialState, action) => {
     case GET_ALL_FAVORITES:
       return action.favorites;
     case GET_FAVORITE_DETAIL:
+      return { ...state, favoriteDetail: action.favorite };
+    case UPDATE_FAVORITE:
       return { ...state, favoriteDetail: action.favorite };
     default:
       return state;

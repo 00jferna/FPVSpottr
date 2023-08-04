@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import * as FavoriteActions from "../../store/favorites";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "../DeleteModal";
-import UpdateGroupModal from "../UpdateGroupModal";
+import UpdateFavoriteModal from "../UpdateFavoriteModal";
 
 function FavoriteDetail() {
   const { favoriteId } = useParams();
@@ -40,7 +40,7 @@ function FavoriteDetail() {
                 <div className="spot__actions">
                   <OpenModalButton
                     buttonText="Update Favorite"
-                    modalComponent={<UpdateGroupModal group={favorite} />}
+                    modalComponent={<UpdateFavoriteModal favorite={favorite} />}
                   />
                   <OpenModalButton
                     buttonText="Delete Favorite"
