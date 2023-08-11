@@ -64,7 +64,6 @@ class Spot(db.Model):
             'latitude': self.latitude,
             'longitude': self.longitude,
             'address': self.address,
-            # 'spot_type': [e.value for e in self.spot_type],
             'spot_type': self.spot_type,
             'owner': self.users.to_dict(),
             'spots_status': self.spots_status,

@@ -42,7 +42,7 @@ def create_review():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_review = Review(
-            reviewer=form.data['reviewer'],
+            reviewer=current_user.id,
             spot_id=form.data['spot_id'],
             review=form.data['review']
         )
@@ -52,7 +52,7 @@ def create_review():
 
         return new_review.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}
 
 
 # Update a Review by Review ID

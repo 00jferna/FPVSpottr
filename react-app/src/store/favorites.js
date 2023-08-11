@@ -93,11 +93,6 @@ export const deleteFavoritesThunk = (favorite) => async (dispatch) => {
   return data;
 };
 
-const initialState = {
-  favorites: {},
-  favoriteDetail: {},
-};
-
 export const addFavoritesThunk = (favoriteId, spot) => async (dispatch) => {
   const res = await fetch(`/api/favorites/${favoriteId}/add/${spot.id}`, {
     method: "POST",
@@ -105,6 +100,11 @@ export const addFavoritesThunk = (favoriteId, spot) => async (dispatch) => {
 
   const data = await res.json();
   return data;
+};
+
+const initialState = {
+  favorites: {},
+  favoriteDetail: {},
 };
 
 const favoritesReducer = (state = initialState, action) => {

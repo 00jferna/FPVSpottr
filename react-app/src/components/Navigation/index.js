@@ -10,6 +10,7 @@ import SignupFormModal from "../SignupFormModal";
 import CreateSpotModal from "../CreateSpotModal";
 import CreateGroupModal from "../CreateGroupModal";
 import CreateFavoriteModal from "../CreateFavoriteModal";
+import Footer from "../CommonFooter";
 
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -18,12 +19,14 @@ function Navigation() {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout()).then(() => setIsLoaded(false));
+    dispatch(logout())
+      .then(() => setIsLoaded(false))
+      .then(() => setIsLoaded(true));
   };
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
-  }, [dispatch, isLoaded]);
+  }, [dispatch,isLoaded]);
 
   return (
     <>
@@ -70,7 +73,7 @@ function Navigation() {
                   />
                   <OpenModalButton
                     buttonText="Sign Up"
-                    modalComponent={<SignupFormModal />}
+                    modalComponent={<SignupFormModal onIsloaded={setIsLoaded}/>}
                   />
                 </li>
               </>
@@ -84,9 +87,10 @@ function Navigation() {
               <NavLink to="/groups">Groups</NavLink>
             </li>
             <li>
-          <NavLink to="/favorites">Favorites</NavLink>
-        </li>
+              <NavLink to="/favorites">Favorites</NavLink>
+            </li>
           </ul>
+          <Footer />
         </div>
       )}
     </>

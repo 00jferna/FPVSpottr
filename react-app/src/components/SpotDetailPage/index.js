@@ -2,23 +2,30 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as SpotActions from "../../store/spots";
+import * as ReviewActions from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
+import OpenModalCard from "../OpenModalCard";
 import DeleteModal from "../DeleteModal";
 import UpdateSpotModal from "../UpdateSpotModal";
 import AddFavoriteModal from "../AddFavoriteModal";
+import CreateReviewModal from "../CreateReviewModal";
+import ReviewModal from "../ReviewModal";
 
 function SpotDetail() {
   const { spotId } = useParams();
   const dispatch = useDispatch();
   const spot = useSelector((state) => state.spots.spotDetail);
+  const reviews = useSelector((state) => state.reviews.SpotReviews);
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(SpotActions.getSpotDetailsThunk(spotId)).then(() => {
-      setIsLoaded(true);
-    });
-  }, [dispatch, spotId]);
+    dispatch(SpotActions.getSpotDetailsThunk(spotId))
+      .then((spot) => dispatch(ReviewActions.getSpotReviewsThunk(spot)))
+      .then(() => {
+        setIsLoaded(true);
+      });
+  }, [dispatch, spotId, isLoaded]);
 
   return (
     isLoaded && (
@@ -69,13 +76,12 @@ function SpotDetail() {
               <h3>Spot Reviews</h3>
               {user && (
                 <div>
-                  <a
-                    onClick={() => {
-                      alert(`Feature coming Soon!`);
-                    }}
-                  >
-                    Create Review
-                  </a>
+                  <OpenModalButton
+                    buttonText="Create Review"
+                    modalComponent={
+                      <CreateReviewModal type="spot" spot={spot} onIsloaded={setIsLoaded} />
+                    }
+                  />
                   <OpenModalButton
                     buttonText="Add to Favorites"
                     modalComponent={<AddFavoriteModal spot={spot} />}
@@ -84,9 +90,27 @@ function SpotDetail() {
               )}
             </div>
             <ul className="spot__reviews">
-              <li>Review Placeholder</li>
-              <li>Review Placeholder</li>
-              <li>Review Placeholder</li>
+              {reviews.map((review) => {
+                return (
+                  <li className="spot__reviews_details" key={review.id}>
+                    <OpenModalCard
+                      buttonText={
+                        <>
+                          <p>{review.review}</p>
+                          <h4>{review.reviewer.callsign}</h4>
+                        </>
+                      }
+                      modalComponent={
+                        <ReviewModal
+                          review={review}
+                          user={user}
+                          onIsloaded={setIsLoaded}
+                        />
+                      }
+                    />
+                  </li>
+                );
+              })}
             </ul>
           </div>
         }

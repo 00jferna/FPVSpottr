@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import Review, Spot
+
 
 def spot_exists(form, field):
     spot_id = field.data
@@ -9,7 +10,9 @@ def spot_exists(form, field):
     if not spot:
         raise ValidationError('Spot does not exists.')
 
+
 class ReviewForm(FlaskForm):
-    reviewer = IntegerField('reviewer', validators=[DataRequired()])
-    review = StringField("review", validators=[DataRequired()])
-    spot_id = IntegerField('reviewer', validators=[DataRequired(), spot_exists])
+    review = StringField("review", validators=[
+                         DataRequired(), Length(max=255)])
+    spot_id = IntegerField('reviewer', validators=[
+                           DataRequired(), spot_exists])
