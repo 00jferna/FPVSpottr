@@ -43,18 +43,39 @@ p {
   width: 400px;
 }
 
+.footer {
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  font-size: smaller;
+  margin: 15px 0px;
+  position: fixed;
+  width: inherit;
+}
+
+.about__me {
+  display: flex;
+  flex-direction: column;
+}
+
+.about__me h4,
+.footer a {
+  margin: 1px auto;
+}
+
 .hidden {
   display: none;
 }
 
 .modal {
+  max-height: 80vh;
   padding: 20px;
-  height: auto;
   width: 500px;
 }
 
 .modal__demo__login,
 .modal h1,
+.modal h2,
 .modal form,
 .modal table,
 .modal form table,
@@ -62,6 +83,14 @@ p {
   padding-bottom: 15px;
   margin: auto;
   text-align: center;
+}
+
+.modal a{
+  margin: auto;
+}
+.modal p {
+  overflow: auto;
+  height: 90%;
 }
 
 .modal table tbody tr td button {

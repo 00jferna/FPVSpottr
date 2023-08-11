@@ -4,10 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as SpotActions from "../../store/spots";
 
-const default_img = process.env.REACT_APP_DEFAULT_IMG;
-
 function UpdateSpotModal({ spot }) {
-  const spots = useSelector((state) => Object.values(state.spots));
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
@@ -16,7 +13,7 @@ function UpdateSpotModal({ spot }) {
   const [desc, setDsec] = useState(spot.desc);
   const [latitude, setLatitude] = useState(spot.latitude);
   const [longitude, setLongitude] = useState(spot.longitude);
-  const [address, setAddress] = useState(spot.address ? spot.address : '');
+  const [address, setAddress] = useState(spot.address ? spot.address : "");
   const [spot_type, setSpot_Type] = useState(spot.spot_type.toLowerCase());
   const [spots_status, setSpots_status] = useState(
     spot.spots_status.toLowerCase()
@@ -30,22 +27,7 @@ function UpdateSpotModal({ spot }) {
     e.preventDefault();
     setErrors({});
 
-    if (name !== spot.name) {
-      
-      spots.some((obj) => {
-        console.log(name, spot.id)
-        console.log(obj.name,obj.id)
-        console.log('---------------')
-        if (name === obj.name && spot.id !== obj.id) {
-          console.log('Triggered')
-          setErrors({ name: ["Name" ]});
-          console.log(errors)
-        }
-      });
-    }
-
     if (preview_img !== spot.preview_img) {
-      
       const formData = new FormData();
       formData.append("image", preview_img);
 
@@ -74,13 +56,12 @@ function UpdateSpotModal({ spot }) {
       longitude,
       address,
       spot_type,
-      spots_status
+      spots_status,
     };
 
-    if (upload_data){
-      payload.preview_img = upload_data.image_url
+    if (upload_data) {
+      payload.preview_img = upload_data.image_url;
     }
-
 
     const updatedSpot = await dispatch(SpotActions.updateSpotThunk(payload));
 

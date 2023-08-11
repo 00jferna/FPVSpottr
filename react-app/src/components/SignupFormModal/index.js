@@ -5,7 +5,7 @@ import { signUp } from "../../store/session";
 
 const default_profile = process.env.REACT_APP_DEFAULT_PROFILE;
 
-function SignupFormModal() {
+const SignupFormModal = ({ onIsloaded }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -14,7 +14,6 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -24,6 +23,7 @@ function SignupFormModal() {
       if (data) {
         setErrors(data);
       } else {
+        onIsloaded(false);
         closeModal();
       }
     } else {
@@ -117,6 +117,6 @@ function SignupFormModal() {
       </form>
     </div>
   );
-}
+};
 
 export default SignupFormModal;

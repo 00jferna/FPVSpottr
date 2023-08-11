@@ -47,6 +47,18 @@ def upload_S3(file, acl="private"):
     return {"url": f"{S3_LOCATION}{file.filename}"}
 
 
+def delete_S3(file, acl="private"):
+    try:
+        res = s3.delete_object(
+            Bucket=BUCKET_NAME,
+            Key=file
+        )
+    except Exception as e:
+        return {"errors": str(e)}
+
+    return res
+
+
 def create_presigned_url(object_name, bucket_name=BUCKET_NAME, expiration=3600):
     try:
         response = s3.generate_presigned_url('get_object',

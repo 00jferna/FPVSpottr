@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as GroupActions from "../../store/groups";
 import OpenModalButton from "../OpenModalButton";
-import DeleteGroupModal from "../DeleteGroupModal";
+import DeleteModal from "../DeleteModal";
 import UpdateGroupModal from "../UpdateGroupModal";
 
 function GroupDetail() {
@@ -46,7 +46,7 @@ function GroupDetail() {
                   />
                   <OpenModalButton
                     buttonText="Delete Group"
-                    modalComponent={<DeleteGroupModal group={group} />}
+                    modalComponent={<DeleteModal type='group' item={group} />}
                   />
                 </div>
               )}

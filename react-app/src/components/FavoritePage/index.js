@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as FavoriteActions from "../../store/favorites";
 import SearchBar from "../SearchBar";
+
 function Favorite() {
   const favorites = useSelector((state) => Object.values(state.favorites));
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
+  
   useEffect(() => {
     dispatch(FavoriteActions.getAllFavoritesThunk()).then(() => {
       setIsLoaded(true);

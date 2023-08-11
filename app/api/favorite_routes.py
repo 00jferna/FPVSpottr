@@ -2,7 +2,7 @@ from .aws import (if_allowed_image, file_unique_name,
                   upload_S3, create_presigned_url)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Spot, Favorite, FavoriteSpot
-from app.forms import FavoriteForm
+from app.forms import FavoriteForm, UpdateFavoriteForm
 from flask_login import current_user, login_required
 
 favorite_routes = Blueprint('favorites', __name__)
@@ -35,10 +35,9 @@ def get_all_favorites():
 
     for favorite in favorites:
         for spot in favorite.favorite_spots:
-            type_value = spot.spots.spot_type.value
-            status_value = spot.spots.spots_status.value
-            spot.spots.spot_type = type_value
-            spot.spots.spots_status = status_value
+            spot.spots.spot_type = spot.spots.spot_type.to_value()
+            spot.spots.spots_status = spot.spots.spots_status.to_value()
+
             parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
             presigned_img_url = create_presigned_url(parsed_img_url)
             spot.spots.preview_img = presigned_img_url
@@ -60,6 +59,15 @@ def get_favorites_by_user(userId):
 
     favorites = Favorite.query.filter_by(owner=userId).all()
 
+    for favorite in favorites:
+        for spot in favorite.favorite_spots:
+            spot.spots.spot_type = spot.spots.spot_type.to_value()
+            spot.spots.spots_status = spot.spots.spots_status.to_value()
+
+            parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
+            presigned_img_url = create_presigned_url(parsed_img_url)
+            spot.spots.preview_img = presigned_img_url
+
     return {
         "UserFavorites": [favorite.to_dict() for favorite in favorites]
     }
@@ -75,10 +83,9 @@ def get_favorites_by_id(favoriteId):
             "statusCode": 404
         }
     for spot in favorite.favorite_spots:
-        type_value = spot.spots.spot_type.value
-        status_value = spot.spots.spots_status.value
-        spot.spots.spot_type = type_value
-        spot.spots.spots_status = status_value
+        spot.spots.spot_type = spot.spots.spot_type.to_value()
+        spot.spots.spots_status = spot.spots.spots_status.to_value()
+
         parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.spots.preview_img = presigned_img_url
@@ -103,9 +110,9 @@ def create_favorite():
         db.session.add(new_favorite)
         db.session.commit()
 
-        return new_favorite.to_dict()
+        return new_favorite.to_dict(), 201
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
 # Update a Favorite by Favorite ID
@@ -124,14 +131,22 @@ def update_favorite(favoriteId):
             "statusCode": 403
         }
 
-    form = FavoriteForm()
+    form = UpdateFavoriteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user.id == favorite.owner and form.validate_on_submit():
-        favorite.name = form.data['name'],
-        favorite.desc = form.data['desc'],
+        favorite.name = form.data['name']
+        favorite.desc = form.data['desc']
         favorite.visibility = form.data['visibility']
 
         db.session.commit()
+
+        for spot in favorite.favorite_spots:
+            spot.spots.spot_type = spot.spots.spot_type.to_value()
+            spot.spots.spots_status = spot.spots.spots_status.to_value()
+
+            parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
+            presigned_img_url = create_presigned_url(parsed_img_url)
+            spot.spots.preview_img = presigned_img_url
 
         return favorite.to_dict()
 
@@ -165,7 +180,7 @@ def delete_favorite(favoriteId):
 
 
 # Add a Spot to a Favorite
-@favorite_routes.route('/<int:favoriteId>/add/<int:spotId>')
+@favorite_routes.route('/<int:favoriteId>/add/<int:spotId>', methods=['POST'])
 @login_required
 def add_spot(favoriteId, spotId):
     if not is_owner(favoriteId):

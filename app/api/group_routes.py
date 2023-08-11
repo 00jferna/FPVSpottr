@@ -1,11 +1,13 @@
 from .aws import (if_allowed_image, file_unique_name,
-                  upload_S3, create_presigned_url)
+                  upload_S3, create_presigned_url, delete_S3)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Group, Member
-from app.forms import GroupForm,UpdateGroupForm
+from app.forms import GroupForm, UpdateGroupForm
 from flask_login import current_user, login_required
 
 group_routes = Blueprint('groups', __name__)
+
+default_img = 'https://aa-capstone-project.s3.amazonaws.com/default_spot.jpg'
 
 
 # Upload to AWS
@@ -38,8 +40,8 @@ def upload_file():
 def get_all_groups():
     groups = Group.query.all()
     for group in groups:
-        type_value = group.group_type.value
-        group.group_type = type_value
+        group.group_type = group.group_type.to_value()
+
         parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         group.preview_img = presigned_img_url
@@ -62,8 +64,8 @@ def get_all_user_groups(userId):
     groups = Member.query.filter_by(member=userId).all()
 
     for group in groups:
-        type_value = group.privileges.value
-        group.privileges = type_value
+        group.group_type = group.group_type.to_value()
+
         parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         group.preview_img = presigned_img_url
@@ -84,8 +86,8 @@ def get_group_by_id(groupId):
             "statusCode": 404
         }
 
-    type_value = group.group_type.value
-    group.group_type = type_value
+    group.group_type = group.group_type.to_value()
+
     parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
     presigned_img_url = create_presigned_url(parsed_img_url)
     group.preview_img = presigned_img_url
@@ -97,7 +99,6 @@ def get_group_by_id(groupId):
 @group_routes.route('/create', methods=['POST'])
 @login_required
 def create_group():
-    default_img = '/assets/default_spot.png'
     form = GroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -116,8 +117,7 @@ def create_group():
         db.session.add(new_group)
         db.session.commit()
 
-        type_value = new_group.group_type.value
-        new_group.group_type = type_value
+        new_group.group_type = new_group.group_type.to_value()
 
         parsed_img_url = new_group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
@@ -132,7 +132,6 @@ def create_group():
 @group_routes.route('/<int:groupId>', methods=['PUT'])
 @login_required
 def update_group(groupId):
-    default_img = '/assets/default_spot.png'
     group = Group.query.get(groupId)
     if not group:
         return {
@@ -160,8 +159,8 @@ def update_group(groupId):
 
         db.session.commit()
 
-        type_value = group.group_type.value
-        group.group_type = type_value
+        group.group_type = group.group_type.to_value()
+
         parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         group.preview_img = presigned_img_url
@@ -170,9 +169,8 @@ def update_group(groupId):
 
     return {'errors': form.errors}, 401
 
+
 # Delete a Group by Group ID
-
-
 @group_routes.route('<int:groupId>', methods=['DELETE'])
 @login_required
 def delete_spot(groupId):
@@ -189,11 +187,16 @@ def delete_spot(groupId):
             "statusCode": 403
         }
 
+    awsRes = None
+    if group.preview_img.rsplit("/", 1)[-1] != default_img.rsplit("/", 1)[-1]:
+        awsRes = delete_S3(group.preview_img.rsplit("/", 1)[-1])
+
     db.session.delete(group)
     db.session.commit()
 
     return {
         "id": group.id,
         "message": "Successfully deleted",
-        "statusCode": 200
+        "statusCode": 200,
+        "AWS": awsRes
     }

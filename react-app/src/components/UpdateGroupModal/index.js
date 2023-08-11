@@ -65,6 +65,7 @@ function UpdateGroupModal({ group }) {
     };
 
     const updatedGroup = await dispatch(GroupActions.updateGroupThunk(payload));
+    
     if (updatedGroup.id) {
       const updatedGroupId = updatedGroup.id;
       const url = `/groups/${updatedGroupId}`;
