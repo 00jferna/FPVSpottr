@@ -9,6 +9,9 @@ class GroupTypes(Enum):
     exploring='exploring'
     tiny_whoop='tiny_whoop'
 
+    def to_value(self):
+        return self.value
+
 class Group(db.Model):
     __tablename__ = 'groups'
 

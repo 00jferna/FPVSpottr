@@ -27,7 +27,7 @@ class Favorite(db.Model):
             'desc': self.desc,
             'visibility': self.visibility,
             'owner': self.users.to_dict(),
-            "spots": [spot.to_dict() for spot in self.favorite_spots],
+            "spots": [q.to_dict() for q in self.favorite_spots],
             'createdAt': self.created_at,
             'updatedAt': self.updated_at
         }
@@ -41,6 +41,8 @@ class FavoriteSpot(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     favorite_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('favorites.id')), nullable=False)
     spot_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('spots.id')), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     spots = db.relationship('Spot', back_populates='favorite_spots')
     favorites = db.relationship('Favorite', back_populates='favorite_spots')

@@ -35,10 +35,8 @@ def get_all_favorites():
 
     for favorite in favorites:
         for spot in favorite.favorite_spots:
-            type_value = spot.spots.spot_type.value
-            status_value = spot.spots.spots_status.value
-            spot.spots.spot_type = type_value
-            spot.spots.spots_status = status_value
+            spot.spots.spot_type = spot.spots.spot_type.to_value()
+            spot.spots.spots_status = spot.spots.spots_status.to_value()
 
             parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
             presigned_img_url = create_presigned_url(parsed_img_url)
@@ -61,6 +59,15 @@ def get_favorites_by_user(userId):
 
     favorites = Favorite.query.filter_by(owner=userId).all()
 
+    for favorite in favorites:
+        for spot in favorite.favorite_spots:
+            spot.spots.spot_type = spot.spots.spot_type.to_value()
+            spot.spots.spots_status = spot.spots.spots_status.to_value()
+
+            parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
+            presigned_img_url = create_presigned_url(parsed_img_url)
+            spot.spots.preview_img = presigned_img_url
+
     return {
         "UserFavorites": [favorite.to_dict() for favorite in favorites]
     }
@@ -76,11 +83,9 @@ def get_favorites_by_id(favoriteId):
             "statusCode": 404
         }
     for spot in favorite.favorite_spots:
-        type_value = spot.spots.spot_type.value
-        status_value = spot.spots.spots_status.value
-        spot.spots.spot_type = type_value
-        spot.spots.spots_status = status_value
-        
+        spot.spots.spot_type = spot.spots.spot_type.to_value()
+        spot.spots.spots_status = spot.spots.spots_status.to_value()
+
         parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.spots.preview_img = presigned_img_url
@@ -114,8 +119,6 @@ def create_favorite():
 @favorite_routes.route('/<int:favoriteId>', methods=['PUT'])
 @login_required
 def update_favorite(favoriteId):
-    print('---------------------------------------------')
-    print(favoriteId)
     favorite = Favorite.query.get(favoriteId)
     if not favorite:
         return {
@@ -138,11 +141,9 @@ def update_favorite(favoriteId):
         db.session.commit()
 
         for spot in favorite.favorite_spots:
-            type_value = spot.spots.spot_type.value
-            status_value = spot.spots.spots_status.value
-            spot.spots.spot_type = type_value
-            spot.spots.spots_status = status_value
-            
+            spot.spots.spot_type = spot.spots.spot_type.to_value()
+            spot.spots.spots_status = spot.spots.spots_status.to_value()
+
             parsed_img_url = spot.spots.preview_img.rsplit("/", 1)[-1]
             presigned_img_url = create_presigned_url(parsed_img_url)
             spot.spots.preview_img = presigned_img_url
@@ -179,7 +180,7 @@ def delete_favorite(favoriteId):
 
 
 # Add a Spot to a Favorite
-@favorite_routes.route('/<int:favoriteId>/add/<int:spotId>')
+@favorite_routes.route('/<int:favoriteId>/add/<int:spotId>', methods=['POST'])
 @login_required
 def add_spot(favoriteId, spotId):
     if not is_owner(favoriteId):

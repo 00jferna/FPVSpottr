@@ -32,6 +32,21 @@ export const getAllFavoritesThunk = () => async (dispatch) => {
   return data;
 };
 
+export const getUserFavoritesThunk = (user) => async (dispatch) => {
+  const res = await fetch(`/api/favorites/user/${user.id}`, {
+    method: "GET",
+  });
+
+  const data = await res.json();
+  let allFavorites = {};
+  data.UserFavorites.forEach((favorite) => {
+    allFavorites[favorite.id] = favorite;
+  });
+
+  dispatch(getAllFavorites(allFavorites));
+  return data;
+};
+
 export const getFavoriteDetailsThunk = (favoriteId) => async (dispatch) => {
   const res = await fetch(`/api/favorites/${favoriteId}`, {
     method: "GET",
@@ -81,6 +96,15 @@ export const deleteFavoritesThunk = (favorite) => async (dispatch) => {
 const initialState = {
   favorites: {},
   favoriteDetail: {},
+};
+
+export const addFavoritesThunk = (favoriteId, spot) => async (dispatch) => {
+  const res = await fetch(`/api/favorites/${favoriteId}/add/${spot.id}`, {
+    method: "POST",
+  });
+
+  const data = await res.json();
+  return data;
 };
 
 const favoritesReducer = (state = initialState, action) => {

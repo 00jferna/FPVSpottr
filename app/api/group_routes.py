@@ -40,8 +40,8 @@ def upload_file():
 def get_all_groups():
     groups = Group.query.all()
     for group in groups:
-        type_value = group.group_type.value
-        group.group_type = type_value
+        group.group_type = group.group_type.to_value()
+
         parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         group.preview_img = presigned_img_url
@@ -64,8 +64,8 @@ def get_all_user_groups(userId):
     groups = Member.query.filter_by(member=userId).all()
 
     for group in groups:
-        type_value = group.privileges.value
-        group.privileges = type_value
+        group.group_type = group.group_type.to_value()
+
         parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         group.preview_img = presigned_img_url
@@ -86,8 +86,8 @@ def get_group_by_id(groupId):
             "statusCode": 404
         }
 
-    type_value = group.group_type.value
-    group.group_type = type_value
+    group.group_type = group.group_type.to_value()
+
     parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
     presigned_img_url = create_presigned_url(parsed_img_url)
     group.preview_img = presigned_img_url
@@ -117,8 +117,7 @@ def create_group():
         db.session.add(new_group)
         db.session.commit()
 
-        type_value = new_group.group_type.value
-        new_group.group_type = type_value
+        new_group.group_type = new_group.group_type.to_value()
 
         parsed_img_url = new_group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
@@ -160,8 +159,8 @@ def update_group(groupId):
 
         db.session.commit()
 
-        type_value = group.group_type.value
-        group.group_type = type_value
+        group.group_type = group.group_type.to_value()
+
         parsed_img_url = group.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         group.preview_img = presigned_img_url

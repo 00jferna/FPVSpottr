@@ -40,10 +40,8 @@ def upload_file():
 def get_spots():
     spots = Spot.query.all()
     for spot in spots:
-        type_value = spot.spot_type.value
-        status_value = spot.spots_status.value
-        spot.spot_type = type_value
-        spot.spots_status = status_value
+        spot.spot_type = spot.spot_type.to_value()
+        spot.spots_status = spot.spots_status.to_value()
         parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.preview_img = presigned_img_url
@@ -65,10 +63,8 @@ def get_spots_by_user(userId):
 
     spots = Spot.query.filter_by(owner=userId).all()
     for spot in spots:
-        type_value = spot.spot_type.value
-        status_value = spot.spots_status.value
-        spot.spot_type = type_value
-        spot.spots_status = status_value
+        spot.spot_type = spot.spot_type.to_value()
+        spot.spots_status = spot.spots_status.to_value()
         parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
         spot.preview_img = presigned_img_url
@@ -87,10 +83,8 @@ def get_spot_by_id(spotId):
             "statusCode": 404
         }
 
-    type_value = spot.spot_type.value
-    status_value = spot.spots_status.value
-    spot.spot_type = type_value
-    spot.spots_status = status_value
+    spot.spot_type = spot.spot_type.to_value()
+    spot.spots_status = spot.spots_status.to_value()
     parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
     presigned_img_url = create_presigned_url(parsed_img_url)
     spot.preview_img = presigned_img_url
@@ -120,10 +114,8 @@ def create_spot():
         db.session.add(new_spot)
         db.session.commit()
 
-        type_value = new_spot.spot_type.value
-        status_value = new_spot.spots_status.value
-        new_spot.spot_type = type_value
-        new_spot.spots_status = status_value
+        new_spot.spot_type = new_spot.spot_type.to_value()
+        new_spot.spots_status = new_spot.spots_status.to_value()
 
         parsed_img_url = new_spot.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)
@@ -167,10 +159,8 @@ def update_spot(spotId):
 
         db.session.commit()
 
-        type_value = spot.spot_type.value
-        status_value = spot.spots_status.value
-        spot.spot_type = type_value
-        spot.spots_status = status_value
+        spot.spot_type = spot.spot_type.to_value()
+        spot.spots_status = spot.spots_status.to_value()
 
         parsed_img_url = spot.preview_img.rsplit("/", 1)[-1]
         presigned_img_url = create_presigned_url(parsed_img_url)

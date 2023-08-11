@@ -5,6 +5,7 @@ import * as SpotActions from "../../store/spots";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "../DeleteModal";
 import UpdateSpotModal from "../UpdateSpotModal";
+import AddFavoriteModal from "../AddFavoriteModal";
 
 function SpotDetail() {
   const { spotId } = useParams();
@@ -51,7 +52,7 @@ function SpotDetail() {
                   />
                   <OpenModalButton
                     buttonText="Delete Spot"
-                    modalComponent={<DeleteModal type='spot' item={spot} />}
+                    modalComponent={<DeleteModal type="spot" item={spot} />}
                   />
                 </div>
               )}
@@ -62,34 +63,33 @@ function SpotDetail() {
             </div>
           </div>
         </div>
-        {/* <div className="spot__reviews__cont">
-          <div className="spot__reviews__actions">
-            <h3>Spot Reviews</h3>
-            {user && (
-              <div>
-                <a
-                  onClick={() => {
-                    alert(`Feature coming Soon!`);
-                  }}
-                >
-                  Create Review
-                </a>
-                <a
-                  onClick={() => {
-                    alert(`Feature coming Soon!`);
-                  }}
-                >
-                  Add to Favorites
-                </a>
-              </div>
-            )}
+        {
+          <div className="spot__reviews__cont">
+            <div className="spot__reviews__actions">
+              <h3>Spot Reviews</h3>
+              {user && (
+                <div>
+                  <a
+                    onClick={() => {
+                      alert(`Feature coming Soon!`);
+                    }}
+                  >
+                    Create Review
+                  </a>
+                  <OpenModalButton
+                    buttonText="Add to Favorites"
+                    modalComponent={<AddFavoriteModal spot={spot} />}
+                  />
+                </div>
+              )}
+            </div>
+            <ul className="spot__reviews">
+              <li>Review Placeholder</li>
+              <li>Review Placeholder</li>
+              <li>Review Placeholder</li>
+            </ul>
           </div>
-          <ul className="spot__reviews">
-            <li>Review Placeholder</li>
-            <li>Review Placeholder</li>
-            <li>Review Placeholder</li>
-          </ul>
-        </div> */}
+        }
       </div>
     )
   );

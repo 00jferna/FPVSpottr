@@ -6,6 +6,9 @@ class MemberPrivileges(Enum):
     member='member'
     admin='admin'
     owner='owner'
+    
+    def to_value(self):
+        return self.value
 
 class Member(db.Model):
     __tablename__ = 'members'

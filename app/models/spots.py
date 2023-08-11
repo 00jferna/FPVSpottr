@@ -3,15 +3,21 @@ from enum import Enum
 from datetime import datetime
 
 class SpotTypes(Enum):
-    field='field'
-    park='park'
-    playground='playground'
-    bando='bando'
-    industrial_park='industrial_park'
+    field = 'field'
+    park = 'park'
+    playground = 'playground'
+    bando = 'bando'
+    industrial_park = 'industrial_park'
+
+    def to_value(self):
+        return self.value
 
 class SpotStatus(Enum):
-    active='active'
-    inactive='inactive'
+    active = 'active'
+    inactive = 'inactive'
+
+    def to_value(self):
+        return self.value
 
 
 class Spot(db.Model):
@@ -26,20 +32,29 @@ class Spot(db.Model):
     latitude = db.Column(db.Float(), nullable=False)
     longitude = db.Column(db.Float(), nullable=False)
     address = db.Column(db.String(255))
-    spot_type = db.Column('spot_type', db.Enum(SpotTypes, name='spot_type'), nullable=False)
-    owner = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    spots_status = db.Column('spots_status', db.Enum(SpotStatus, name='spots_status'), nullable=False)
+    spot_type = db.Column('spot_type', db.Enum(
+        SpotTypes, name='spot_type'), nullable=False)
+    owner = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
+    spots_status = db.Column('spots_status', db.Enum(
+        SpotStatus, name='spots_status'), nullable=False)
     preview_img = db.Column(db.String(255), nullable=False)
 
     created_at = db.Column(db.DateTime, default=datetime.now)
-    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     users = db.relationship('User', back_populates='spots')
-    reviews = db.relationship('Review', back_populates='spots', cascade='all, delete-orphan')
-    favorite_spots = db.relationship('FavoriteSpot', back_populates='spots', cascade='all, delete-orphan')
-    images = db.relationship('Image', back_populates='spots', cascade='all, delete-orphan')
-    videos = db.relationship('Video', back_populates='spots', cascade='all, delete-orphan')
-    visits = db.relationship('Visit', back_populates='spots', cascade='all, delete-orphan')
+    reviews = db.relationship(
+        'Review', back_populates='spots', cascade='all, delete-orphan')
+    favorite_spots = db.relationship(
+        'FavoriteSpot', back_populates='spots', cascade='all, delete-orphan')
+    images = db.relationship(
+        'Image', back_populates='spots', cascade='all, delete-orphan')
+    videos = db.relationship(
+        'Video', back_populates='spots', cascade='all, delete-orphan')
+    visits = db.relationship(
+        'Visit', back_populates='spots', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -49,10 +64,11 @@ class Spot(db.Model):
             'latitude': self.latitude,
             'longitude': self.longitude,
             'address': self.address,
+            # 'spot_type': [e.value for e in self.spot_type],
             'spot_type': self.spot_type,
             'owner': self.users.to_dict(),
             'spots_status': self.spots_status,
             'preview_img': self.preview_img,
-            'created_at':self.created_at,
+            'created_at': self.created_at,
             'updated_at': self.updated_at
         }
