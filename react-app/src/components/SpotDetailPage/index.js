@@ -79,13 +79,17 @@ function SpotDetail() {
                   <OpenModalButton
                     buttonText="Create Review"
                     modalComponent={
-                      <CreateReviewModal type="spot" spot={spot} onIsloaded={setIsLoaded} />
+                      <CreateReviewModal
+                        type="spot"
+                        spot={spot}
+                        onIsloaded={setIsLoaded}
+                      />
                     }
                   />
-                  <OpenModalButton
+                  {/* <OpenModalButton
                     buttonText="Add to Favorites"
                     modalComponent={<AddFavoriteModal spot={spot} />}
-                  />
+                  /> */}
                 </div>
               )}
             </div>
@@ -98,6 +102,13 @@ function SpotDetail() {
                         <>
                           <p>{review.review}</p>
                           <h4>{review.reviewer.callsign}</h4>
+                          <h5>
+                            {review.createdAt.split(" ")[2] +
+                              " " +
+                              review.createdAt.split(" ")[1] +
+                              ", " +
+                              review.createdAt.split(" ")[3]}
+                          </h5>
                         </>
                       }
                       modalComponent={
