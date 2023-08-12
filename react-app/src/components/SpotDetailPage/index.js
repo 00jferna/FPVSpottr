@@ -49,6 +49,13 @@ function SpotDetail() {
                     })}
                   </li>
                 </ul>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://google.com/maps/place/${spot.latitude},${spot.longitude}`}
+                >
+                  Map it!
+                </a>
               </div>
 
               {user && user.id === spot.owner.id && (
@@ -63,8 +70,8 @@ function SpotDetail() {
                   />
                 </div>
               )}
-              <h3>Spot Description</h3>
               <div className="spot__desc">
+              <h3>Spot Description</h3>
                 <p>{spot.desc}</p>
               </div>
             </div>
