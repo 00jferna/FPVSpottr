@@ -85,9 +85,10 @@ p {
   text-align: center;
 }
 
-.modal a{
+.modal a {
   margin: auto;
 }
+
 .modal p {
   overflow: auto;
   height: 90%;
@@ -99,10 +100,17 @@ p {
   width: 50px;
 }
 
-.modal form table tbody tr td input,
-.modal form table tbody tr td textarea {
+.modal form table tbody tr td input {
   margin: auto;
   width: 300px;
+}
+
+.modal form table tbody tr td textarea {
+  margin: auto;
+  min-height: 60px;
+  max-height: 300px;
+  min-width: 300px;
+  max-width: 490px;
 }
 
 .modal form table tbody tr td input {
@@ -334,4 +342,73 @@ p {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Favorite Details Page */
+.fav__spots{
+  margin: 10px 12px;
+}
+
+/* Reviews */
+.spot__reviews__cont {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: auto;
+  padding: 15px;
+  width: inherit;
+}
+.spot__reviews {
+  margin: 10px;
+  padding: 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 49%);
+  gap: 1em;
+}
+
+.spot__reviews_details {
+  background-color: rgba(255, 255, 255, 1);
+  padding: 5px;
+  height: auto;
+}
+
+.spot__reviews_details p {
+  margin: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.spot__reviews_details h4 {
+  font-style: italic;
+  margin: 5px 15px;
+  text-align: end;
+}
+
+.spot__reviews_details h5 {
+  font-style: italic;
+  font-size: small;
+  margin: 5px 15px;
+  text-align: end;
+}
+
+.spot__reviews_details:hover {
+  cursor: pointer;
+  scale: 1.03;
+}
+
+.spot__review__modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.spot__review__modal h3 {
+  margin: 10px auto 5px;
+  text-align: center;
+}
+
+.spot__review__modal p {
+  margin: 5px 10px 30px;
+}
+
+.spot__review__modal a {
+  margin: 10px 10px 10px auto;
 }
