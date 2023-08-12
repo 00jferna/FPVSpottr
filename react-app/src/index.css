@@ -235,6 +235,7 @@ p {
 }
 
 .spot__detail__cont img {
+  border-radius: 5px;
   height: 280px;
   object-fit: cover;
   width: 500px;
@@ -348,7 +349,12 @@ p {
 }
 
 .fav__detail__cont {
-  border: solid;
+  margin: 10px 20px;
+}
+
+.fav__detail__cont ul{
+  list-style: none;
+  padding: 0px;
 }
 
 .fav__spots__card {
@@ -376,10 +382,12 @@ p {
 /* Reviews */
 .spot__reviews__cont {
   background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   height: auto;
   padding: 15px;
   width: inherit;
 }
+
 .spot__reviews {
   margin: 10px;
   padding: 0px;
@@ -390,6 +398,7 @@ p {
 
 .spot__reviews_details {
   background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
   padding: 5px;
   height: auto;
 }
