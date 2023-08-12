@@ -18,14 +18,16 @@ function SpotDetail() {
   const reviews = useSelector((state) => state.reviews.SpotReviews);
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [reviewsLoaded, setReviewLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(SpotActions.getSpotDetailsThunk(spotId))
       .then((spot) => dispatch(ReviewActions.getSpotReviewsThunk(spot)))
       .then(() => {
-        setIsLoaded(true);
+        setIsLoaded(true)
+        setReviewLoaded(true);
       });
-  }, [dispatch, spotId, isLoaded]);
+  }, [dispatch, spotId, isLoaded, reviewsLoaded]);
 
   return (
     isLoaded && (
@@ -71,13 +73,13 @@ function SpotDetail() {
                 </div>
               )}
               <div className="spot__desc">
-              <h3>Spot Description</h3>
+                <h3>Spot Description</h3>
                 <p>{spot.desc}</p>
               </div>
             </div>
           </div>
         </div>
-        {
+        {reviewsLoaded && (
           <div className="spot__reviews__cont">
             <div className="spot__reviews__actions">
               <h3>Spot Reviews</h3>
@@ -89,7 +91,7 @@ function SpotDetail() {
                       <CreateReviewModal
                         type="spot"
                         spot={spot}
-                        onIsloaded={setIsLoaded}
+                        onIsloaded={setReviewLoaded}
                       />
                     }
                   />
@@ -122,7 +124,7 @@ function SpotDetail() {
                         <ReviewModal
                           review={review}
                           user={user}
-                          onIsloaded={setIsLoaded}
+                          onIsloaded={setReviewLoaded}
                         />
                       }
                     />
@@ -131,7 +133,7 @@ function SpotDetail() {
               })}
             </ul>
           </div>
-        }
+        )}
       </div>
     )
   );
