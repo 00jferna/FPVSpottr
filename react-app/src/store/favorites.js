@@ -113,8 +113,6 @@ const favoritesReducer = (state = initialState, action) => {
       return action.favorites;
     case GET_FAVORITE_DETAIL:
       return { ...state, favoriteDetail: action.favorite };
-    case UPDATE_FAVORITE:
-      return { ...state, favoriteDetail: action.favorite };
     default:
       return state;
   }

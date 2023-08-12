@@ -112,7 +112,7 @@ def create_favorite():
 
         return new_favorite.to_dict(), 201
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}
+    return {'errors': form.errors}
 
 
 # Update a Favorite by Favorite ID
@@ -150,7 +150,7 @@ def update_favorite(favoriteId):
 
         return favorite.to_dict()
 
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}
 
 
 # Delete a Favorite by Favorite ID
