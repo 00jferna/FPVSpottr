@@ -241,10 +241,32 @@ p {
 }
 
 .spot__detail {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+    "details"
+    "actions"
+    "desc";
   margin: 0px 30px;
   width: 500px;
+}
+
+.spot__name__list {
+  grid-area: details;
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "details mapLink";
+  height: 110px;
+}
+.spot__name__list h2 {
+  grid-area: title;
+}
+.spot__name__list ul {
+  grid-area: details;
+}
+.spot__name__list a {
+  margin: 15px;
+  grid-area: mapLink;
 }
 
 .spot__name__list h2,
@@ -259,6 +281,7 @@ p {
 }
 
 .spot__actions {
+  grid-area: actions;
   margin: 10px 0px;
   display: flex;
   flex-direction: row;
@@ -266,6 +289,7 @@ p {
 }
 
 .spot__desc {
+  grid-area: desc;
   overflow: auto;
 }
 
@@ -345,7 +369,7 @@ p {
 }
 
 /* Favorite Details Page */
-.fav__spots{
+.fav__spots {
   margin: 10px 12px;
 }
 
