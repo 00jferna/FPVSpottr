@@ -258,7 +258,9 @@ p {
     "title title"
     "details mapLink";
   height: 110px;
+  margin: 15px 0px 0px;
 }
+
 .spot__name__list h2 {
   grid-area: title;
 }
@@ -352,7 +354,7 @@ p {
   margin: 10px 20px;
 }
 
-.fav__detail__cont ul{
+.fav__detail__cont ul {
   list-style: none;
   padding: 0px;
 }
@@ -444,4 +446,13 @@ p {
 
 .spot__review__modal a {
   margin: 10px 10px 10px auto;
+}
+
+/* Groups Page */
+.group__details {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.group__members {
+  border-radius: 0px 0px 5px 5px;
 }

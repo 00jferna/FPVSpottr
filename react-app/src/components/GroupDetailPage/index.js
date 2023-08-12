@@ -22,7 +22,7 @@ function GroupDetail() {
   return (
     isLoaded && (
       <div>
-        <div className="cont">
+        <div className="cont group__details">
           <div className="spot__detail__cont">
             <img src={group.preview_img} alt="Spot preview" />
             <div className="spot__detail">
@@ -50,15 +50,15 @@ function GroupDetail() {
                   />
                 </div>
               )}
-              <h3>Group Description</h3>
               <div className="spot__desc">
+              <h3>Group Description</h3>
                 <p>{group.desc}</p>
               </div>
             </div>
           </div>
         </div>
         {group.visibility && (
-          <div className="spot__reviews__cont">
+          <div className="spot__reviews__cont group__members">
             <div className="spot__reviews__actions">
               <h3>Members</h3>
               {user && (
