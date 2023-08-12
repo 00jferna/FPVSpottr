@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as FavoriteActions from "../../store/favorites";
 
-function UpdateFavoriteModal({ favorite }) {
+function UpdateFavoriteModal({ favorite,onSetIsLoaded }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
@@ -40,7 +40,7 @@ function UpdateFavoriteModal({ favorite }) {
       setVisibility("");
       setErrors({});
       closeModal();
-      history.push(url);
+      onSetIsLoaded(false)
     } else {
       setErrors(updatedFavorite.errors);
     }
@@ -78,6 +78,11 @@ function UpdateFavoriteModal({ favorite }) {
                 />
               </td>
             </tr>
+            {errors.desc && (
+              <tr className="errors">
+                <td>{errors.desc[0]}</td>
+              </tr>
+            )}
             <tr>
               <td>
                 <select

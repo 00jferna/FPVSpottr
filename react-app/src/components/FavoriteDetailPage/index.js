@@ -19,7 +19,7 @@ function FavoriteDetail() {
     dispatch(FavoriteActions.getFavoriteDetailsThunk(favoriteId)).then(() => {
       setIsLoaded(true);
     });
-  }, [dispatch, favoriteId]);
+  }, [dispatch, favoriteId, isLoaded]);
 
   const handleSpotClick = (spotId) => {
     history.push(`/spots/${spotId}`);
@@ -40,7 +40,12 @@ function FavoriteDetail() {
                 <div className="spot__actions">
                   <OpenModalButton
                     buttonText="Update Favorite"
-                    modalComponent={<UpdateFavoriteModal favorite={favorite} />}
+                    modalComponent={
+                      <UpdateFavoriteModal
+                        favorite={favorite}
+                        onSetIsLoaded={setIsLoaded}
+                      />
+                    }
                   />
                   <OpenModalButton
                     buttonText="Delete Favorite"

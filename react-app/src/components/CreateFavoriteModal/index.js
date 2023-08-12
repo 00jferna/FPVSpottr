@@ -40,7 +40,6 @@ function CreateFavoriteModal() {
       closeModal();
       history.push(url);
     } else {
-      setUploading(false);
       setErrors(newFavorite.errors);
     }
   };
@@ -77,6 +76,11 @@ function CreateFavoriteModal() {
                 />
               </td>
             </tr>
+            {errors.desc && (
+              <tr className="errors">
+                <td>{errors.desc[0]}</td>
+              </tr>
+            )}
             <tr>
               <td>
                 <select

@@ -12,12 +12,12 @@ def favorite_exists(form, field):
 
 
 class FavoriteForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired(), favorite_exists])
-    desc = StringField('desc', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired("Favorite Name is required."), favorite_exists])
+    desc = StringField('desc', validators=[DataRequired("Favorite Description is required.")])
     visibility = BooleanField('visibility')
 
 class UpdateFavoriteForm(FlaskForm):
     id = IntegerField('id')
-    name = StringField('name', validators=[DataRequired()])
-    desc = StringField('desc', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired("Favorite Name is required.")])
+    desc = StringField('desc', validators=[DataRequired("Favorite Description is required.")])
     visibility = BooleanField('visibility')
