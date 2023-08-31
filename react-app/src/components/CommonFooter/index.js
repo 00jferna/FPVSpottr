@@ -7,9 +7,29 @@ function Footer() {
         <h4>Delevoped by:</h4>
         <h4>Jesse Fernandez</h4>
       </div>
-      <a href="https://github.com/00jferna">Github</a>
-      <a href="https://www.linkedin.com/in/jessejfernandez/">LinkedIn</a>
-      <a href="https://wellfound.com/u/jesse-fernandez-3">Wellfound</a>
+      <div className="about__links">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/00jferna"
+        >
+          <i class="fab fa-github fa-9x"></i>
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.linkedin.com/in/jessejfernandez/"
+        >
+          <i class="fab fa-linkedin-in fa-9x"></i>
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://wellfound.com/u/jesse-fernandez-3"
+        >
+          <i class="fab fa-angellist fa-9x"></i>
+        </a>
+      </div>
     </div>
   );
 }

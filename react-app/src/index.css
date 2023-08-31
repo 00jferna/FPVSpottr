@@ -63,6 +63,23 @@ p {
   margin: 1px auto;
 }
 
+.about__links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 15px 10px 25px;
+}
+
+.about__links a {
+  margin: 0px;
+  font-size: 2pt;
+  color: black;
+}
+
+.about__links a:hover{
+  scale: 1.1;
+}
+
 .hidden {
   display: none;
 }
