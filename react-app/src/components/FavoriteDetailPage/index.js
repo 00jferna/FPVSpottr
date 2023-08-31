@@ -58,7 +58,7 @@ function FavoriteDetail() {
               <p>{favorite.desc}</p>
             </div>
             <div className="fav__spots">
-              {favorite.spots.map((spot) => {
+              {favorite.visibility && favorite.spots.map((spot) => {
                 if (Number.isInteger(spot.id)) {
                   let spot_type_value = spot.spot_type
                     .split("_")
