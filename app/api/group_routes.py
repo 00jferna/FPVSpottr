@@ -152,10 +152,9 @@ def update_group(groupId):
         group.desc = form.data['desc']
         group.visibility = form.data['visibility']
         group.group_type = form.data['group_type']
-        group.preview_img = form.data['preview_img']
 
-        if len(form.data['preview_img']) == 0:
-            group.preview_img = default_img
+        if form.data['preview_img']:
+            group.preview_img = form.data['preview_img']
 
         db.session.commit()
 

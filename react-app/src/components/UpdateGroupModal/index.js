@@ -16,7 +16,7 @@ function UpdateGroupModal({ group }) {
   const [desc, setDsec] = useState(group.desc);
   const [visibility, setVisibility] = useState(group.visibility ? true:false);
   const [group_type, setGroup_type] = useState(group.group_type.toLowerCase());
-  const [preview_img, setPreview_img] = useState("default");
+  const [preview_img, setPreview_img] = useState(group.preview_img);
 
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -33,7 +33,7 @@ function UpdateGroupModal({ group }) {
       });
     }
 
-    if (preview_img !== "default") {
+    if (preview_img !== group.preview_img) {
       const formData = new FormData();
       formData.append("image", preview_img);
 
@@ -59,10 +59,12 @@ function UpdateGroupModal({ group }) {
       name,
       desc,
       visibility,
-      group_type,
-      preview_img:
-        preview_img !== "default" ? upload_data.image_url : default_img,
+      group_type
     };
+
+    if (upload_data) {
+      payload.preview_img = upload_data.image_url;
+    }
 
     const updatedGroup = await dispatch(GroupActions.updateGroupThunk(payload));
     
@@ -153,6 +155,7 @@ function UpdateGroupModal({ group }) {
                 <input
                   type="file"
                   accept="image/*"
+                  files={preview_img}
                   onChange={(e) => setPreview_img(e.target.files[0])}
                 />
               </td>

@@ -21,7 +21,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <><NavLink exact to="/"><img className="main__logo" src="/assets/FPVSpottr_Logo_Header_Color.png"/></NavLink>
+    <><NavLink exact to="/"><img className="main__logo" src="/assets/FPVSpottr_Logo_Header_Color.png" alt='FPV Spottr logo'/></NavLink>
     <div className="main__body">
       {isLoaded && (
         <div className="page__cont">

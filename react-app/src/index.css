@@ -30,6 +30,21 @@ p {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button {
+  background-color: #089c4b;
+  border: unset;
+  color: #67109c;
+  font-weight: bold;
+  height: 3em;
+  width: 150px;
+}
+
+button:hover {
+  cursor: pointer;
+  font-weight: bolder;
+  scale: 1.1;
+}
+
 .main__body {
   display: flex;
   flex-direction: row;
@@ -76,7 +91,7 @@ p {
   color: black;
 }
 
-.about__links a:hover{
+.about__links a:hover {
   scale: 1.1;
 }
 
@@ -185,7 +200,6 @@ p {
   right: 0px;
   top: 0px;
   width: 200px;
-  z-index: 1;
 }
 
 .navbar__user,
