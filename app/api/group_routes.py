@@ -2,7 +2,7 @@ from .aws import (if_allowed_image, file_unique_name,
                   upload_S3, create_presigned_url, delete_S3)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Group, Member
-from app.forms import GroupForm, UpdateGroupForm
+from app.forms import GroupForm, UpdateGroupForm, MemberForm
 from flask_login import current_user, login_required
 
 group_routes = Blueprint('groups', __name__)
@@ -198,4 +198,71 @@ def delete_spot(groupId):
         "message": "Successfully deleted",
         "statusCode": 200,
         "AWS": awsRes
+    }
+
+
+# Get All Members by Group ID
+@group_routes.route('<int:groupId>/member', methods=['GET'])
+def get_members(groupId):
+    members = Member.query.filter_by(group_id=groupId).all()
+
+    if not members:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    for member in members:
+        member.privileges = member.privileges.to_value()
+
+        parsed_img_url = member.users.profile_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        member.users.profile_img = presigned_img_url
+
+    return{
+        "members": [member.to_dict() for member in members]
+    }
+
+
+# Add Member to Group
+@group_routes.route('<int:groupId>/member', methods=['POST'])
+@login_required
+def add_member(groupId):
+    group = Group.query.get(groupId)
+
+    if not group:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    if not group.visibility:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+
+    curr_member = Member.query.filter(
+        db.and_(Member.member == current_user.id, Member.group_id == groupId)).first()
+
+    if curr_member:
+
+        return {
+            "message": "Member is already part of Group",
+            "statusCode": 404
+        }
+
+    new_member = Member(
+        member=current_user.id,
+        group_id=groupId,
+        privileges='member'
+    )
+
+    db.session.add(new_member)
+    db.session.commit()
+
+    new_member.privileges = new_member.privileges.to_value()
+
+    return {
+        'member': new_member.to_dict()
     }

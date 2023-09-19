@@ -149,6 +149,7 @@ def upgrade():
                     sa.PrimaryKeyConstraint('id'),
                     sa.ForeignKeyConstraint(['member'], ['users.id']), 
                     sa.ForeignKeyConstraint(['group_id'], ['groups.id']),
+                    sa.UniqueConstraint('member','group_id')
                     )
 
 

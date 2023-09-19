@@ -484,6 +484,68 @@ button:hover {
   border-radius: 5px 5px 0px 0px;
 }
 
+.group__join {
+  margin: auto;
+}
+
+.group__members__header {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template: "a b c" 40px/20% auto 20%;
+}
+
+.group__members__header h3 {
+  grid-area: b;
+}
+
+.group__members__header a {
+  grid-area: c;
+}
+
 .group__members {
   border-radius: 0px 0px 5px 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+}
+
+.group__members div {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.group__members div img {
+  height: 80px;
+  width: 80px;
+}
+
+.group__members div div {
+  display: block;
+}
+
+.group__members div div h3,
+.group__edit__members div div h3 {
+  margin: 5px 10px;
+}
+
+.group__members div div h4,
+.group__edit__members div div h4 {
+  margin: 0px 10px 5px;
+  font-style: italic;
+  font-size: smaller;
+}
+
+.group__edit__members {
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+}
+
+.group__edit__members div div button {
+  margin: 2px 10px;
+}
+
+.group__edit__members img {
+  height: 80px;
+  width: 80px;
 }

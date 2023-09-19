@@ -5,6 +5,7 @@ import spotsReducer from "./spots";
 import groupReducer from "./groups";
 import favoritesReducer from "./favorites";
 import reviewsReducer from "./reviews";
+import memberReducer from "./members";
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   groups: groupReducer,
   favorites: favoritesReducer,
   reviews: reviewsReducer,
+  members: memberReducer,
 });
 
 let enhancer;
