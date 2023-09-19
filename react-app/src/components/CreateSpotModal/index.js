@@ -83,7 +83,10 @@ function CreateSpotModal() {
 
   return (
     <div className="modal">
-      <h1>Create Spot</h1>
+      <div className="modal__headers" >
+        <h1>Create Spot</h1>
+        <i onClick={() => closeModal()}  className="fas fa-times-circle"></i>
+      </div>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>

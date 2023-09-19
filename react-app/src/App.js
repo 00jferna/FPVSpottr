@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch, NavLink } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
-import LoginFormPage from "./components/LoginFormPage";
 import Home from "./components/HomePage";
 import Group from "./components/GroupPage";
 import Favorite from "./components/FavoritePage";
@@ -26,12 +24,6 @@ function App() {
       {isLoaded && (
         <div className="page__cont">
           <Switch>
-            <Route path="/login">
-              <LoginFormPage />
-            </Route>
-            <Route path="/signup">
-              <SignupFormPage />
-            </Route>
             <Route exact path="/">
               <Home />
             </Route>

@@ -239,7 +239,7 @@ def add_member(groupId):
 
     if not group.visibility:
         return {
-            "message": "Forbidden",
+            "message": "Group is private. Contact Group Owner about joining.",
             "statusCode": 403
         }
 

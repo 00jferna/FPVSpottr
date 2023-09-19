@@ -36,7 +36,10 @@ export const CreateReviewModal = ({ item, spot, onIsloaded }) => {
 
   return (
     <div className="modal">
-      <h1>Create a Review</h1>
+      <div className="modal__headers">
+        <h1>Create a Review</h1>
+        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+      </div>
       <form onSubmit={handleSubmit}>
         <table>
           <tbody>

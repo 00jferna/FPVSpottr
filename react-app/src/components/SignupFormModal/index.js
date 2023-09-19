@@ -37,7 +37,10 @@ const SignupFormModal = ({ onIsloaded }) => {
 
   return (
     <div className="modal">
-      <h1>Sign Up</h1>
+      <div className="modal__headers">
+        <h1>Sign Up</h1>
+        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+      </div>
       <form onSubmit={handleSubmit}>
         <table>
           <tbody>

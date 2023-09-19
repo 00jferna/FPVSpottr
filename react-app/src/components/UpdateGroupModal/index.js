@@ -14,7 +14,7 @@ function UpdateGroupModal({ group }) {
 
   const [name, setName] = useState(group.name);
   const [desc, setDsec] = useState(group.desc);
-  const [visibility, setVisibility] = useState(group.visibility ? true:false);
+  const [visibility, setVisibility] = useState(group.visibility ? true : false);
   const [group_type, setGroup_type] = useState(group.group_type.toLowerCase());
   const [preview_img, setPreview_img] = useState(group.preview_img);
 
@@ -59,7 +59,7 @@ function UpdateGroupModal({ group }) {
       name,
       desc,
       visibility,
-      group_type
+      group_type,
     };
 
     if (upload_data) {
@@ -67,7 +67,7 @@ function UpdateGroupModal({ group }) {
     }
 
     const updatedGroup = await dispatch(GroupActions.updateGroupThunk(payload));
-    
+
     if (updatedGroup.id) {
       const updatedGroupId = updatedGroup.id;
       const url = `/groups/${updatedGroupId}`;
@@ -87,7 +87,10 @@ function UpdateGroupModal({ group }) {
 
   return (
     <div className="modal">
-      <h1>Update {group.name}</h1>
+      <div className="modal__headers">
+        <h1>Update {group.name}</h1>
+        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+      </div>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>

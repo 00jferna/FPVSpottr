@@ -26,9 +26,9 @@ export const EditMemberModal = ({ group, setMembersLoaded }) => {
 
   return (
     <div className="modal">
-      <div className="group__edit__members__headers">
+      <div className="modal__headers" >
         <h1>Edit Members</h1>
-        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+        <i onClick={() => closeModal()}  className="fas fa-times-circle"></i>
       </div>
       <div className="group__edit__members">
         {members &&

@@ -536,25 +536,7 @@ button:hover {
   font-size: smaller;
 }
 
-.group__edit__members__headers {
-  display: grid;
-  grid-template-areas: "a b c";
-  grid-template-columns: repeat(3, 33%);
-}
 
-.group__edit__members__headers h1 {
-  grid-area: b;
-}
-
-.group__edit__members__headers i {
-  align-self: baseline;
-  justify-self: end;
-  grid-area: c;
-}
-
-.group__edit__members__headers i:hover {
-  cursor: pointer;
-}
 
 .group__edit__members {
   display: grid;

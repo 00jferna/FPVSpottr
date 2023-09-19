@@ -87,7 +87,10 @@ function UpdateSpotModal({ spot }) {
 
   return (
     <div className="modal">
-      <h1>Update {spot.name}</h1>
+      <div className="modal__headers">
+        <h1>Update {spot.name}</h1>
+        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+      </div>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>
