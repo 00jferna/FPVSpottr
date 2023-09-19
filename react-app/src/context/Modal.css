@@ -20,5 +20,26 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.modal__headers {
+  display: grid;
+  grid-template-areas: "a b c";
+  grid-template-columns: 20px 1fr 20px;
+}
+
+.modal__headers h1 {
+  grid-area: b;
+}
+
+.modal__headers i {
+  align-self: baseline;
+  justify-self: end;
+  grid-area: c;
+}
+
+.modal__headers i:hover {
+  cursor: pointer;
 }

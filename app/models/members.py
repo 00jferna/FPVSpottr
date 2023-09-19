@@ -31,7 +31,7 @@ class Member(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'member': self.member,
+            'member': self.users.to_dict(),
             'group_id': self.group_id,
             'privileges': self.privileges,
             'createdAt': self.created_at,

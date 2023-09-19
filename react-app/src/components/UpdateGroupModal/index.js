@@ -14,9 +14,9 @@ function UpdateGroupModal({ group }) {
 
   const [name, setName] = useState(group.name);
   const [desc, setDsec] = useState(group.desc);
-  const [visibility, setVisibility] = useState(group.visibility ? true:false);
+  const [visibility, setVisibility] = useState(group.visibility ? true : false);
   const [group_type, setGroup_type] = useState(group.group_type.toLowerCase());
-  const [preview_img, setPreview_img] = useState("default");
+  const [preview_img, setPreview_img] = useState(group.preview_img);
 
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -33,7 +33,7 @@ function UpdateGroupModal({ group }) {
       });
     }
 
-    if (preview_img !== "default") {
+    if (preview_img !== group.preview_img) {
       const formData = new FormData();
       formData.append("image", preview_img);
 
@@ -60,12 +60,14 @@ function UpdateGroupModal({ group }) {
       desc,
       visibility,
       group_type,
-      preview_img:
-        preview_img !== "default" ? upload_data.image_url : default_img,
     };
 
+    if (upload_data) {
+      payload.preview_img = upload_data.image_url;
+    }
+
     const updatedGroup = await dispatch(GroupActions.updateGroupThunk(payload));
-    
+
     if (updatedGroup.id) {
       const updatedGroupId = updatedGroup.id;
       const url = `/groups/${updatedGroupId}`;
@@ -85,7 +87,10 @@ function UpdateGroupModal({ group }) {
 
   return (
     <div className="modal">
-      <h1>Update {group.name}</h1>
+      <div className="modal__headers">
+        <h1>Update {group.name}</h1>
+        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+      </div>
       <form onSubmit={handleUpload}>
         <table>
           <tbody>
@@ -153,6 +158,7 @@ function UpdateGroupModal({ group }) {
                 <input
                   type="file"
                   accept="image/*"
+                  files={preview_img}
                   onChange={(e) => setPreview_img(e.target.files[0])}
                 />
               </td>

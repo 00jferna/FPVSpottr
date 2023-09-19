@@ -13,21 +13,21 @@ function Footer() {
           rel="noopener noreferrer"
           href="https://github.com/00jferna"
         >
-          <i class="fab fa-github fa-9x"></i>
+          <i className="fab fa-github fa-9x"></i>
         </a>
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.linkedin.com/in/jessejfernandez/"
         >
-          <i class="fab fa-linkedin-in fa-9x"></i>
+          <i className="fab fa-linkedin-in fa-9x"></i>
         </a>
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://wellfound.com/u/jesse-fernandez-3"
         >
-          <i class="fab fa-angellist fa-9x"></i>
+          <i className="fab fa-angellist fa-9x"></i>
         </a>
       </div>
     </div>

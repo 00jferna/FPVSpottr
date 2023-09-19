@@ -2,7 +2,7 @@ from .aws import (if_allowed_image, file_unique_name,
                   upload_S3, create_presigned_url, delete_S3)
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db, Group, Member
-from app.forms import GroupForm, UpdateGroupForm
+from app.forms import GroupForm, UpdateGroupForm, MemberForm
 from flask_login import current_user, login_required
 
 group_routes = Blueprint('groups', __name__)
@@ -152,10 +152,9 @@ def update_group(groupId):
         group.desc = form.data['desc']
         group.visibility = form.data['visibility']
         group.group_type = form.data['group_type']
-        group.preview_img = form.data['preview_img']
 
-        if len(form.data['preview_img']) == 0:
-            group.preview_img = default_img
+        if form.data['preview_img']:
+            group.preview_img = form.data['preview_img']
 
         db.session.commit()
 
@@ -199,4 +198,164 @@ def delete_spot(groupId):
         "message": "Successfully deleted",
         "statusCode": 200,
         "AWS": awsRes
+    }
+
+
+# Get All Members by Group ID
+@group_routes.route('<int:groupId>/member', methods=['GET'])
+def get_members(groupId):
+    members = Member.query.filter_by(group_id=groupId).all()
+
+    if not members:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    for member in members:
+        member.privileges = member.privileges.to_value()
+
+        parsed_img_url = member.users.profile_img.rsplit("/", 1)[-1]
+        presigned_img_url = create_presigned_url(parsed_img_url)
+        member.users.profile_img = presigned_img_url
+
+    return{
+        "members": [member.to_dict() for member in members],
+        'statusCode':200
+    }
+
+
+# Add Member to Group
+@group_routes.route('<int:groupId>/member', methods=['POST'])
+@login_required
+def add_member(groupId):
+    group = Group.query.get(groupId)
+
+    if not group:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    if not group.visibility:
+        return {
+            "message": "Group is private. Contact Group Owner about joining.",
+            "statusCode": 403
+        }
+
+    curr_member = Member.query.filter(
+        db.and_(Member.member == current_user.id, Member.group_id == groupId)).first()
+
+    if curr_member:
+
+        return {
+            "message": "Member is already part of Group",
+            "statusCode": 404
+        }
+
+    new_member = Member(
+        member=current_user.id,
+        group_id=groupId,
+        privileges='member'
+    )
+
+    db.session.add(new_member)
+    db.session.commit()
+
+    new_member.privileges = new_member.privileges.to_value()
+
+    return {
+        'member': new_member.to_dict(),
+        'statusCode':200
+    }
+
+
+# Toggle Member Privilages
+@group_routes.route('<int:groupId>/member/<int:userId>', methods=['PUT'])
+@login_required
+def toggle_member(groupId, userId):
+    group = Group.query.get(groupId)
+
+    if not group:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    if group.owner != current_user.id:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+
+    curr_member = Member.query.filter(
+        db.and_(Member.member == userId, Member.group_id == groupId)).first()
+
+    if not curr_member:
+
+        return {
+            "message": "Member not found",
+            "statusCode": 404
+        }
+
+    if curr_member.privileges.to_value() == 'owner':
+
+        return {
+            "message": "Owners cannot be updated",
+            "statusCode": 404
+        }
+
+    if curr_member.privileges.to_value() == 'member':
+        curr_member.privileges = 'admin'
+    else:
+        curr_member.privileges = 'member'
+
+    db.session.commit()
+
+    updated_member = Member.query.filter(
+        db.and_(Member.member == userId, Member.group_id == groupId)).first()
+    updated_member.privileges = updated_member.privileges.to_value()
+
+    return {
+        'member': updated_member.to_dict(),
+        'statusCode':200
+    }
+
+
+# Remove Member
+@group_routes.route('<int:groupId>/member/<int:userId>', methods=['DELETE'])
+@login_required
+def remove_member(groupId, userId):
+    group = Group.query.get(groupId)
+    user = User.query.get(userId)
+    if not group:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    if group.owner != current_user.id:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+
+    curr_member = Member.query.filter(
+        db.and_(Member.member == userId, Member.group_id == groupId)).first()
+
+    if not curr_member:
+
+        return {
+            "message": "Member not found",
+            "statusCode": 404
+        }
+
+    
+    db.session.delete(curr_member)    
+    db.session.commit()
+
+    return {
+        "id": user.callsign,
+        "message": "Successfully removed",
+        "statusCode": 200
     }

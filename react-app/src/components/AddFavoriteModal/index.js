@@ -25,7 +25,7 @@ function AddFavoriteModal({ spot }) {
     dispatch(FavoriteActions.getUserFavoritesThunk(user)).then(() => {
       setIsLoaded(true);
     });
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();

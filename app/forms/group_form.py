@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Group
 
@@ -22,3 +22,8 @@ class UpdateGroupForm(FlaskForm):
     visibility = BooleanField("visibility")
     group_type = StringField("group_type", validators=[DataRequired()])
     preview_img = StringField('preview_img')
+
+class MemberForm(FlaskForm):
+    member = IntegerField('member', validators=[DataRequired()])
+    group_id = IntegerField('group_id', validators=[DataRequired()])
+    privileges = StringField('privileges', validators=[DataRequired()])
