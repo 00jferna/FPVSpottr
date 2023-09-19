@@ -1,23 +1,35 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as MemberActions from "../../store/members";
 
-export const EditMemberModal = ({ members }) => {
+export const EditMemberModal = ({ group, setMembersLoaded }) => {
   const dispatch = useDispatch();
+  const members = useSelector((state) => state.members.members);
   const { closeModal } = useModal();
 
   const togglePrivileges = (member) => {
-    console.log("Toggle:", member);
+    dispatch(MemberActions.toggleMemberThunk(group.id, member.member.id)).then(
+      () => {
+        setMembersLoaded(false);
+      }
+    );
   };
 
   const removeMember = (member) => {
-    console.log("Remove:", member);
+    dispatch(MemberActions.removeMemberThunk(group.id, member.member.id)).then(
+      () => {
+        setMembersLoaded(false);
+      }
+    );
   };
 
   return (
     <div className="modal">
-      <h1>Edit Members</h1>
+      <div className="group__edit__members__headers">
+        <h1>Edit Members</h1>
+        <i onClick={() => closeModal()} className="fas fa-times-circle"></i>
+      </div>
       <div className="group__edit__members">
         {members &&
           members.map((member) => {

@@ -220,7 +220,8 @@ def get_members(groupId):
         member.users.profile_img = presigned_img_url
 
     return{
-        "members": [member.to_dict() for member in members]
+        "members": [member.to_dict() for member in members],
+        'statusCode':200
     }
 
 
@@ -264,5 +265,97 @@ def add_member(groupId):
     new_member.privileges = new_member.privileges.to_value()
 
     return {
-        'member': new_member.to_dict()
+        'member': new_member.to_dict(),
+        'statusCode':200
+    }
+
+
+# Toggle Member Privilages
+@group_routes.route('<int:groupId>/member/<int:userId>', methods=['PUT'])
+@login_required
+def toggle_member(groupId, userId):
+    group = Group.query.get(groupId)
+
+    if not group:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    if group.owner != current_user.id:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+
+    curr_member = Member.query.filter(
+        db.and_(Member.member == userId, Member.group_id == groupId)).first()
+
+    if not curr_member:
+
+        return {
+            "message": "Member not found",
+            "statusCode": 404
+        }
+
+    if curr_member.privileges.to_value() == 'owner':
+
+        return {
+            "message": "Owners cannot be updated",
+            "statusCode": 404
+        }
+
+    if curr_member.privileges.to_value() == 'member':
+        curr_member.privileges = 'admin'
+    else:
+        curr_member.privileges = 'member'
+
+    db.session.commit()
+
+    updated_member = Member.query.filter(
+        db.and_(Member.member == userId, Member.group_id == groupId)).first()
+    updated_member.privileges = updated_member.privileges.to_value()
+
+    return {
+        'member': updated_member.to_dict(),
+        'statusCode':200
+    }
+
+
+# Remove Member
+@group_routes.route('<int:groupId>/member/<int:userId>', methods=['DELETE'])
+@login_required
+def remove_member(groupId, userId):
+    group = Group.query.get(groupId)
+    user = User.query.get(userId)
+    if not group:
+        return {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+        }
+
+    if group.owner != current_user.id:
+        return {
+            "message": "Forbidden",
+            "statusCode": 403
+        }
+
+    curr_member = Member.query.filter(
+        db.and_(Member.member == userId, Member.group_id == groupId)).first()
+
+    if not curr_member:
+
+        return {
+            "message": "Member not found",
+            "statusCode": 404
+        }
+
+    
+    db.session.delete(curr_member)    
+    db.session.commit()
+
+    return {
+        "id": user.callsign,
+        "message": "Successfully removed",
+        "statusCode": 200
     }

@@ -7,9 +7,15 @@ def seed_members():
     demo1 = Member(member=1, group_id=1, privileges="owner")
     demo2 = Member(member=2, group_id=2, privileges="owner")
     demo3 = Member(member=3, group_id=3, privileges="owner")
+    demo4 = Member(member=2, group_id=1, privileges="admin")
+    demo5 = Member(member=3, group_id=1, privileges="member")
+    demo6 = Member(member=4, group_id=1, privileges="member")
     db.session.add(demo1)
     db.session.add(demo2)
     db.session.add(demo3)
+    db.session.add(demo4)
+    db.session.add(demo5)
+    db.session.add(demo6)
     db.session.commit()
 
 

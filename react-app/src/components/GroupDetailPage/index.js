@@ -22,16 +22,20 @@ function GroupDetail() {
       .then(() => dispatch(MemberActions.getMembersThunk(groupId)))
       .then(() => {
         setIsLoaded(true);
-        setMembersLoaded(true)
+        setMembersLoaded(true);
       });
   }, [dispatch, groupId, isLoaded, membersLoaded]);
 
   const handleJoin = () => {
-    dispatch(MemberActions.addMemberThunk(groupId)).then(() => {
-      setMembersLoaded(false);
-    });
+    dispatch(MemberActions.addMemberThunk(groupId))
+      .then((res) => {
+        if (res.statusCode != 200) alert(res.message);
+      })
+      .then(() => {
+        setMembersLoaded(false);
+      });
   };
-  console.log(members)
+
   return (
     isLoaded && (
       <div>
@@ -83,14 +87,20 @@ function GroupDetail() {
             </div>
           </div>
         </div>
-        {membersLoaded && group.visibility && (
+        {group.visibility && (
           <div className="spot__reviews__cont">
             <div className="group__members__header">
               <h3>Members</h3>
               {user && user.id === group.owner.id && (
                 <OpenModalButton
                   buttonText="Edit Members"
-                  modalComponent={<EditMemberModal members={members} />}
+                  modalComponent={
+                    <EditMemberModal
+                      setMembersLoaded={setMembersLoaded}
+                      group={group}
+                      user={user}
+                    />
+                  }
                 />
               )}
             </div>
