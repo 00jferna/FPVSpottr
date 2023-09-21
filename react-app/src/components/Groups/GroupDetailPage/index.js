@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as GroupActions from "../../../store/groups";
@@ -108,13 +109,15 @@ function GroupDetail() {
               {members &&
                 members.map((member) => {
                   return (
-                    <div key={member.id}>
-                      <img src={member.member.profile_img} />
-                      <div>
-                        <h3>{member.member.callsign}</h3>
-                        <h4>{member.privileges}</h4>
-                      </div>
-                    </div>
+               
+                      <NavLink key={member.id} to={`/users/${member.member.id}`}>
+                        <img src={member.member.profile_img} />
+                        <div>
+                          <h3>{member.member.callsign}</h3>
+                          <h4>{member.privileges}</h4>
+                        </div>
+                      </NavLink>
+                   
                   );
                 })}
             </div>

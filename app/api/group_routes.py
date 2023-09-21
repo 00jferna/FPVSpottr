@@ -61,7 +61,7 @@ def get_all_user_groups(userId):
             "statusCode": 404
         }
 
-    groups = Member.query.filter_by(member=userId).all()
+    groups = Group.query.filter_by(owner=userId).all()
 
     for group in groups:
         group.group_type = group.group_type.to_value()
@@ -72,7 +72,7 @@ def get_all_user_groups(userId):
 
     return {
         "UserGroups": [group.to_dict() for group in groups]
-    }
+    }, 200
 
 
 # Get a Group by Group ID
@@ -235,9 +235,8 @@ def get_members(groupId):
         member.users.profile_img = presigned_img_url
 
     return{
-        "members": [member.to_dict() for member in members],
-        'statusCode': 200
-    }
+        "members": [member.to_dict() for member in members]
+    }, 200
 
 
 # Add Member to Group

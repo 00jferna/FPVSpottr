@@ -57,12 +57,7 @@ export const getUserSpotsThunk = (userId) => async (dispatch) => {
   });
 
   const data = await res.json();
-  let spots = {};
-  data.Spots.forEach((spot) => {
-    spots[spot.id] = spot;
-  });
-
-  dispatch(getUserSpots(spots));
+  dispatch(getUserSpots(data.UserSpots));
   return data;
 };
 

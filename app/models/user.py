@@ -44,7 +44,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'callsign': self.callsign,
-            'email': self.email,
             'profile_img': self.profile_img,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at

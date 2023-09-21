@@ -56,12 +56,12 @@ export const getUserGroupsThunk = (userId) => async (dispatch) => {
   });
 
   const data = await res.json();
-  let groups = {};
-  data.UserGroups.forEach((group) => {
-    groups[group.id] = group;
-  });
+  // let groups = {};
+  // data.UserGroups.forEach((group) => {
+  //   groups[group.id] = group;
+  // });
 
-  dispatch(getUserGroups(groups));
+  dispatch(getUserGroups(data.UserGroups));
   return data;
 };
 
@@ -121,6 +121,7 @@ const groupReducer = (state = initialState, action) => {
     case GET_ALL_GROUPS:
       return action.groups;
     case GET_USER_GROUPS:
+      return { ...state, userGroups: action.groups };
     case GET_GROUP_DETAIL:
       return { ...state, groupDetail: action.group };
     case CREATE_GROUP:
