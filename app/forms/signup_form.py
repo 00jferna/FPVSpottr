@@ -30,4 +30,3 @@ class SignUpForm(FlaskForm):
 class UpdateForm(FlaskForm):
     callsign = StringField('callsign', validators=[DataRequired()])
     profile_img = StringField('profile_img')
-    password = StringField('password')

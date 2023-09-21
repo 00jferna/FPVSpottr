@@ -66,8 +66,6 @@ def updateUser(id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user.callsign = form.data['callsign']
-        if form.data['password']:
-            user.password = form.data['password']
         if form.data['profile_img']:
             user.profile_img = form.data['profile_img']
 
