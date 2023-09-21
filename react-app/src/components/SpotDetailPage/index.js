@@ -7,7 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import OpenModalCard from "../OpenModalCard";
 import DeleteModal from "../DeleteModal";
 import UpdateSpotModal from "../UpdateSpotModal";
-import AddFavoriteModal from "../AddFavoriteModal";
+// import AddFavoriteModal from "../AddFavoriteModal";
 import CreateReviewModal from "../CreateReviewModal";
 import ReviewModal from "../ReviewModal";
 
