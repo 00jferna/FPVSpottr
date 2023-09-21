@@ -479,6 +479,10 @@ button:hover {
   margin: 10px 10px 10px auto;
 }
 
+.spot__review__modal__actions {
+  margin: 5px auto;
+}
+
 /* Groups Page */
 .group__details {
   border-radius: 5px 5px 0px 0px;
@@ -535,8 +539,6 @@ button:hover {
   font-style: italic;
   font-size: smaller;
 }
-
-
 
 .group__edit__members {
   display: grid;

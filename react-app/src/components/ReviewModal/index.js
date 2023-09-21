@@ -17,12 +17,11 @@ const ReviewModal = ({ review, user, onIsloaded }) => {
 
         <p>{review.review}</p>
         {user && review.reviewer.id == user.id && (
-          <div>
+          <div className="spot__review__modal__actions">
             <OpenModalButton
               buttonText="Update Review"
               modalComponent={
                 <UpdateReviewModal
-                  type="spot"
                   item={review}
                   onIsloaded={onIsloaded}
                 />
