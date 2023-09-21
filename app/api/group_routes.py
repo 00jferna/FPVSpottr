@@ -114,7 +114,22 @@ def create_group():
         if len(form.data['preview_img']) == 0:
             new_group.preview_img = default_img
 
+        owner = Member(
+            member=current_user.id,
+            group_id=new_group.id,
+            privileges='owner'
+        )
+
         db.session.add(new_group)
+        db.session.commit()
+
+        owner = Member(
+            member=current_user.id,
+            group_id=new_group.id,
+            privileges='owner'
+        )
+
+        db.session.add(owner)
         db.session.commit()
 
         new_group.group_type = new_group.group_type.to_value()
@@ -221,7 +236,7 @@ def get_members(groupId):
 
     return{
         "members": [member.to_dict() for member in members],
-        'statusCode':200
+        'statusCode': 200
     }
 
 
@@ -266,7 +281,7 @@ def add_member(groupId):
 
     return {
         'member': new_member.to_dict(),
-        'statusCode':200
+        'statusCode': 200
     }
 
 
@@ -318,7 +333,7 @@ def toggle_member(groupId, userId):
 
     return {
         'member': updated_member.to_dict(),
-        'statusCode':200
+        'statusCode': 200
     }
 
 
@@ -350,8 +365,7 @@ def remove_member(groupId, userId):
             "statusCode": 404
         }
 
-    
-    db.session.delete(curr_member)    
+    db.session.delete(curr_member)
     db.session.commit()
 
     return {
