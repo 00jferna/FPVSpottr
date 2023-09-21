@@ -35,6 +35,19 @@ export const createSpotReviewsThunk = (review) => async (dispatch) => {
   return data;
 };
 
+export const updateSpotReviewThunk = (review) => async (dispatch) => {
+  const res = await fetch(`/api/reviews/${review.id}`, {
+    method: "PUT",
+    body: JSON.stringify(review),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+  return data;
+};
+
 export const deleteSpotReviewsThunk = (review) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${review.id}`, {
     method: "DELETE",
@@ -52,8 +65,6 @@ const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOT_REVIEWS:
       return action.reviews;
-    // case CREATE_SPOT_REVIEW:
-    //   return state;
     default:
       return state;
   }

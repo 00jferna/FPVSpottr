@@ -213,8 +213,10 @@ button:hover {
   padding: 2px 0px;
 }
 .navbar__user img {
-  height: auto;
+  height: 100px;
   width: 100px;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 .navbar__login__signup a {
@@ -479,6 +481,10 @@ button:hover {
   margin: 10px 10px 10px auto;
 }
 
+.spot__review__modal__actions {
+  margin: 5px auto;
+}
+
 /* Groups Page */
 .group__details {
   border-radius: 5px 5px 0px 0px;
@@ -505,38 +511,49 @@ button:hover {
 }
 
 .group__members {
+  /* margin: auto; */
   border-radius: 0px 0px 5px 5px;
   display: grid;
+  gap: 15px 15px;
   grid-template-columns: repeat(3, 33%);
 }
 
-.group__members div {
+.group__members a {
+  background-color: white;
+  border-radius: 15px;
   display: grid;
   grid-template-columns: 30% 70%;
+  max-width: 260px;
 }
 
-.group__members div img {
+.group__members a img {
   height: 80px;
   width: 80px;
 }
 
-.group__members div div {
+.group__members a div {
   display: block;
 }
 
-.group__members div div h3,
-.group__edit__members div div h3 {
-  margin: 5px 10px;
+.group__members a div h3,
+.group__edit__members a div h3 {
+  margin: 10px 10px 5px;
+  color: black;
 }
 
-.group__members div div h4,
-.group__edit__members div div h4 {
+.group__members a div h4,
+.group__edit__members a div h4 {
   margin: 0px 10px 5px;
   font-style: italic;
   font-size: smaller;
+  color: black;
 }
 
-
+.group__members a:hover,
+.group__edit__members a:hover {
+  text-decoration: none;
+  scale: 1.1;
+}
 
 .group__edit__members {
   display: grid;
@@ -550,4 +567,116 @@ button:hover {
 .group__edit__members img {
   height: 80px;
   width: 80px;
+}
+
+/* Profile */
+
+.profile__cont {
+  display: grid;
+  grid-template-areas: "a b";
+  grid-template-columns: 40% 60%;
+}
+
+.profile__cont__details {
+  grid-area: a;
+}
+
+.profile__cont__details div img {
+  margin: 35px 35px 5px 35px;
+  height: 280px;
+  width: 280px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.profile__cont__details div h1,
+.profile__cont__details div h3,
+.profile__cont__details div a {
+  margin: 0px 35px auto 35px;
+}
+
+.profile__cont__details div h3 {
+  font-style: italic;
+}
+
+.profile__cont__details div a {
+  font-size: smaller;
+}
+
+.profile__cont__links {
+  margin: 0px 0px 50px;
+  grid-area: b;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 500px;
+  grid-template-areas:
+    "a"
+    "b";
+}
+
+.profile__cont_spots {
+  grid-area: a;
+}
+
+.profile__cont_groups {
+  grid-area: b;
+}
+
+.profile__cont_spots_details {
+  display: grid;
+  gap: 15px;
+}
+
+.profile__cont_spots_details img,
+.profile__cont_groups_details img {
+  border-radius: 10px;
+  margin: auto;
+  height: 140px;
+  width: 235px;
+  object-fit: cover;
+}
+
+.profile__cont_spots_details a,
+.profile__cont_groups_details a {
+  background-color: white;
+  border-radius: 15px;
+  color: #000;
+  display: grid;
+  height: 150px;
+  grid-template-columns: 250px 1fr;
+}
+
+.profile__cont_spots_details a:hover,
+.profile__cont_groups_details a:hover {
+  text-decoration: none;
+  scale: 1.1;
+}
+
+.profile__cont_spots_details a div,
+.profile__cont_groups_details a div {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__cont_spots_details a div h3,
+.profile__cont_groups_details a div h3 {
+  font-size: medium;
+  margin: 10px 0px 2px;
+}
+
+.profile__cont_spots_details a div p,
+.profile__cont_spots_details a div h4,
+.profile__cont_groups_details a div p,
+.profile__cont_groups_details a div h4 {
+  font-size: smaller;
+  margin: 2px 0px;
+}
+
+.profile__cont_spots_details a div p,
+.profile__cont_groups_details a div p {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 230px;
 }

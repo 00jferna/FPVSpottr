@@ -61,7 +61,7 @@ def get_all_user_groups(userId):
             "statusCode": 404
         }
 
-    groups = Member.query.filter_by(member=userId).all()
+    groups = Group.query.filter_by(owner=userId).all()
 
     for group in groups:
         group.group_type = group.group_type.to_value()
@@ -72,7 +72,7 @@ def get_all_user_groups(userId):
 
     return {
         "UserGroups": [group.to_dict() for group in groups]
-    }
+    }, 200
 
 
 # Get a Group by Group ID
@@ -114,7 +114,22 @@ def create_group():
         if len(form.data['preview_img']) == 0:
             new_group.preview_img = default_img
 
+        owner = Member(
+            member=current_user.id,
+            group_id=new_group.id,
+            privileges='owner'
+        )
+
         db.session.add(new_group)
+        db.session.commit()
+
+        owner = Member(
+            member=current_user.id,
+            group_id=new_group.id,
+            privileges='owner'
+        )
+
+        db.session.add(owner)
         db.session.commit()
 
         new_group.group_type = new_group.group_type.to_value()
@@ -220,9 +235,8 @@ def get_members(groupId):
         member.users.profile_img = presigned_img_url
 
     return{
-        "members": [member.to_dict() for member in members],
-        'statusCode':200
-    }
+        "members": [member.to_dict() for member in members]
+    }, 200
 
 
 # Add Member to Group
@@ -266,7 +280,7 @@ def add_member(groupId):
 
     return {
         'member': new_member.to_dict(),
-        'statusCode':200
+        'statusCode': 200
     }
 
 
@@ -318,7 +332,7 @@ def toggle_member(groupId, userId):
 
     return {
         'member': updated_member.to_dict(),
-        'statusCode':200
+        'statusCode': 200
     }
 
 
@@ -350,8 +364,7 @@ def remove_member(groupId, userId):
             "statusCode": 404
         }
 
-    
-    db.session.delete(curr_member)    
+    db.session.delete(curr_member)
     db.session.commit()
 
     return {

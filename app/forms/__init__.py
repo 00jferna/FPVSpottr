@@ -1,5 +1,5 @@
 from .login_form import LoginForm
-from .signup_form import SignUpForm
+from .signup_form import SignUpForm, UpdateForm
 from .spot_form import SpotForm, UpdateSpotForm
 from .review_form import ReviewForm
 from .favorite_form import FavoriteForm, UpdateFavoriteForm

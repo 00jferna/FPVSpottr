@@ -4,16 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import { authenticate } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import LoginFormModal from "../User/LoginFormModal";
+import SignupFormModal from "../User/SignupFormModal";
 
-import CreateSpotModal from "../CreateSpotModal";
-import CreateGroupModal from "../CreateGroupModal";
-import CreateFavoriteModal from "../CreateFavoriteModal";
+import CreateSpotModal from "../Spots/CreateSpotModal";
+import CreateGroupModal from "../Groups/CreateGroupModal";
+import CreateFavoriteModal from "../Favorites/CreateFavoriteModal";
 import Footer from "../CommonFooter";
 
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
+  const userProfile = useSelector((state) => state.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
-  }, [dispatch,isLoaded]);
+  }, [dispatch, isLoaded, userProfile]);
 
   return (
     <>
@@ -35,8 +36,10 @@ function Navigation() {
           {sessionUser && (
             <ul className="navbar__user">
               <li>
-                <img src={sessionUser.profile_img} />
-                <p>{sessionUser.callsign}</p>
+                <NavLink to={`/users/${sessionUser.id}`}>
+                  <img src={sessionUser.profile_img} />
+                  <p>{sessionUser.callsign}</p>
+                </NavLink>
               </li>
               <li>
                 <a onClick={handleLogout}>Log Out</a>
@@ -73,7 +76,9 @@ function Navigation() {
                   />
                   <OpenModalButton
                     buttonText="Sign Up"
-                    modalComponent={<SignupFormModal onIsloaded={setIsLoaded}/>}
+                    modalComponent={
+                      <SignupFormModal onIsloaded={setIsLoaded} />
+                    }
                   />
                 </li>
               </>

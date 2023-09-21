@@ -26,3 +26,8 @@ class SignUpForm(FlaskForm):
     email = EmailField('email', validators=[DataRequired(),Email(), user_emaiil_exists])
     profile_img = StringField('profile_img')
     password = StringField('password', validators=[DataRequired()])
+
+class UpdateForm(FlaskForm):
+    callsign = StringField('callsign', validators=[DataRequired()])
+    profile_img = StringField('profile_img')
+    password = StringField('password')
