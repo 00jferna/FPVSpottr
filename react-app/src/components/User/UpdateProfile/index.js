@@ -8,7 +8,6 @@ const UpdateProfile = ({ user }) => {
   const [callsign, setCallsign] = useState(user.callsign);
   const [password, setPassword] = useState("");
   const [profile_img, setProfile_img] = useState(user.profile_img);
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
@@ -31,28 +30,21 @@ const UpdateProfile = ({ user }) => {
 
   const handleSubmit = async (upload_data) => {
     setErrors({});
-    if (password === confirmPassword) {
-      const payload = {
-        id: user.id,
-        callsign,
-      };
 
-      if (upload_data) {
-        payload.profile_img = upload_data.image_url;
-      }
+    const payload = {
+      id: user.id,
+      callsign,
+    };
 
-      const data = await dispatch(ProfileActions.updateUserThunk(payload));
-      if (data.id) {
-        closeModal();
-      } else {
-        setErrors(data.errors);
-      }
+    if (upload_data) {
+      payload.profile_img = upload_data.image_url;
+    }
+
+    const data = await dispatch(ProfileActions.updateUserThunk(payload));
+    if (data.id) {
+      closeModal();
     } else {
-      setErrors({
-        password: [
-          "Confirm New Password field must be the same as the New Password field",
-        ],
-      });
+      setErrors(data.errors);
     }
   };
 
@@ -87,31 +79,6 @@ const UpdateProfile = ({ user }) => {
                 />
               </td>
             </tr>
-            <tr>
-              <td>
-                <input
-                  type="password"
-                  placeholder="New Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input
-                  type="password"
-                  placeholder="Confirm New Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </td>
-            </tr>
-            {errors.password && (
-              <tr className="errors">
-                <td>{errors.password[0]}</td>
-              </tr>
-            )}
           </tbody>
         </table>
         <button type="submit">Update Profile</button>
