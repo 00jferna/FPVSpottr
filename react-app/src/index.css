@@ -522,16 +522,20 @@ button:hover {
   background-color: white;
   border-radius: 15px;
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 35% 1fr;
   max-width: 260px;
 }
 
 .group__members a img {
+  margin: 10px;
   height: 80px;
   width: 80px;
+  border-radius: 15px;
+  object-fit: cover;
 }
 
 .group__members a div {
+  margin: 10px 0px;
   display: block;
 }
 

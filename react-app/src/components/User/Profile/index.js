@@ -34,10 +34,12 @@ function UserProfile() {
             <h3>{user.username}</h3>
           </div>
           <div>
-            <OpenModalButton
-              buttonText="Update Profile"
-              modalComponent={<UpdateProfile user={user} />}
-            />
+            {currUser && currUser.id == user.id && (
+              <OpenModalButton
+                buttonText="Update Profile"
+                modalComponent={<UpdateProfile user={user} />}
+              />
+            )}
           </div>
         </div>
         <div className="profile__cont__links">
