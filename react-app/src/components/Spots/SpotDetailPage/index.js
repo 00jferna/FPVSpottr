@@ -23,7 +23,7 @@ function SpotDetail() {
     dispatch(SpotActions.getSpotDetailsThunk(spotId))
       .then((spot) => dispatch(ReviewActions.getSpotReviewsThunk(spot)))
       .then(() => {
-        setIsLoaded(true)
+        setIsLoaded(true);
         setReviewLoaded(true);
       });
   }, [dispatch, spotId, isLoaded, reviewsLoaded]);
@@ -55,7 +55,7 @@ function SpotDetail() {
                   rel="noopener noreferrer"
                   href={`https://google.com/maps/place/${spot.latitude},${spot.longitude}`}
                 >
-                  Map it!
+                  See location
                 </a>
               </div>
 

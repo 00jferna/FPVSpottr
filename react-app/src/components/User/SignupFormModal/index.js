@@ -51,7 +51,6 @@ const SignupFormModal = ({ onIsloaded }) => {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                 />
               </td>
             </tr>
@@ -67,7 +66,6 @@ const SignupFormModal = ({ onIsloaded }) => {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  required
                 />
               </td>
             </tr>
@@ -83,7 +81,6 @@ const SignupFormModal = ({ onIsloaded }) => {
                   placeholder="Callsign"
                   value={callsign}
                   onChange={(e) => setCallsign(e.target.value)}
-                  required
                 />
               </td>
             </tr>
@@ -94,7 +91,6 @@ const SignupFormModal = ({ onIsloaded }) => {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
               </td>
             </tr>
@@ -105,7 +101,6 @@ const SignupFormModal = ({ onIsloaded }) => {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
                 />
               </td>
             </tr>

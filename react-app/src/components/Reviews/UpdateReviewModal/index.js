@@ -19,7 +19,6 @@ export const UpdateReviewModal = ({ item, onIsloaded }) => {
       spot_id: item.spot_id,
       review,
     };
-    console.log(payload);
     const newReview = await dispatch(
       ReviewActions.updateSpotReviewThunk(payload)
     );
@@ -30,7 +29,6 @@ export const UpdateReviewModal = ({ item, onIsloaded }) => {
       onIsloaded(false);
       closeModal();
     } else {
-      console.log(newReview.errors);
       setErrors(newReview.errors);
     }
   };

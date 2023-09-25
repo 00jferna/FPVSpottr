@@ -45,7 +45,6 @@ function LoginFormModal() {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  required
                 />
               </td>
             </tr>
@@ -61,7 +60,6 @@ function LoginFormModal() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
               </td>
             </tr>

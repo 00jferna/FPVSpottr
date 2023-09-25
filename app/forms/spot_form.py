@@ -24,27 +24,27 @@ def long_validate(form, field):
 
 
 class SpotForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired(), spot_exists])
+    name = StringField('name', validators=[DataRequired('Spot Name is required'), spot_exists])
     desc = StringField('desc')
     latitude = FloatField("latitude", validators=[
-                          DataRequired(), lat_validate])
+                          DataRequired('Latitude is required'), lat_validate])
     longitude = FloatField("longitude", validators=[
-                           DataRequired(), long_validate])
+                           DataRequired('Longitude is required'), long_validate])
     address = StringField('address')
-    spot_type = StringField('spot_type', validators=[DataRequired()])
-    spots_status = StringField('spots_status', validators=[DataRequired()])
+    spot_type = StringField('spot_type', validators=[DataRequired('Spot Type is required')])
+    spots_status = StringField('spots_status', validators=[DataRequired('Spot Status is required')])
     preview_img = FileField('preview_img')
 
 
 class UpdateSpotForm(FlaskForm):
     id = IntegerField('id')
-    name = StringField('name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired('Spot Name is required')])
     desc = StringField('desc')
     latitude = FloatField("latitude", validators=[
-                           DataRequired(), lat_validate])
+                           DataRequired('Latitude is required'), lat_validate])
     longitude = FloatField("longitude", validators=[
-                            DataRequired(), long_validate])
+                            DataRequired('Longitude is required'), long_validate])
     address = StringField('address')
-    spot_type = StringField('spot_type', validators=[DataRequired()])
-    spots_status = StringField('spots_status', validators=[DataRequired()])
+    spot_type = StringField('spot_type', validators=[DataRequired('Spot Type is required')])
+    spots_status = StringField('spots_status', validators=[DataRequired('Spot Status is required')])
     preview_img = FileField('preview_img')

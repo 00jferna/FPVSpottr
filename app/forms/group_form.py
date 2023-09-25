@@ -10,17 +10,17 @@ def group_exists(form, field):
         raise ValidationError('Group already exists.')
 
 class GroupForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired(), group_exists])
+    name = StringField('name', validators=[DataRequired('Group Name is required'), group_exists])
     desc = StringField('desc')
     visibility = BooleanField("visibility")
-    group_type = StringField("group_type", validators=[DataRequired()])
+    group_type = StringField("group_type", validators=[DataRequired('Group Type is required')])
     preview_img = StringField('preview_img')
 
 class UpdateGroupForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired('Group Name is required')])
     desc = StringField('desc')
     visibility = BooleanField("visibility")
-    group_type = StringField("group_type", validators=[DataRequired()])
+    group_type = StringField("group_type", validators=[DataRequired('Group Type is required')])
     preview_img = StringField('preview_img')
 
 class MemberForm(FlaskForm):
