@@ -3,8 +3,6 @@
 
 FPVSpottr is a Fullstack App built for FPV pilots to share flying spots and flights at these spots, and organize groups in their areas.
 
-![image](https://github.com/00jferna/FPVSpottr/assets/96546829/1936040b-d162-4819-9c1c-6f3374cb03ba)
-
 ### [Wiki](../../wiki/)
 
 
@@ -47,20 +45,26 @@ FPVSpottr is a Fullstack App built for FPV pilots to share flying spots and flig
 ## Using This App
 
 ### NavBar
-Use the links on the righthand Navbar to navigate to the different pages in this App.
+Use the links on the righthand Navbar to navigate to the different pages in this App. If logged in, the current User profile picture and callsign will be displayed at the top of the Navbar
 
-#### User Profile
-If logged in, the current User profile picture and callsign will be displayed at the top of the Navbar
+![Screenshot from 2023-09-25 23-41-36](https://github.com/00jferna/FPVSpottr/assets/96546829/447dd5af-dc85-4ca8-a697-54757a5b68c0)
 
 ### Spots
 #### Views Spots
 A list of all the Spots can be reached by clicking on the 'Spots' link in the NavBar or by clicking on the 'FPVSpottr' logo at the top of every page.
 
+![image](https://github.com/00jferna/FPVSpottr/assets/96546829/1936040b-d162-4819-9c1c-6f3374cb03ba)
+
 #### Views Spot Details
 A Spot's details can be viewed by clicking on it's card.
 
+![Screenshot from 2023-09-25 23-23-50](https://github.com/00jferna/FPVSpottr/assets/96546829/805bc12b-88e1-4954-8683-91e85dc3bb7f)
+
+
 #### Creating a Spot
 Clicking the 'Add a Spot' link in the NavBar will open the 'Create Spot' Modal.
+
+![Screenshot from 2023-09-25 23-18-09](https://github.com/00jferna/FPVSpottr/assets/96546829/5c5d7e1a-9866-4b06-b612-16187cabe55f)
 
 #### Updating a Spot
 From the Spot's details page, a Spot Owner can click on the 'Update Spot,' opening the 'Update' Modal.
