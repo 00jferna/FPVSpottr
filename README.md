@@ -43,3 +43,31 @@ FPVSpottr is a Fullstack App built for FPV pilots to share flying spots and flig
    cd react-app
    npm start
    ```
+
+## Using This App
+
+### NavBar
+Use the links on the righthand Navbar to navigate to the different pages in this App.
+
+#### User Profile
+If logged in, the current User profile picture and callsign will be displayed at the top of the Navbar
+
+### Spots
+#### Views Spots
+This page will show a list of the current spots. This page can be reached by clicking on the 'Spots' link in the NavBar or by clicking on the 'FPVSpottr' logo at the top of every page.
+
+#### Views Spots
+This page will show a list of the current spots.
+
+#### Creating a Spot
+Clicking the 'Add a Spot' link in the NavBar will open the 'Create Spot' Modal.
+
+#### Updating a Spot
+
+#### Deleting a Spot
+
+### Spot Reviews
+
+### Groups
+
+### Joining a Group
