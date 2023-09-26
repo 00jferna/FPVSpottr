@@ -21,12 +21,12 @@ def username_exists(form, field):
 
 
 class SignUpForm(FlaskForm):
-    username = StringField('username', validators=[DataRequired(), username_exists])
-    callsign = StringField('callsign', validators=[DataRequired()])
-    email = EmailField('email', validators=[DataRequired(),Email(), user_emaiil_exists])
+    username = StringField('username', validators=[DataRequired('Username is required'), username_exists])
+    callsign = StringField('callsign', validators=[DataRequired('Callsign is required')])
+    email = EmailField('email', validators=[DataRequired('Email is required'),Email(), user_emaiil_exists])
     profile_img = StringField('profile_img')
-    password = StringField('password', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired('Password is required')])
 
 class UpdateForm(FlaskForm):
-    callsign = StringField('callsign', validators=[DataRequired()])
+    callsign = StringField('callsign', validators=[DataRequired('Callsign is required')])
     profile_img = StringField('profile_img')

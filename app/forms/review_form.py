@@ -13,6 +13,6 @@ def spot_exists(form, field):
 
 class ReviewForm(FlaskForm):
     review = StringField("review", validators=[
-                         DataRequired(), Length(max=255)])
+                         DataRequired('Review is required'), Length(max=255)])
     spot_id = IntegerField('reviewer', validators=[
-                           DataRequired(), spot_exists])
+                           DataRequired('Spot ID is required'), spot_exists])
