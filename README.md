@@ -54,19 +54,22 @@ If logged in, the current User profile picture and callsign will be displayed at
 
 ### Spots
 #### Views Spots
-This page will show a list of the current spots. This page can be reached by clicking on the 'Spots' link in the NavBar or by clicking on the 'FPVSpottr' logo at the top of every page.
+A list of all the Spots can be reached by clicking on the 'Spots' link in the NavBar or by clicking on the 'FPVSpottr' logo at the top of every page.
 
-#### Views Spots
-This page will show a list of the current spots.
+#### Views Spot Details
+A Spot's details can be viewed by clicking on it's card.
 
 #### Creating a Spot
 Clicking the 'Add a Spot' link in the NavBar will open the 'Create Spot' Modal.
 
 #### Updating a Spot
+From the Spot's details page, a Spot Owner can click on the 'Update Spot,' opening the 'Update' Modal.
 
 #### Deleting a Spot
+From the Spot's details page, a Spot Owner can click on the 'Delete Spot,' opening the 'Delete' Modal.
 
 ### Spot Reviews
+A logged in User and click 'Create Review' link to open the 'Create a Review' modal. The user can write a short review about the currently displayed Spot.
 
 ### Groups
 
