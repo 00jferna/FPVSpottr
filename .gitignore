@@ -8,3 +8,5 @@ instance/
 docker-compose.yaml
 react-app/Dockerfile
 react-app/.dockerignore
+deploy
+hooks/
