@@ -1,10 +1,10 @@
+import React, { useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import * as ProfileActions from "../../../store/profile";
 import * as SpotActions from "../../../store/spots";
 import * as GroupActions from "../../../store/groups";
-import { useState } from "react";
 import OpenModalButton from "../../OpenModalButton";
 import UpdateProfile from "../UpdateProfile";
 
