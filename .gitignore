@@ -5,3 +5,6 @@ __pycache__/
 .DS_Store
 .vscode/
 instance/
+docker-compose.yaml
+react-app/Dockerfile
+react-app/.dockerignore
