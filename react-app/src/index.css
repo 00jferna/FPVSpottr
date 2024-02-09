@@ -684,3 +684,34 @@ button:hover {
   overflow: hidden;
   width: 230px;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #202020;
+  }
+  .cards,
+  .group__details,
+  .profile__cont,
+  .fav__cont {
+    background-color: #089c4b;
+  }
+  .fav__cont {
+    border-radius: 5px;
+  }
+  .spot__reviews__cont {
+    background-color: #089c4b;
+    border-radius: 0px 0px 5px 5px;
+  }
+  .spot__cont {
+    background-color: #089c4b;
+    border-radius: 5px 5px 0px 0px;
+  }
+  .modal,
+  .spot__reviews_details,
+  .group__members a,
+  .profile__cont_spots_details a,
+  .profile__cont_groups_details a,
+  .fav__spots__card {
+    background-color: #36c56d;
+  }
+}
