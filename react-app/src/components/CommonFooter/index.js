@@ -1,4 +1,6 @@
 import React from "react";
+import Darkmode from "../darkmode";
+
 
 function Footer() {
   return (
@@ -30,6 +32,7 @@ function Footer() {
           <i className="fab fa-angellist fa-9x"></i>
         </a>
       </div>
+      <Darkmode />
     </div>
   );
 }
