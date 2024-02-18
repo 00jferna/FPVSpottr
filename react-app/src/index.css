@@ -689,6 +689,25 @@ button:hover {
   body {
     background: #202020;
   }
+  .dark__toggle {
+    margin: auto;
+    border: solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 120px;
+  }
+
+  .react-toggle-track-check {
+    display: block;
+  }
+
+  .react-toggle-track-check.hidden,
+  .react-toggle-track-x.hidden,
+  .react-toggle-screenreader-only {
+    display: none;
+  }
+
   .cards,
   .group__details,
   .profile__cont,
@@ -713,5 +732,15 @@ button:hover {
   .profile__cont_groups_details a,
   .fav__spots__card {
     background-color: #36c56d;
+  }
+
+  body.light__theme {
+    background: #fff;
+  }
+  .cards.light__theme,
+  .group__details.light__theme,
+  .profile__cont.light__theme,
+  .fav__cont.light__theme {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
