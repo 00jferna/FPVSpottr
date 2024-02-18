@@ -56,12 +56,12 @@ function Navigation() {
                   modalComponent={<CreateGroupModal />}
                 />
               </li>
-              <li>
+              {/* <li>
                 <OpenModalButton
                   buttonText="Create a Favorites List"
                   modalComponent={<CreateFavoriteModal />}
                 />
-              </li>
+              </li> */}
             </ul>
           )}
 
@@ -91,9 +91,9 @@ function Navigation() {
             <li>
               <NavLink to="/groups">Groups</NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to="/favorites">Favorites</NavLink>
-            </li>
+            </li> */}
           </ul>
           <Footer />
         </div>
