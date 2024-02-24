@@ -12,7 +12,7 @@ function Darkmode() {
     () => setIsDark(true)
   );
   const [isDark, setIsDark] = useState(storeTheme == "dark" ? true : false);
-
+  
   console.log(
     "isDark: " + isDark,
     "storeTheme: " + storeTheme,
@@ -22,12 +22,24 @@ function Darkmode() {
   useEffect(() => {
     if (isDark) {
       document.body.classList.remove("light__theme");
+      document.querySelectorAll(".cards").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".group__details").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".profile__cont").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".fav__cont").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".spot__reviews__cont").forEach((card) => card.classList.remove("light__theme"));
+
       document.querySelector(".react-toggle-track-x").classList.add("hidden");
       document
         .querySelector(".react-toggle-track-check")
         .classList.remove("hidden");
     } else {
       document.body.classList.add("light__theme");
+      document.querySelectorAll(".cards").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".group__details").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".profile__cont").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".fav__cont").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".spot__reviews__cont").forEach((card) => card.classList.add("light__theme"));
+
       document
         .querySelector(".react-toggle-track-check")
         .classList.add("hidden");
