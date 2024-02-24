@@ -27,6 +27,9 @@ function Darkmode() {
       document.querySelectorAll(".profile__cont").forEach((card) => card.classList.remove("light__theme"));
       document.querySelectorAll(".fav__cont").forEach((card) => card.classList.remove("light__theme"));
       document.querySelectorAll(".spot__reviews__cont").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".spot__cont").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".spot__reviews_details").forEach((card) => card.classList.remove("light__theme"));
+      document.querySelectorAll(".group__members").forEach((card) => card.classList.remove("light__theme"));
 
       document.querySelector(".react-toggle-track-x").classList.add("hidden");
       document
@@ -39,6 +42,9 @@ function Darkmode() {
       document.querySelectorAll(".profile__cont").forEach((card) => card.classList.add("light__theme"));
       document.querySelectorAll(".fav__cont").forEach((card) => card.classList.add("light__theme"));
       document.querySelectorAll(".spot__reviews__cont").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".spot__cont").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".spot__reviews_details").forEach((card) => card.classList.add("light__theme"));
+      document.querySelectorAll(".group__members").forEach((card) => card.classList.add("light__theme"));
 
       document
         .querySelector(".react-toggle-track-check")

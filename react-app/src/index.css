@@ -697,17 +697,14 @@ button:hover {
     justify-content: space-around;
     width: 120px;
   }
-
   .react-toggle-track-check {
     display: block;
   }
-
   .react-toggle-track-check.hidden,
   .react-toggle-track-x.hidden,
   .react-toggle-screenreader-only {
     display: none;
   }
-
   .cards,
   .group__details,
   .profile__cont,
@@ -738,10 +735,12 @@ button:hover {
     background: #fff;
   }
   .cards.light__theme,
+  .spot__cont.light__theme,
   .group__details.light__theme,
+  .group__members.light__theme a,
   .profile__cont.light__theme,
   .fav__cont.light__theme,
-  .spot__reviews__cont.light__theme {
+  .spot__reviews__cont.light__theme, .spot__reviews_details.light__theme {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
