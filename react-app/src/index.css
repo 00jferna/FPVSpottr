@@ -717,6 +717,7 @@ button:hover {
   .fav__cont {
     border-radius: 5px;
   }
+  .spot__reviews__cont,
   .spot__reviews__cont {
     background-color: #089c4b;
     border-radius: 0px 0px 5px 5px;
@@ -733,14 +734,14 @@ button:hover {
   .fav__spots__card {
     background-color: #36c56d;
   }
-
   body.light__theme {
     background: #fff;
   }
   .cards.light__theme,
   .group__details.light__theme,
   .profile__cont.light__theme,
-  .fav__cont.light__theme {
+  .fav__cont.light__theme,
+  .spot__reviews__cont.light__theme {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
