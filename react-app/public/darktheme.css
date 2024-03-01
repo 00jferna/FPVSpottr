@@ -2,6 +2,7 @@ body {
   margin: 0px;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  background: #202020;
 }
 
 body::-webkit-scrollbar {
@@ -100,6 +101,7 @@ button:hover {
 }
 
 .modal {
+  background-color: #36c56d;
   max-height: 80vh;
   padding: 20px;
   width: 500px;
@@ -172,7 +174,7 @@ button:hover {
 }
 .cards,
 .cont {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #089c4b;
   border-radius: 5px;
 }
 
@@ -377,6 +379,8 @@ button:hover {
 }
 
 .fav__cont {
+  border-radius: 5px;
+  background-color: #089c4b;
   display: grid;
   grid-template-columns: 35% auto;
   gap: 1em;
@@ -393,6 +397,7 @@ button:hover {
 }
 
 .fav__spots__card {
+  background-color: #36c56d;
   display: grid;
   height: 180px;
   grid-template-columns: auto auto;
@@ -416,8 +421,8 @@ button:hover {
 
 /* Reviews */
 .spot__reviews__cont {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  background-color: #089c4b;
+  border-radius: 0px 0px 5px 5px;
   height: auto;
   padding: 15px;
   width: inherit;
@@ -432,7 +437,7 @@ button:hover {
 }
 
 .spot__reviews_details {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: #36c56d;
   border-radius: 5px;
   padding: 5px;
   height: auto;
@@ -488,6 +493,7 @@ button:hover {
 /* Groups Page */
 .group__details {
   border-radius: 5px 5px 0px 0px;
+  background-color: #089c4b;
 }
 
 .group__join {
@@ -519,7 +525,7 @@ button:hover {
 }
 
 .group__members a {
-  background-color: white;
+  background-color: #36c56d;
   border-radius: 15px;
   display: grid;
   grid-template-columns: 35% 1fr;
@@ -579,6 +585,7 @@ button:hover {
   display: grid;
   grid-template-areas: "a b";
   grid-template-columns: 40% 60%;
+  background-color: #089c4b;
 }
 
 .profile__cont__details {
@@ -642,7 +649,7 @@ button:hover {
 
 .profile__cont_spots_details a,
 .profile__cont_groups_details a {
-  background-color: white;
+  background-color: #36c56d;
   border-radius: 15px;
   color: #000;
   display: grid;
@@ -685,62 +692,28 @@ button:hover {
   width: 230px;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #202020;
-  }
-  .dark__toggle {
-    margin: auto;
-    border: solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 120px;
-  }
-  .react-toggle-track-check {
-    display: block;
-  }
-  .react-toggle-track-check.hidden,
-  .react-toggle-track-x.hidden,
-  .react-toggle-screenreader-only {
-    display: none;
-  }
-  .cards,
-  .group__details,
-  .profile__cont,
-  .fav__cont {
-    background-color: #089c4b;
-  }
-  .fav__cont {
-    border-radius: 5px;
-  }
-  .spot__reviews__cont,
-  .spot__reviews__cont {
-    background-color: #089c4b;
-    border-radius: 0px 0px 5px 5px;
-  }
-  .spot__cont {
-    background-color: #089c4b;
-    border-radius: 5px 5px 0px 0px;
-  }
-  .modal,
-  .spot__reviews_details,
-  .group__members a,
-  .profile__cont_spots_details a,
-  .profile__cont_groups_details a,
-  .fav__spots__card {
-    background-color: #36c56d;
-  }
-  body.light__theme {
-    background: #fff;
-  }
-  .cards.light__theme,
-  .spot__cont.light__theme,
-  .group__details.light__theme,
-  .group__members.light__theme a,
-  .profile__cont.light__theme,
-  .fav__cont.light__theme,
-  .spot__reviews__cont.light__theme, .spot__reviews_details.light__theme {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+.spot__cont {
+  background-color: #089c4b;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.profile__cont_groups_details a {
+  background-color: #36c56d;
+}
+
+.dark__toggle {
+  margin: auto;
+  border: solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 120px;
+}
+.react-toggle-track-check {
+  display: block;
+}
+.react-toggle-track-check.hidden,
+.react-toggle-track-x.hidden,
+.react-toggle-screenreader-only {
+  display: none;
 }

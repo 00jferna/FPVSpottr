@@ -685,21 +685,19 @@ button:hover {
   width: 230px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .dark__toggle {
-    margin: auto;
-    border: solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 120px;
-  }
-  .react-toggle-track-check {
-    display: block;
-  }
-  .react-toggle-track-check.hidden,
-  .react-toggle-track-x.hidden,
-  .react-toggle-screenreader-only {
-    display: none;
-  }
+.dark__toggle {
+  margin: auto;
+  border: solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 120px;
+}
+.react-toggle-track-check {
+  display: block;
+}
+.react-toggle-track-check.hidden,
+.react-toggle-track-x.hidden,
+.react-toggle-screenreader-only {
+  display: none;
 }
