@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import Toggle from "react-toggle";
 import { useMediaQuery } from "react-responsive";
 
@@ -12,7 +13,7 @@ function Darkmode() {
     () => setIsDark(true)
   );
   const [isDark, setIsDark] = useState(storeTheme == "dark" ? true : false);
-  
+
   console.log(
     "isDark: " + isDark,
     "storeTheme: " + storeTheme,
@@ -20,39 +21,7 @@ function Darkmode() {
   );
 
   useEffect(() => {
-    if (isDark) {
-      document.body.classList.remove("light__theme");
-      document.querySelectorAll(".cards").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".group__details").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".profile__cont").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".fav__cont").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".spot__reviews__cont").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".spot__cont").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".spot__reviews_details").forEach((card) => card.classList.remove("light__theme"));
-      document.querySelectorAll(".group__members").forEach((card) => card.classList.remove("light__theme"));
-
-      document.querySelector(".react-toggle-track-x").classList.add("hidden");
-      document
-        .querySelector(".react-toggle-track-check")
-        .classList.remove("hidden");
-    } else {
-      document.body.classList.add("light__theme");
-      document.querySelectorAll(".cards").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".group__details").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".profile__cont").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".fav__cont").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".spot__reviews__cont").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".spot__cont").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".spot__reviews_details").forEach((card) => card.classList.add("light__theme"));
-      document.querySelectorAll(".group__members").forEach((card) => card.classList.add("light__theme"));
-
-      document
-        .querySelector(".react-toggle-track-check")
-        .classList.add("hidden");
-      document
-        .querySelector(".react-toggle-track-x")
-        .classList.remove("hidden");
-    }
+    
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
@@ -65,6 +34,15 @@ function Darkmode() {
         aria-label="Dark mode toggle"
       />
       <h3>{isDark ? "Darkmode" : "Lightmode"}</h3>
+      {isDark ? (
+        <Helmet>
+          <link rel="stylesheet" href="/darktheme.css" />
+        </Helmet>
+      ) : (
+        <Helmet>
+          <link rel="stylesheet" href="/index.css" />
+        </Helmet>
+      )}
     </div>
   );
 }
