@@ -702,18 +702,18 @@ button:hover {
 }
 
 .dark__toggle {
-  margin: auto;
-  border: solid #000;
-  display: flex;
   align-items: center;
+  display: flex;
+  margin: auto;
   justify-content: space-around;
   width: 120px;
 }
 .react-toggle-track-check {
+  display: none;
+}
+.react-toggle-track-x{
   display: block;
 }
-.react-toggle-track-check.hidden,
-.react-toggle-track-x.hidden,
 .react-toggle-screenreader-only {
   display: none;
 }
