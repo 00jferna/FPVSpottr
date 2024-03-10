@@ -63,7 +63,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   font-size: smaller;
-  margin: 15px 0px;
+  margin: 8px 0px;
   position: fixed;
   width: inherit;
 }
@@ -82,7 +82,7 @@ button:hover {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 15px 10px 25px;
+  margin: 15px 10px 15px;
 }
 
 .about__links a {
@@ -692,12 +692,29 @@ button:hover {
   justify-content: space-around;
   width: 120px;
 }
-.react-toggle-track-check {
-  display: block;
+.dark__toggle p {
+  font-weight: bold;
+  margin: 0 0 0 10px;
 }
-.react-toggle-track-x{
-  display: none;
+.react-toggle-track {
+  background-color: rgb(255, 255, 255);
+  border: 1.5px solid #5f5e5e;
+  border-radius: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: start;
+  width: 40px;
 }
+.react-toggle-track-x {
+  background-color: #5f5e5e;
+  border-radius: 22px;
+  display: flex;
+  height: 22px;
+  width: 22px;
+  align-items: center;
+  justify-content: center;
+}
+.react-toggle-track-check,
 .react-toggle-screenreader-only {
   display: none;
 }
