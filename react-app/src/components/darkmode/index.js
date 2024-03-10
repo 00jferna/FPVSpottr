@@ -32,7 +32,7 @@ function Darkmode() {
         icons={{ checked: "🌙", unchecked: "🔆" }}
         aria-label="Dark mode toggle"
       />
-      <h3>{isDark ? "Darkmode" : "Lightmode"}</h3>
+      <p>{isDark ? "Darkmode" : "Lightmode"}</p>
       {isDark ? (
         <Helmet>
           <link rel="stylesheet" href="/darktheme.css" />
