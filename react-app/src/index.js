@@ -8,8 +8,6 @@ import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
 
-// import "./index.css";
-
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
