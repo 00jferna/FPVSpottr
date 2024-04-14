@@ -5,22 +5,19 @@ import { useMediaQuery } from "react-responsive";
 
 function Darkmode() {
   const storeTheme = localStorage.getItem("theme");
+  const [isDark, setIsDark] = useState(storeTheme == "dark" ? true : false);
   const systemScheme = useMediaQuery({
     query: "(prefers-color-scheme: dark)",
   });
-  const [isDark, setIsDark] = useState(storeTheme == "dark" ? true : false);
 
   useEffect(() => {
     localStorage.setItem("theme", isDark ? "dark" : "light");
-  }, [isDark, systemScheme]);
-
+  }, [isDark]);
+  
   useEffect(() => {
-    setIsDark(systemScheme);
+    localStorage.setItem("systemTheme", systemScheme ? "dark" : "light");
   }, [systemScheme]);
 
-  console.log(
-    `isdark: ${isDark}, system: ${systemScheme}, store: ${storeTheme}`
-  );
   return (
     <div className="dark__toggle">
       <Toggle
