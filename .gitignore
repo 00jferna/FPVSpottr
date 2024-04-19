@@ -10,3 +10,4 @@ react-app/Dockerfile
 react-app/.dockerignore
 deploy
 hooks/
+node_modules/
