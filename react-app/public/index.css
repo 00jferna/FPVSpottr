@@ -223,8 +223,9 @@ button:hover {
   border-radius: 15px;
 }
 
-.navbar__login__signup a {
-  padding: 0px 10px 0px 0px;
+.navbar__login__signup  {
+  display: grid;
+  grid-template-columns: repeat(2,50%);
 }
 
 /* Home Page */
@@ -771,10 +772,21 @@ button:hover {
     display: initial;
     height: 100vh;
     background-color: #089c4b;
-    margin-left: auto;
-    margin-right: 0px;
     padding-top: 20px;
     position: fixed;
     width: 100vw;
+  }
+  .navbar__login__signup{
+
+  }
+  .navbar__user,
+  .navbar__navlinks {
+    padding-inline-start: 0px;
+    width: 50%;
+  }
+  .navbar__user li,
+  .navbar__navlinks li {
+    text-align: center;
+    padding: 12px;
   }
 }
