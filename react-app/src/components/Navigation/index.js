@@ -76,7 +76,9 @@ function Navigation() {
             <ul className="navbar__navlinks">
               {!sessionUser && (
                 <>
-                  <img src="/assets/FPVSpottr_Logo_Color.png" />
+                  <li>
+                    <img src="/assets/FPVSpottr_Logo_Color.png" />
+                  </li>
                   <li className="navbar__login__signup">
                     <OpenModalButton
                       buttonText="Log In"
