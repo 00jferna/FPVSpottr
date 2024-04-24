@@ -226,7 +226,7 @@ button:hover {
 /* Home Page */
 .home__search__cont {
   display: grid;
-  grid-template-columns: 600px auto;
+  grid-template-columns: 60% auto;
   width: 100%;
 }
 
@@ -717,4 +717,33 @@ button:hover {
 .react-toggle-track-check,
 .react-toggle-screenreader-only {
   display: none;
+}
+
+@media screen and (max-width: 1280px) {
+  .page__cont {
+    margin: 130px 200px auto 0px;
+  }
+  .home__spot__cont {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .page__cont {
+    margin: 130px auto auto auto;
+  }
+  .main__logo{
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  .home__spot__cont {
+    grid-template-columns: repeat(1, 100%);
+  }
+  .navbar {
+    height: 100vh;
+    width: 100vw;
+  }
+  .navbar {
+    display: none;
+  }
 }
