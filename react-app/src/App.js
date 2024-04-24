@@ -22,11 +22,13 @@ function App() {
   return (
     <>
       <NavLink exact to="/">
-        <img
-          className="main__logo"
-          src="/assets/FPVSpottr_Logo_Header_Color.png"
-          alt="FPV Spottr logo"
-        />
+        <div className="main__logo__cont">
+          <img
+            className="main__logo"
+            src="/assets/FPVSpottr_Logo_Header_Color.png"
+            alt="FPV Spottr logo"
+          />
+        </div>
       </NavLink>
       <div className="main__body">
         {isLoaded && (
